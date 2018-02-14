@@ -1,0 +1,12 @@
+.concern_bar {
+  width: 250px;
+  margin-bottom: 8px;
+}
+
+.concern {
+  font-size: 14px;
+}
+
+.product-price {
+  margin-bottom: 6px;
+}
