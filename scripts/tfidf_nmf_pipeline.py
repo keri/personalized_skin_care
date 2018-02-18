@@ -46,10 +46,10 @@ def get_new_products(product_type):
             FROM {product_type}
             WHERE rating >= 4;'''
     df = pd.read_sql_query(query,conn)
-    return(query)
+    return(df)
 
-def join_reviews(review):
-    return(' ' + review)
+# def join_reviews(review):
+#     return(' ' + review)
 
 def create_corpus(df):
     '''Get the reviews out of the dataframe and combine them per asin into new dataframe and
@@ -81,23 +81,23 @@ def make_dataframe(matrix1, matrix2, asins,features):
 
 def train_model(product_type):
     asins, four_five_df = get_product_df(product_type)
-    corpus = create_corpus(asins,four_five_df)
+    corpus = create_corpus(four_five_df)
     vec = tfidf_fit(corpus)
     nmf = fit_nmf(X, asins, features)
     return(vec,nmf)
 
-def transform_new_products(vec,nmf,df,product_type):
-    columns = ['scent','dry', 'oily', 'combination', 'anti-aging',
-                'psoriasis', 'lightening', 'sensitive', 'large-pores',
-                'circles-under-eyes', 'uneven-skintone','night_cream',
-                'sun_screen']
+def transform_new_products(vec,nmf,product_type):
+    columns = ['scent','dry', 'oily', 'combination', 'antiaging',
+                'psoriasis', 'lightening', 'sensitive', 'pores',
+                'eyes', 'skintone','night',
+                'sunscreen']
     #get new product reviews from database
-#    df = get_new_products(product_type)
+    df = get_new_products(product_type)
     asins = df['asin']
     print(asins)
     corpus = create_corpus(df)
-    X,features = tfidf_transform(corpus,vec)
-    W, H = transform_nmf(X)
+    X,features = tfidf_transform(vec,corpus)
+    W, H = transform_nmf(X,nmf)
     aoc_matrix = pd.read_csv('aoc_'+product_type+'.csv')
     print(aoc_matrix)
     aoc_matrix = aoc_matrix.values
