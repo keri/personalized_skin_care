@@ -54,18 +54,14 @@ def join_reviews(review):
 def create_corpus(df):
     '''Get the reviews out of the dataframe and combine them per asin into new dataframe and
     grab the combined reviews into a corpus to be passed into Vectorizer'''
-    asins = df.asin
-    df_reviews = pd.DataFrame(columns=['asin','reviews'])
-    df_reviews.asin = asins
+    asins = df['asin'].unique()
+    df_reviews = pd.DataFrame({'asin':asins,'review_text':''})
     df_reviews.set_index('asin',inplace=True)
     for asin in asins:
-        each_review = df.loc[df['asin'] == asin, ('asin','review')]
-        reviews = each_review.review
-        start_review = ''
-        for review in reviews:
-            start_review += join_reviews(review)
-        df_reviews.loc[asin,'reviews'] = start_review
-        corpus = df_reviews.reviews
+        temp = df[df['asin']==asin]
+        combined_review = temp.review_text.str.cat(sep=' ')
+        df_reviews.loc[asin,'review_text'] = combined_review
+        corpus = list(df_reviews['review_text'])
     return(corpus)
 
 def fit_nmf(X, n_components=20):
