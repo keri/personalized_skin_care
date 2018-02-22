@@ -44,10 +44,11 @@ class DataModel(object):
     , {table}.psoriasis
     , {table}.lightening
     , {table}.sensitive
-    , {table}.scent
-    , {table}.dry
-
-    , {table}.oily
+    , {table}.pores
+    , {table}.skintone
+    , {table}.night
+    , {table}.sunscreen
+    , {table}.eyes
     , productinfo.price
     , productinfo.numberreviews
     , productinfo.imageurl
