@@ -42,9 +42,22 @@ def get_product_df(product_type):
 def get_new_products(product_type):
     conn = psycopg2.connect(dbname=name, host=host,
                                     password=password,user=user)
-    query = f'''SELECT review_text, asin
-            FROM {product_type}
-            WHERE rating >= 4;'''
+    # query = f'''SELECT asin, rating, review_text
+    #             FROM {product_type}
+    #             WHERE created_at >= '2018-02-17' AND rating>=4
+    #             ORDER BY asin;'''
+
+    query = f'''SELECT p.asin, m.review_text, m.rating
+                FROM products as p
+                LEFT JOIN {product_type} as m ON p.asin=m.asin 
+                WHERE p.producttype='moisturizer' AND m.rating>=4;'''
+
+    # SELECT review_text, asin
+    #         FROM {product_type}
+    #         WHERE rating >= 4 AND created_at >=;'''
+
+
+#;
     df = pd.read_sql_query(query,conn)
     return(df)
 
@@ -61,7 +74,7 @@ def create_corpus(df):
         temp = df[df['asin']==asin]
         combined_review = temp.review_text.str.cat(sep=' ')
         df_reviews.loc[asin,'review_text'] = combined_review
-        corpus = list(df_reviews['review_text'])
+        corpus = df_reviews['review_text']
     return(corpus)
 
 def fit_nmf(X, n_components=20):
@@ -93,16 +106,16 @@ def transform_new_products(vec,nmf,product_type):
                 'sunscreen']
     #get new product reviews from database
     df = get_new_products(product_type)
-    asins = df['asin']
-    print(asins)
+    asins = df['asin'].unique()
     corpus = create_corpus(df)
     X,features = tfidf_transform(vec,corpus)
     W, H = transform_nmf(X,nmf)
-    aoc_matrix = pd.read_csv('aoc_'+product_type+'.csv')
-    print(aoc_matrix)
+    aoc_matrix = pd.read_csv('data/aoc_'+product_type+'.csv')
+    aoc_matrix.drop(columns=('Unnamed: 0'),inplace=True)
+    print(aoc_matrix.shape)
     aoc_matrix = aoc_matrix.values
-    product_matrix = np.dot(W2,aoc_matrix)
-    print(product_matrix)
+    product_matrix = np.dot(W,aoc_matrix)
+    print(product_matrix.shape)
     product_matrix_df = pd.DataFrame(product_matrix,columns=columns, index=asins)
     W_df, H_df = make_dataframe(W,H,asins,features)
     return(W,H,W_df,H_df,product_matrix_df)

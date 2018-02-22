@@ -20,10 +20,10 @@ class ReviewScraper:
     '''scrapes product reviews and puts into a database, ASIN, review url,
        review text, and star rating.'''
 
-    def __init__(self, driver, product_type='moisturizer'):
+    def __init__(self, driver, product_type='moisturizer', con=''):
         self.conn = psycopg2.connect(dbname='skinproducts', host='skinproducts.cgz2ffd3hzsl.us-west-2.rds.amazonaws.com',
                                     password=password,user=user)
-#        self.con = con
+        self.con = con
         self.cur = self.conn.cursor()
         self.driver = driver
         self.select = self.driver.find_elements_by_css_selector
@@ -49,12 +49,13 @@ class ReviewScraper:
         rater_id = rater_url[start:end]
         review_date = soup.select_one('span.review-date')
         review_date = review_date.text[3:]
-        row = [ASIN, rater_id, rating, title, rater, review_date, review_text]
+#        row = [ASIN, rater_id, rating, title, rater, review_date, review_text]
         df = pd.DataFrame({'asin':ASIN, 'rater_id':rater_id,'rating':rating,'title':title,
                             'rater':rater,'review_date':review_date,'review_text':review_text},index=['asin'])
 
+
         try:
-            df.to_sql(name=self.product_type, if_exists='append', con=self.conn,index=False)
+            df.to_sql(name=self.product_type, if_exists='append', con=self.con,index=False)
 #                    self.cur.execute(query)
             self.conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
@@ -69,7 +70,7 @@ class ReviewScraper:
     def get_all_reviews(self, ASIN, url):
         '''start here and run through all urls in a list outside of class'''
         self.driver.get(url)
-        time.sleep(3)
+        time.sleep(1)
         self.see_all_reviews() #go to page with all of the reviews
         self.get_reviews(ASIN) #get the reviews on that page
         page = 1
@@ -91,12 +92,16 @@ class ReviewScraper:
 
 
     def goto_next_page(self):
-        next_page_btn = self.driver.find_element_by_css_selector('li.a-last')
-        if 'a-disabled' in next_page_btn.get_attribute('class'):
-            return(False)
-        if not next_page_btn:
+        try:
             next_page_btn = self.driver.find_element_by_css_selector('li.a-last')
-        else:
-            next_page_btn.click()
-            time.sleep(3)
-            return(True)
+            if 'a-disabled' in next_page_btn.get_attribute('class'):
+                return(False)
+            if not next_page_btn:
+                next_page_btn = self.driver.find_element_by_css_selector('li.a-last')
+            else:
+                next_page_btn.click()
+                time.sleep(3)
+                return(True)
+        except NoSuchElementException:
+            return(False)
+
