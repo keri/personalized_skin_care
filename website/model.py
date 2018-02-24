@@ -42,11 +42,12 @@ class DataModel(object):
         '''central function that culls products and populates the page with 
         3 products for each concern equaling 18 products in total.'''
         self.concerns = concern_list
-        self.budget = float(budget)*.1
+        self.budget = float(budget)
         query = ''
         for category in self.categories:
             #gets each product category from list, runs a query for recommendations in 
             #each category
+            self.category = category
             query = self.get_query(category)
             df = self.run_query(query)
             df = self.clean_df(df)
@@ -56,7 +57,6 @@ class DataModel(object):
                 product_df.rename(columns = {'p_unweighted_'+self.concerns[i] : 'concern'+str(i+1)}, inplace=True)
             
             self.product_list.extend(product_df.to_dict(orient='records'))
-            print(self.product_list)
 
         return(self.product_list)
 
@@ -89,14 +89,20 @@ class DataModel(object):
         return(df)
 
     def get_random_index_low_review(self,df,concern):
-        mask = (df['weighted_total'] < .1) & (df['unweighted_total'] > .4) & (df[concern] > .1)
+        mask = (df['weighted_total'] < .2) & (df['unweighted_total'] > .4) & (df[concern] > .1) & (df['price'] <= self.budget)
         idx_list = list(df.loc[mask].index)
+        if len(idx_list) == 0:
+            mask = (df['weighted_total'] < .2) & (df['unweighted_total'] > .2) & (df['price'] <= self.budget)
+            idx_list = list(df.loc[mask].index)
         idx = random.choice(idx_list)
         return([idx])
         
     def get_random_index_high_review(self,df,concern):
-        mask = (df['weighted_total'] > .5) & (df[concern] > .2)
+        mask = (df['weighted_total'] > .4) & (df[concern] > .1) & (df['price'] <= self.budget)
         idx_list = list(df.loc[mask].index)
+        if len(idx_list) < 2:
+            mask = (df['weighted_total'] > .2) & (df['price'] <= self.budget)
+            idx_list = list(df.loc[mask].index)
         idx1 = random.choice(idx_list)
         idx_list.remove(idx1)
         idx2 = random.choice(idx_list)
@@ -105,13 +111,18 @@ class DataModel(object):
     def get_products(self,df):
         '''Get three products for each area of concern. Concerns = list
            Return a dataframe with all products and proportion product addresses each concern'''
-        product_idx_list = []
-        for concern in self.concerns:
-            product_idx_list.extend(self.get_random_index_low_review(df,concern))
-            product_idx_list.extend(self.get_random_index_high_review(df,concern))
 
-        products = df.loc[product_idx_list]
-        df.drop(product_idx_list,inplace=True)
+        products = pd.DataFrame(columns=df.columns)
+
+        for concern in self.concerns:
+            product_idx_list = []
+            product_idx_list.extend(self.get_random_index_high_review(df,concern))
+            product_idx_list.extend(self.get_random_index_low_review(df,concern))
+            temp = df.loc[product_idx_list]
+            df.drop(product_idx_list,inplace=True)
+            products = pd.concat([products,temp],axis=0)
+
+
         columns = ['title','price','asin','imageurl']
         df2 = products.filter(regex='p_unweighted')
         df3 = products.filter(columns)
