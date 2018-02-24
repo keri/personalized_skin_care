@@ -42,15 +42,12 @@ def get_product_df(product_type):
 def get_new_products(product_type):
     conn = psycopg2.connect(dbname=name, host=host,
                                     password=password,user=user)
-    # query = f'''SELECT asin, rating, review_text
-    #             FROM {product_type}
-    #             WHERE created_at >= '2018-02-17' AND rating>=4
-    #             ORDER BY asin;'''
+
 
     query = f'''SELECT p.asin, m.review_text, m.rating
                 FROM products as p
                 LEFT JOIN {product_type} as m ON p.asin=m.asin 
-                WHERE p.producttype='moisturizer' AND m.rating>=4;'''
+                WHERE p.producttype='cleanser' AND m.rating>=4;'''
 
     # SELECT review_text, asin
     #         FROM {product_type}
@@ -61,8 +58,6 @@ def get_new_products(product_type):
     df = pd.read_sql_query(query,conn)
     return(df)
 
-# def join_reviews(review):
-#     return(' ' + review)
 
 def create_corpus(df):
     '''Get the reviews out of the dataframe and combine them per asin into new dataframe and

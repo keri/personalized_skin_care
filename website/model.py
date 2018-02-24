@@ -16,7 +16,7 @@ class DataModel(object):
         self.conn = psycopg2.connect(dbname=name, host=host,
                                     password=password,user=user)
         self.product_list = []
-        self.categories = ['moisturizer']
+        self.categories = ['moisturizer','serum','cleanser']
 
 
     def get_query(self,category):
