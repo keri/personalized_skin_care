@@ -32,31 +32,31 @@ class DataModel(object):
 
     def run_query(self,query):
         try:
-            df_results = pd.read_sql_query(query,conn)
+            df_results = pd.read_sql_query(query,self.conn)
             return(df_results)
         
         except psycopg2.Error as e:
             products = {'product1' : e.pgerror, 'product2' : ' ', 'product3' : ' '}
 
     def get_recommendations(self,budget,concern_list):
-    '''central function that culls products and populates the page with 3 products for 
-    each concern equaling 18 products in total.'''
+        '''central function that culls products and populates the page with 
+        3 products for each concern equaling 18 products in total.'''
         self.concerns = concern_list
-        budget = float(budget)
-        self.budget += budget*.1
+        self.budget = float(budget)*.1
         query = ''
         for category in self.categories:
             #gets each product category from list, runs a query for recommendations in 
             #each category
             query = self.get_query(category)
             df = self.run_query(query)
-            df = self.clean_df(df,budget)
-            product_df = self.get_products(df, self.concerns)
+            df = self.clean_df(df)
+            product_df = self.get_products(df)
             #generalize the concerns to produce a list to be passed back to the app.py
             for i in range(len(self.concerns)): 
                 product_df.rename(columns = {'p_unweighted_'+self.concerns[i] : 'concern'+str(i+1)}, inplace=True)
             
             self.product_list.extend(product_df.to_dict(orient='records'))
+            print(self.product_list)
 
         return(self.product_list)
 
@@ -65,14 +65,14 @@ class DataModel(object):
     def create_weighted_concern(self, df, concern):
         df['weighted_'+ concern]  = df['review_ratio'] * df[concern]
 
-    def clean_df(self,df,budget):
+    def clean_df(self,df):
         '''columns are ints or floats, except asin and imageurl which are strings'''
         #Normalize the score by the number of reviews recieved, with 100 reviews == 1
         mask = df.numberreviews >= 100
         column_name = 'numberreviews'
         df.loc[mask, column_name] = 100
         df['review_ratio'] = df.numberreviews / 100
-        df['new_budget'] = budget - df['price']
+        df['new_budget'] = self.budget - df['price']
         #normalizes the concerns to the number of reviews the product recieved.
         for concern in self.concerns:
             self.create_weighted_concern(df, concern)
