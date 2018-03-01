@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, redirect, abort
-from model_copy import DataModel
+from model import DataModel
 import json
 app = Flask(__name__)
 
@@ -27,6 +27,26 @@ def results():
         'products':products
     }
     return render_template('results.html', results=results)
+
+
+@app.route("/results2")
+def results2():
+    concern_list = ['dry','oily','combination','skintone','eyes','antiaging','psoriasis','rosacea','sunscreen',
+                'night','pores','sensitive']
+    concerns = list(filter((lambda x: request.args.get(x)), concern_list))
+    print('concerns = ',concerns)
+
+    budget = request.args.get('budget')
+    products = data_model.get_recommendations(budget, concerns)
+    results = {
+        'concerns':concerns,
+        'budget':budget,
+        'products':products
+    }
+    return render_template('results.html', results=results)
+
+
+
 
 
 if __name__ == '__main__':
