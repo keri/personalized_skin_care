@@ -53,8 +53,10 @@ class DataModel(object):
             df = self.clean_df(df)
             product_df = self.get_products(df)
             #generalize the concerns to produce a list to be passed back to the app.py
-            for i in range(len(self.concerns)): 
-                product_df.rename(columns = {'p_unweighted_'+self.concerns[i] : 'concern'+str(i+1)}, inplace=True)
+            # for i in range(len(self.concerns)): 
+            #     product_df.rename(columns = {'p_unweighted_'+self.concerns[i] : 'concern'+str(i+1)}, inplace=True)
+            for concern in self.concerns: 
+                product_df.rename(columns = {'p_unweighted_'+concern : concern}, inplace=True)
             
             self.product_list.extend(product_df.to_dict(orient='records'))
 
@@ -94,6 +96,9 @@ class DataModel(object):
         if len(idx_list) == 0:
             mask = (df['weighted_total'] < .2) & (df['unweighted_total'] > .2) & (df['price'] <= self.budget)
             idx_list = list(df.loc[mask].index)
+        if len(idx_list) <= 1:
+            mask = df['price'] <= self.budget
+            idx_list = list(df.loc[mask].index)
         idx = random.choice(idx_list)
         return([idx])
         
@@ -102,6 +107,9 @@ class DataModel(object):
         idx_list = list(df.loc[mask].index)
         if len(idx_list) < 2:
             mask = (df['weighted_total'] > .2) & (df['price'] <= self.budget)
+            idx_list = list(df.loc[mask].index)
+        if len(idx_list) <= 1:
+            mask = df['price'] <= self.budget
             idx_list = list(df.loc[mask].index)
         idx1 = random.choice(idx_list)
         idx_list.remove(idx1)
