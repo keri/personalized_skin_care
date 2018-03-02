@@ -34,8 +34,7 @@ def results2():
     concern_list = ['dry','oily','combination','skintone','eyes','antiaging','psoriasis','rosacea','sunscreen',
                 'night','pores','sensitive']
     concerns = list(filter((lambda x: request.args.get(x)), concern_list))
-    print('concerns = ',concerns)
-
+    print('concerns ',concerns)
     budget = request.args.get('budget')
     products = data_model.get_recommendations(budget, concerns)
     results = {
@@ -43,6 +42,8 @@ def results2():
         'budget':budget,
         'products':products
     }
+
+    print('results = ',results)
     return render_template('results.html', results=results)
 
 
