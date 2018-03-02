@@ -29,14 +29,17 @@
       <a href="/" class="btn btn-primary float-right">Search Again</a>
 
       <h2> Your Results! </h2>
+      <h4> Based on your concerns: </h4>
       <p class="lead">
-        Based on your concerns: {{results.c1}}, {{results.c2}}, {{results.c3}}
+        {% for concern in results.concerns %}
+        {{concern}} 
+        <br>
+        {% endfor %}
+
         <br>
         budget: ${{results.budget}}
       </p>
     </div>
-
-
     <div class="row">
       {% for product in results.products %}
       <div class="col-sm-6 col-lg-4">
@@ -50,37 +53,22 @@
             <b class="card-title">{{product.title}}</b>
             <div class="product-price">${{product.price}}</div>
 
+            {% for concern in results.concerns %}
             <div class="concern_bar">
               <div class="concern">
-                {{results.c1}}
+                    {{concern}}
+                  <div class="progress">
+                      <div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
+                  </div>
+                </div> 
               </div>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: {{product.concern1*100}}%;" aria-valuenow="{{product.concern1*100}}" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-            </div>
-
-            <div class="concern_bar">
-              <div class="concern">
-                {{results.c2}}
-              </div>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: {{product.concern2*100}}%;" aria-valuenow="{{product.concern2*100}}" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-           <div class="concern_bar">
-             <div class="concern">
-               {{results.c3}}
-             </div>
-             <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: {{product.concern3*100}}%;" aria-valuenow="{{product.concern3*100}}" aria-valuemin="0" aria-valuemax="100"></div>
-             </div>
+              {% endfor %}
             </div>
             <a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" class="btn btn-primary">Purchase</a>
           </div>
         </div>
-      </div>
       {% endfor %}
+      </div>
 
     </div>
 
