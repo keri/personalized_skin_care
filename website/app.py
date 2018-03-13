@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, jsonify, redirect, abort
 from model import DataModel
+#from baskets import Baskets
 import json
 app = Flask(__name__)
 
 data_model = DataModel()
+#baskets = Baskets()
 
 @app.route('/')
 def index():
@@ -34,8 +36,25 @@ def results2():
     concern_list = ['dry','oily','combination','skintone','eyes','antiaging','psoriasis','rosacea','sunscreen',
                 'night','pores','sensitive']
     concerns = list(filter((lambda x: request.args.get(x)), concern_list))
-    print('concerns ',concerns)
+    print(concerns)
     budget = request.args.get('budget')
+    print(budget)
+    products = data_model.get_recommendations(budget, concerns)
+    print(products)
+    results = {
+        'concerns':concerns,
+        'budget':budget,
+        'products':products
+    }
+    return render_template('results.html', results=results)
+
+@app.route("/results3")
+def results3():
+    concern_list = ['dry','oily','combination','skintone','eyes','antiaging','psoriasis','rosacea','sunscreen',
+                'night','pores','sensitive']
+    concerns = list(filter((lambda x: request.args.get(x)), concern_list))
+    budget = request.args.get('budget')
+
     products = data_model.get_recommendations(budget, concerns)
     results = {
         'concerns':concerns,
@@ -43,9 +62,7 @@ def results2():
         'products':products
     }
 
-    print('results = ',results)
     return render_template('results.html', results=results)
-
 
 
 

@@ -51,6 +51,7 @@ class DataModel(object):
             query = self.get_query(category)
             df = self.run_query(query)
             df = self.clean_df(df)
+            df['category'] = category
             product_df = self.get_products(df)
             #generalize the concerns to produce a list to be passed back to the app.py
             # for i in range(len(self.concerns)): 
@@ -65,7 +66,9 @@ class DataModel(object):
 
 
     def create_weighted_concern(self, df, concern):
-        df['weighted_'+ concern]  = df['review_ratio'] * df[concern]
+        df['weighted_'+ concern]  = (df['review_ratio'] * df[concern])
+        print(df)
+        return(df)
 
     def clean_df(self,df):
         '''columns are ints or floats, except asin and imageurl which are strings'''
@@ -131,7 +134,7 @@ class DataModel(object):
             products = pd.concat([products,temp],axis=0)
 
 
-        columns = ['title','price','asin','imageurl']
+        columns = ['title','price','asin','imageurl','category']
         df2 = products.filter(regex='p_unweighted')
         df3 = products.filter(columns)
         recommendations = pd.concat([df2,df3],axis=1)
