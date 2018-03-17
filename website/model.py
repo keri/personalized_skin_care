@@ -67,8 +67,6 @@ class DataModel(object):
 
     def create_weighted_concern(self, df, concern):
         df['weighted_'+ concern]  = (df['review_ratio'] * df[concern])
-        print(df)
-        return(df)
 
     def clean_df(self,df):
         '''columns are ints or floats, except asin and imageurl which are strings'''
