@@ -15,7 +15,6 @@ class DataModel(object):
     def __init__(self):
         self.conn = psycopg2.connect(dbname=name, host=host,
                                     password=password,user=user)
-        self.product_list = []
         self.categories = ['moisturizer','serum','cleanser']
 
 
@@ -41,6 +40,7 @@ class DataModel(object):
     def get_recommendations(self,budget,concern_list):
         '''central function that culls products and populates the page with 
         3 products for each concern equaling 18 products in total.'''
+        self.product_list = []
         self.concerns = concern_list
         self.budget = float(budget)
         query = ''

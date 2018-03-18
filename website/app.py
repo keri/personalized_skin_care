@@ -33,9 +33,14 @@ def results():
 
 @app.route("/results2")
 def results2():
-    concern_list = ['dry','oily','combination','skintone','eyes','antiaging','psoriasis','rosacea','sunscreen',
+    concerns = []
+    concern_list = ['dry','oily','combination','skintone','eyes','antiaging','psoriasis','lightening','sunscreen',
                 'night','pores','sensitive']
-    concerns = list(filter((lambda x: request.args.get(x)), concern_list))
+    for concern in concern_list:
+        if request.args.get(concern):
+            concerns.append(concern)
+ #   concerns = list(filter((lambda x: request.args.get(x)), concern_list))
+    print(concerns)
     budget = request.args.get('budget')
     products = data_model.get_recommendations(budget, concerns)
     results = {
