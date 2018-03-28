@@ -22,7 +22,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def update_csv(image_list):
-    print(image_list)
     training_path = ('/Users/keri/git/galvanize/capstone/psc/website/data/training/images_for_training.csv')
     '''updates the csv with new images'''
     with open(training_path,"a",newline='') as f:  
@@ -62,7 +61,6 @@ def results2():
     concerns = get_concerns()
     upload_images(concerns)
  #   concerns = list(filter((lambda x: request.args.get(x)), concern_list))
-    print(concerns)
     budget = request.args.get('budget')
     products = data_model.get_recommendations(budget, concerns)
     results = {
@@ -80,7 +78,6 @@ def upload_file():
         for f in request.files.getlist('file'):
             filename = secure_filename(f.filename)
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        print( 'Upload completed.' )
     return render_template('starter_skin.html')
 
 
