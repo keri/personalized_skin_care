@@ -4,10 +4,23 @@ from model import DataModel
 from os import listdir
 import csv
 import pdb
+import hashlib
+import boto
+import boto.s3.connection
+from boto.s3.key import Key
 
 #from baskets import Baskets
 import json
 import os
+
+Bucketname = 'skin-care-app'
+conn = boto.s3.connect_to_region('us-west-2',
+       aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+       aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+       is_secure=True,       
+       calling_format = boto.s3.connection.OrdinaryCallingFormat(),
+       )
+bucket = conn.get_bucket(Bucketname)
 
 
 UPLOAD_FOLDER = 'data/images'
@@ -22,13 +35,12 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def update_csv(image_list):
+def insert_row_csv(converted_list):
     training_path = ('/Users/keri/git/galvanize/capstone/psc/website/data/training/images_for_training.csv')
     '''updates the csv with new images'''
-    with open(training_path,"a",newline='') as f:  
-        cw = csv.writer(f)
-        for row in image_list:
-            cw.writerow([row])
+    with open(training_path,"a", newline='') as f: 
+            cw=csv.writer(f, delimiter=",", lineterminator="\r\n") 
+            cw.writerows(converted_list)
 
 
 def get_concerns():
@@ -40,16 +52,25 @@ def get_concerns():
             concerns.append(concern)
     return(concerns)
 
-def upload_images(concern_list):
+def update_csv(concern_list):
     '''image was saved from start.html into the data/folder. Put an exention on the filename
     for each concern so the model can see what images are attached to which concern.'''
     converted_files = []
-    files = listdir('/Users/keri/git/galvanize/capstone/psc/website/data/images')
+    path = '/Users/keri/git/galvanize/capstone/psc/website/data/images'
+    files = listdir(path)
     for file in files:
+        upload_images_to_s3(file, path)
+
         for concern in concern_list:
-            converted_files.append(concern + '+' + file)
- #       os.remove('/Users/keri/git/galvanize/capstone/psc/website/data/images/'+file)
-    update_csv(converted_files)
+            converted_files.append((file, concern))
+        os.remove('/Users/keri/git/galvanize/capstone/psc/website/data/images/'+file)
+    insert_row_csv(converted_files)
+
+def upload_images_to_s3(filename, path):
+    path_file = path+'/'+filename
+    k = Key(bucket)
+    k.key = 'test/'+filename
+    k.set_contents_from_filename(path_file)
 
 
 @app.route('/')
@@ -58,12 +79,11 @@ def index():
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
-
     if request.method == 'POST':
         for f in request.files:
             file = request.files[f]
             filename = secure_filename(file.filename)
- #           pdb.set_trace()
+
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     return render_template('question_one.html')
 
@@ -81,7 +101,7 @@ def formtest():
 @app.route("/results")
 def results2():
     concerns = get_concerns()
-    upload_images(concerns)
+    update_csv(concerns)
 
  #   concerns = list(filter((lambda x: request.args.get(x)), concern_list))
     budget = request.args.get('budget')
@@ -92,32 +112,6 @@ def results2():
         'products':products
     }
     return render_template('results.html', results=results)
-
-
-
-
-
-
-
-
-    #     # if user does not select file, browser also
-    #     # submit a empty part without filename
-    #     if file.filename == '':
-    #         flash('No selected file')
-    #         return redirect(request.url)
-    #     if file and allowed_file(file1.filename):
-    #         filename = secure_filename(file.filename)
-    #         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    #         return render_template('starter_skin.html')
-    #     return '''
-    #     <!doctype html>
-    #     <title>Upload new File</title>
-    #     <h1>Upload new File</h1>
-    #     <form method=post enctype=multipart/form-data>
-    #       <p><input type=file name=file>
-    #          <input type=submit value=Upload>
-    #     </form>
-    #     '''
 
 
 
@@ -136,8 +130,6 @@ def results3():
     }
 
     return render_template('results.html', results=results)
-
-
 
 
 if __name__ == '__main__':
