@@ -3,6 +3,7 @@ from werkzeug import secure_filename
 from model import DataModel
 from os import listdir
 import csv
+import pdb
 
 #from baskets import Baskets
 import json
@@ -47,7 +48,7 @@ def upload_images(concern_list):
     for file in files:
         for concern in concern_list:
             converted_files.append(concern + '+' + file)
-        os.remove('/Users/keri/git/galvanize/capstone/psc/website/data/images/'+file)
+ #       os.remove('/Users/keri/git/galvanize/capstone/psc/website/data/images/'+file)
     update_csv(converted_files)
 
 
@@ -55,11 +56,33 @@ def upload_images(concern_list):
 def index():
     return render_template('start.html')
 
+@app.route('/uploader', methods = ['GET', 'POST'])
+def upload_file():
+
+    if request.method == 'POST':
+        for f in request.files:
+            file = request.files[f]
+            filename = secure_filename(file.filename)
+ #           pdb.set_trace()
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    return render_template('question_one.html')
+
+@app.route('/questions', methods = ['GET','POST'])
+def formtest():
+    checks = request.form.getlist('questions')
+    for check in checks:
+        print('check = ', check)
+# def upload_questions():
+#     answers = request.form.getlist('questions')
+#     print(answers)
+    return render_template('starter_skin.html')
+
 
 @app.route("/results")
 def results2():
     concerns = get_concerns()
     upload_images(concerns)
+
  #   concerns = list(filter((lambda x: request.args.get(x)), concern_list))
     budget = request.args.get('budget')
     products = data_model.get_recommendations(budget, concerns)
@@ -71,14 +94,7 @@ def results2():
     return render_template('results.html', results=results)
 
 
-@app.route('/uploader', methods = ['GET', 'POST'])
-def upload_file():
 
-    if request.method == 'POST' and 'file' in request.files:
-        for f in request.files.getlist('file'):
-            filename = secure_filename(f.filename)
-            f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    return render_template('starter_skin.html')
 
 
 
@@ -89,7 +105,7 @@ def upload_file():
     #     if file.filename == '':
     #         flash('No selected file')
     #         return redirect(request.url)
-    #     if file1 and allowed_file(file1.filename):
+    #     if file and allowed_file(file1.filename):
     #         filename = secure_filename(file.filename)
     #         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     #         return render_template('starter_skin.html')
