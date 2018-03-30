@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+
+  <title>Skin Care Recommendations</title>
+  <meta name="description" content="Skin Care Recommendations">
+  <meta name="author" content="Predictive Model for Skin Care Products">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h2> Personalized Skin Recommendations </h2>
+      <p class="lead">
+        Who do you most identify with?
+      </p>
+
+    </div>
+    <form action = "/ethnicity" method = "POST">
+
+     <div class="form-check-input">
+        <input class="form-check-input" type="radio" name="ethnicity" id="hispanic" 
+                value="hispanic">
+        <label class="form-check-label" for="ethnicity">
+           Hispanic
+        </label>
+      </div>
+      <br>
+      <div class="form-check-input">
+        <input class="form-check-input" type="radio" name="ethnicity" id="latino" 
+                value="latino">
+        <label class="form-check-label" for="ethnicity">
+          Latino
+        </label>
+      </div>
+      <br>
+      <div class="form-check-input">
+        <input class="form-check-input" type="radio" name="ethnicity" id="east-euro" 
+                value="east_euro">
+        <label class="form-check-label" for="ethnicity">
+          Eastern European
+        </label>
+      </div>
+      <br>
+      <div class="form-check-input">
+        <label class="form-check-label">
+          <input class="form-check-input" type="radio" name="ethnicity" id="asian" 
+                  value='asian'>
+              Asian
+        </label>
+      </div>
+      <br>
+      <div class="form-check-input">
+        <label class="form-check-label">
+          <input class="form-check-input" type="radio" name="ethnicity" id="african-american" 
+                   value='african'>
+            African American
+        </label>
+      </div>
+      <br>
+      <div class="form-check-input">
+        <label class="form-check-label">
+          <input class="form-check-input" type="radio" name="ethnicity" id="caucasian" 
+                  value='caucasian'>
+          Caucasian
+        </label>
+      </div>
+      <br>
+      <div class="form-check-input">
+        <label class="form-check-label">
+          <input class="form-check-input" type="radio" name="ethnicity" id="asian" 
+                  value="asian">
+              Asian
+        </label>
+      </div>
+      <br>
+      <div class="form-check-input">
+        <label class="form-check-label">
+          <input class="form-check-input" type="radio" name="ethnicity" id="native-american" 
+                 value="native_american">
+            Native American
+        </label>
+      </div>
+      <br>
+      <div class="form-check-input">
+        <label class="form-check-label">
+          <input class="form-check-input" type="radio" name="ethnicity" id="other" 
+                  value="other">
+           Other
+        </label>
+      </div> 
+      <br>
+      <br>
+      <br>
+        <input type="submit" value="Submit" class="btn btn-primary"> 
+        
+    </form>
+  </div>
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

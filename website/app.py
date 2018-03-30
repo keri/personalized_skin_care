@@ -89,12 +89,19 @@ def upload_file():
 
 @app.route('/questions', methods = ['GET','POST'])
 def formtest():
+    questions = {1:'',2:'',3:''}
     checks = request.form.getlist('questions')
-    for check in checks:
-        print('check = ', check)
-# def upload_questions():
-#     answers = request.form.getlist('questions')
-#     print(answers)
+
+    for i in range(len(checks)):
+        questions[i+1]=checks[i]
+
+    return render_template('question_two.html')
+
+@app.route('/ethnicity', methods=['GET','POST'])
+def ethnicity():
+
+    option = request.form['ethnicity']
+
     return render_template('starter_skin.html')
 
 
