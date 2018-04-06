@@ -75,7 +75,7 @@ def upload_images_to_s3(filename, path):
 
 @app.route('/')
 def index():
-    return render_template('start.html')
+    return render_template('spa.html')
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():

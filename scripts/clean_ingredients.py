@@ -58,7 +58,7 @@ def cleaned_listed_ingredients(ingredients):
         ingredients[i] = "vitamin-c-palmitate"
  
     ingredients = ingredients.replace(re.compile(r'*ascorbate*'), 'vitamin-c-palmitate')
-    ingredients = ingredients.replace('palmitate'), 'vitamin-c-palmitate')
+    ingredients = ingredients.replace('palmitate', 'vitamin-c-palmitate')
     ingredients = ingredients.replace('ondascora', 'vitamin-c-palmitate')
     ingredients = ingredients.replace('quicifal', 'vitamin-c-palmitate')
     ingredients = ingredients.replace('ascorbyl palmitic acid', 'vitamin-c-palmitate')
