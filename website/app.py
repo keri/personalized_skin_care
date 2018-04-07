@@ -85,24 +85,24 @@ def upload_file():
             filename = secure_filename(file.filename)
 
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    return render_template('question_one.html')
+    return render_template('spa.html')
 
 @app.route('/questions', methods = ['GET','POST'])
-def formtest():
+def inputquestions():
     questions = {1:'',2:'',3:''}
     checks = request.form.getlist('questions')
 
     for i in range(len(checks)):
         questions[i+1]=checks[i]
 
-    return render_template('question_two.html')
+    return render_template('spa.html')
 
-@app.route('/ethnicity', methods=['GET','POST'])
-def ethnicity():
+# @app.route('/ethnicity', methods=['GET','POST'])
+# def ethnicity():
 
-    option = request.form['ethnicity']
+#     option = request.form['ethnicity']
 
-    return render_template('starter_skin.html')
+#     return render_template('starter_skin.html')
 
 
 @app.route("/results")
@@ -118,7 +118,7 @@ def results2():
         'budget':budget,
         'products':products
     }
-    return render_template('results.html', results=results)
+    return render_template('spa.html', results=results)
 
 
 

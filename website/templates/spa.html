@@ -73,11 +73,11 @@
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="#login" class="nav-link p-0">Login</a>
+								<a href="#questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="#login" class="nav-link p-0">Questionnaire</a>
+								<a href="#login" class="nav-link p-0">Log In</a>
 							</li>
 
 							<li class="nav-item g-ml-12--lg">
@@ -121,7 +121,7 @@
 	
 	<!-- Section Content -->
 	<section id="getstarted" class="g-theme-bg-gray-light-v1 g-py-80">
-		<form action = "/uploader" method = "POST" 
+		<form action = "/uploader#questionnaire" method = "POST" 
 	         enctype = "multipart/form-data">
 			<div class="container-fluid px-0 text-center">
 					<h4 class="g-font-weight-700 g-font-size-35 g-theme-h-v1 g-color-primary g-mb-25">Enter Images of Yourself</h4>
@@ -197,18 +197,13 @@
 	<!-- End Section Content -->
 	
 	<!-- Section Questionnaire Content -->
-
 	<section id="questionnaire" class="g-theme-bg-gray-light-v1 g-py-80">
-		<form action = "/questions" method = "POST" >
+		<form action = "/questions#areas-of-concern" method = "POST" >
 			<div class="container-fluid px-0 text-center">
-				<div class=form-group>
-
 					<h4 class="g-font-weight-700 g-font-size-35 g-theme-h-v1 g-color-primary g-mb-25">Tell Us About Yourself</h4>
 					<br>
 				<div class="row no-gutters">
-					<div class="col-md-6 d-flex text-md-left g-pa-50">
-					  <div class=form-group>
-
+					<div class="col-md-4 d-flex text-md-left g-pa-50">
 						<div class="w-100">
 							<div class="g-mb-25">
 
@@ -255,12 +250,10 @@
 						        </div>
 
 						      </div>
-						    </div>
-						  </div>  
+						    </div> 
 					</div>
 
-				    <div class="col-md-6 d-flex text-md-left g-pa-50">
-					  <div class="form-group">
+				    <div class="col-md-4 d-flex text-md-left g-pa-50">
 						 <div class="w-100">
 							<div class="g-mb-25">
 							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How Much Time do you Spend on Your Night Routine</h2>
@@ -305,157 +298,19 @@
 						                At least 15 Minutes
 						              </label>
 						        </div>
+						     </div>
+						 </div>
+					</div>
 
-						    </div>
-					     </div>
-				      </div>
-			        </div>
-			    </div>
-
-
-
-
-			<div class="row no-gutters">
-
-				<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-					<label for = "pale">
-						<img src="static/spa_assets/img/skintone/pale.jpeg" >
-					</label>
-					<input class="form-check-input" type="radio" name="ethnicity-img" id="pale" value="pale">
-				</div>
-
-				<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-					<label for = "fair">
-						<img src="static/spa_assets/img/skintone/fair.jpeg" >
-					</label>
-					<input class="form-check-input" type="radio" name="ethnicity-img" id="fair" 
-					value="fair">
-				</div>
-
-				<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-					<label for = "lt_brown">
-						<img src="static/spa_assets/img/skintone/lt_brown.jpeg" >
-					</label>
-					<input class="form-check-input" type="radio" name="ethnicity-img" id="lt_brown" 
-					value="lt_brown">
-				</div>
-
-				<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-					<label for = "caramel">
-						<img src="static/spa_assets/img/skintone/caramel.jpeg" >
-					</label>
-					<input class="form-check-input" type="radio" name="ethnicity-img" id="caramel" 
-					value="caramel">
-				</div>
-
-				<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-					<label for = "bronze">
-						<img src="static/spa_assets/img/skintone/bronze.jpeg" >
-					</label>
-					<input class="form-check-input" type="radio" name="ethnicity-img" id="bronze" 
-					value="bronze">
-				</div>
-
-				<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-					<label for = "mahoganey">
-						<img src="static/spa_assets/img/skintone/mahoganey.jpeg" >
-					</label>
-					<input class="form-check-input" type="radio" name="ethnicity-img" id="mahoganey" 
-					value="mahoganey">
-				</div>
-
-	
-
-
-			<div class="row no-gutters align-items-center justify-content-center">
-			     <div class="col-md-3 d-flex align-items-center text-md-left g-pa-50">
-					<div class="form-group">
-						<div class="w-100">
-							<div class="g-mb-25">
-							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">What is the closest match to your skin tone?</h2>
-							  <br>
-							<div class="col-sm">
-						         <input class="form-check-input" type="radio" name="ethnicity" 
-						           	id="hispanic" value="hispanic">
-						           	<label class="form-check-label" for="ethnicity">
-						           Hispanic
-						        	</label>
-						    </div>
-
-						    <div class="col-sm">
-						         <input class="form-check-input" type="radio" name="ethnicity" 
-						        	id="latino" value="latino">
-						      		<label class="form-check-label" for="ethnicity">
-						           Latino
-						        	</label>
-						    </div>
-
-					      	<div class="col-sm">
-					          <input class="form-check-input" type="radio" name="ethnicity" 
-					        	id="east-euro" value="east_euro">
-					      		<label class="form-check-label" for="ethnicity">
-					          	Eastern European
-					        	</label>
-					     	</div>
-
-					      	<div class="col-sm">
-					          <input class="form-check-input" type="radio" name="ethnicity" id="asian" value='asian'>
-					          	<label class="form-check-label">
-					           Asian
-					        	</label>
-					      	</div>
-
-						     <div class="col-sm">
-						       <input class="form-check-input" type="radio" name="ethnicity" id="african-american" value='african'>
-						          <label class="form-check-label">
-						            African American
-						          </label>
-						      </div>
-
-						      <div class="col-sm">
-						         <input class="form-check-input" type="radio" name="ethnicity" id="caucasian" value='caucasian'>
-							        <label class="form-check-label">
-						          	  Caucasian
-						        	</label>
-						      </div>
-
-						      <div class="col-sm">
-						         <input class="form-check-input" type="radio" name="ethnicity" id="asian" value="asian">
-							        <label class="form-check-label">
-						              Asian
-						        	</label>
-						      </div>
-
-						      <div class="col-sm">
-						         <input class="form-check-input" type="radio" name="ethnicity" id="native-american" value="native_american">
-							        <label class="form-check-label">
-						              Native American
-						        	</label>
-						      </div>
-
-						      <div class="col-sm">
-						         <input class="form-check-input" type="radio" name="ethnicity" id="other" value="other">
-							        <label class="form-check-label">
-						              Other
-						        	</label>
-						      </div> 
-
-								
-						    </div>
-					    </div>
-				    </div>
-			     </div>
-
-			     <div class="col-md-3 d-flex align-items-center text-md-left g-pa-50">
-					<div class="form-group">
-						<div class="w-100">
+				    <div class="col-md-4 d-flex text-md-left g-pa-50">
+						 <div class="w-100">
 							<div class="g-mb-25">
 							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How old are you?</h2>
 							  <br>
 							<div class="col-sm">
 						         <input class="form-check-input" type="radio" name="age" 
 						           	id="20" value="20">
-						           	<label class="form-check-label" for="age">
+						           	<label class="form-check-label" for="20">
 						           under 20 
 						        	</label>
 						    </div>
@@ -463,7 +318,7 @@
 						    <div class="col-sm">
 						         <input class="form-check-input" type="radio" name="age" 
 						        	id="25" value="25">
-						      		<label class="form-check-label" for="age">
+						      		<label class="form-check-label" for="25">
 						           20-25
 						        	</label>
 						    </div>
@@ -471,7 +326,7 @@
 					      	<div class="col-sm">
 					          <input class="form-check-input" type="radio" name="age" 
 					        	id="30" value="30">
-					      		<label class="form-check-label" for="age">
+					      		<label class="form-check-label" for="30">
 					          	26-30
 					        	</label>
 					     	</div>
@@ -479,7 +334,7 @@
 					      	<div class="col-sm">
 					          <input class="form-check-input" type="radio" name="age" 
 					          id="35" value="35">
-					          	<label class="form-check-label" for="age">
+					          	<label class="form-check-label" for="35">
 					           31-35
 					        	</label>
 					      	</div>
@@ -487,7 +342,7 @@
 						     <div class="col-sm">
 						       <input class="form-check-input" type="radio" name="age" 
 						       id="40" value="40">
-						          <label class="form-check-label" for="age">
+						          <label class="form-check-label" for="40">
 						          36-40
 						          </label>
 						      </div>
@@ -495,7 +350,7 @@
 						      <div class="col-sm">
 						         <input class="form-check-input" type="radio" name="age" 
 						         id="45" value="45">
-							        <label class="form-check-label" for="age">
+							        <label class="form-check-label" for="45">
 						          	41-45
 						        	</label>
 						      </div>
@@ -503,7 +358,7 @@
 						      <div class="col-sm">
 						         <input class="form-check-input" type="radio" name="age" 
 						         id="50" value="50">
-							        <label class="form-check-label" for="age">
+							        <label class="form-check-label" for="50">
 						            46-50
 						        	</label>
 						      </div>
@@ -511,7 +366,7 @@
 						      <div class="col-sm">
 						         <input class="form-check-input" type="radio" name="age" 
 						         id="55" value="55">
-							        <label class="form-check-label" for="age">
+							        <label class="form-check-label" for="55">
 						            51-55
 						        	</label>
 						      </div>
@@ -519,7 +374,7 @@
 						      <div class="col-sm">
 						         <input class="form-check-input" type="radio" name="age" 
 						         id="60" value="60">
-							        <label class="form-check-label" for="age">
+							        <label class="form-check-label" for="60">
 						            56-60
 						        	</label>
 						      </div> 
@@ -527,7 +382,7 @@
 						      <div class="col-sm">
 						         <input class="form-check-input" type="radio" name="age" 
 						         id="65" value="65">
-							        <label class="form-check-label" for="age">
+							        <label class="form-check-label" for="65">
 						            61-65
 						        	</label>
 						      </div> 
@@ -535,37 +390,92 @@
 						      <div class="col-sm">
 						         <input class="form-check-input" type="radio" name="age" 
 						         id="70" value="70">
-							        <label class="form-check-label" for="age">
+							        <label class="form-check-label" for="70">
 						            65+
 						        	</label>
 						      </div> 
-
 						    </div>
-					    </div>
-				    </div>
-			     </div>
-			</div>	
-			<br>
-			<br>
-		<div class="container-fluid px-4 text-center">
+					     </div>
+				      </div>
+			       </div>
+
+	<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">What is the closest match to your skin tone?</h2>
+	<br>
+
+				<div class="row no-gutters">
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "pale">
+							<img src="static/spa_assets/img/skintone/pale.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="pale" value="pale">
+					</div>
+
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "fair">
+							<img src="static/spa_assets/img/skintone/fair.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="fair" 
+						value="fair">
+					</div>
+
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "lt_brown">
+							<img src="static/spa_assets/img/skintone/lt_brown.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="lt_brown" 
+						value="lt_brown">
+					</div>
+
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "caramel">
+							<img src="static/spa_assets/img/skintone/caramel.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="caramel" 
+						value="caramel">
+					</div>
+
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "bronze">
+							<img src="static/spa_assets/img/skintone/bronze.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="bronze" 
+						value="bronze">
+					</div>
+
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "mahoganey">
+							<img src="static/spa_assets/img/skintone/mahoganey.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="mahoganey" 
+						value="mahoganey">
+					</div>
+				</div>	
+				<br>
+				<br>
+			<div class="container-fluid px-4 text-center">
 					<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit"/>
-		</div>
-	     </div>
-	    </div>
-	  </div>
+			</div>
+	  	</div>
 	 </form>
    </section>
 
+ <!-- Section Area of Concern Content -->
+	<section id="areas-of-concern" class="g-theme-bg-gray-light-v1 g-py-80">
+	  <form action = "/results#results" method = "GET" >
+		 <div class="container-fluid px-0 text-center">
+			<h4 class="g-font-weight-700 g-font-size-35 g-theme-h-v1 g-color-primary g-mb-25">What Are Your Areas Of Concern</h4>
+				<div class="row no-gutters">
+	              <div class="col-md-4 d-flex text-md-left g-pa-50">
+		            <div class="w-100">
+			          <div class="g-mb-25">
 
-
-
-
-	<section id="questionnaire" class="g-theme-bg-gray-light-v1 g-py-80">
-		<div class="container text-center g-width-590 g-mb-50">
-			<div class="g-mb-25">
-				<h4 class="g-font-weight-700 g-font-size-35 g-theme-h-v1 g-color-primary g-mb-25">Tell Us About Yourself</h4>
-				<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How much time does your day routine take?</h2>
-			</div>
+					  </div>
+				    </div>
+				  </div>
+				</div>
+		</div>
+	  </form>
+	</section>
 			
 			<p class="mb-0">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
 		</div>
@@ -1552,7 +1462,7 @@
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="#!">Login</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="#!">Questionnaire</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
