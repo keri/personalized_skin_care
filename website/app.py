@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, abort, url_for, flash, session
+from flask import Flask, render_template, request, jsonify, redirect, abort, url_for, flash, session, make_response
 from werkzeug import secure_filename
 from model import DataModel
 from os import listdir
@@ -8,6 +8,8 @@ import hashlib
 import boto
 import boto.s3.connection
 from boto.s3.key import Key
+import itertools
+import random
 
 #from baskets import Baskets
 import json
@@ -42,16 +44,6 @@ def insert_row_csv(converted_list):
             cw=csv.writer(f, delimiter=",", lineterminator="\r\n") 
             cw.writerows(converted_list)
 
-
-def get_concerns():
-    concerns = []
-    concern_list = ['dry','oily','combination','skintone','eyes','antiaging','psoriasis','lightening','sunscreen',
-                'night','pores','sensitive']
-    for concern in concern_list:
-        if request.args.get(concern):
-            concerns.append(concern)
-    return(concerns)
-
 def update_csv(concern_list):
     '''image was saved from start.html into the data/folder. Put an exention on the filename
     for each concern so the model can see what images are attached to which concern.'''
@@ -72,71 +64,87 @@ def upload_images_to_s3(filename, path):
     k.key = 'test/'+filename
     k.set_contents_from_filename(path_file)
 
+def create_baskets(products, concerns):
+    '''creating a basket of products in which product totals for each concern is greater than .9'''
+    moisturizers = [result for result in products if result['category'] == 'moisturizer']
+    serums = [result for result in products if result['category'] == 'serum']
+    cleansers = [result for result in products if result['category'] == 'cleanser']
+
+    combinations =  list(itertools.product(moisturizers, serums, cleansers))
+    basket_dictionary = {}
+
+    '''scales to any number of concerns the user chooses. Adds up total for each concern for each basket
+        and appends to final list that comtains each basket as an element'''
+    combo_idx = 0
+    basket_count = 0
+    for combination in combinations:
+        basket_concerns={}
+        for concern in concerns:
+            concern_total = (combination[0][concern] + combination[1][concern] + 
+                            combination[2][concern])
+            basket_concerns[concern] = concern_total
+        if all(i >= .9 for i in basket_concerns.values()):
+            temp_basket = {}
+            temp_basket['products'] = combinations[combo_idx]
+            temp_basket['basket_concerns'] = basket_concerns
+
+            basket_dictionary[basket_count] = temp_basket
+            basket_count += 1
+        combo_idx += 1
+        print('basket dictionary = ',basket_dictionary)
+    return(basket_dictionary, moisturizers, serums, cleansers)
+    
+
 
 @app.route('/')
 def index():
     return render_template('spa.html')
 
-@app.route('/uploader', methods = ['GET', 'POST'])
+@app.route('/uploader', methods = ['GET','POST'])
 def upload_file():
     if request.method == 'POST':
         for f in request.files:
             file = request.files[f]
             filename = secure_filename(file.filename)
-
+            print('filename')
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     return render_template('spa.html')
 
 @app.route('/questions', methods = ['GET','POST'])
 def inputquestions():
-    questions = {1:'',2:'',3:''}
-    checks = request.form.getlist('questions')
+    day_routine = request.form.getlist('day-routine')
+    night_routine = request.form.getlist('night-routine')
+    age = request.form.get('age')
+    skintone = request.form.get('ethnicity-img')
 
-    for i in range(len(checks)):
-        questions[i+1]=checks[i]
+    print(day_routine,night_routine,age,skintone)
 
-    return render_template('spa.html')
+    return (render_template('spa.html'))
 
-# @app.route('/ethnicity', methods=['GET','POST'])
-# def ethnicity():
-
-#     option = request.form['ethnicity']
-
-#     return render_template('starter_skin.html')
-
-
-@app.route("/results")
+@app.route("/results", methods=['GET','POST'])
 def results2():
-    concerns = get_concerns()
+    concerns = request.form.getlist('concern')
     update_csv(concerns)
 
- #   concerns = list(filter((lambda x: request.args.get(x)), concern_list))
-    budget = request.args.get('budget')
+    budget = request.form.get('budget')
     products = data_model.get_recommendations(budget, concerns)
-    results = {
-        'concerns':concerns,
-        'budget':budget,
-        'products':products
-    }
-    return render_template('spa.html', results=results)
+    baskets, moisturizers, serums, cleansers = create_baskets(products, concerns)
 
-
-
-@app.route("/results3")
-def results3():
-    concern_list = ['dry','oily','combination','skintone','eyes','antiaging','psoriasis','rosacea','sunscreen',
-                'night','pores','sensitive']
-    concerns = list(filter((lambda x: request.args.get(x)), concern_list))
-    budget = request.args.get('budget')
-
-    products = data_model.get_recommendations(budget, concerns)
     results = {
         'concerns':concerns,
         'budget':budget,
         'products':products
     }
 
-    return render_template('results.html', results=results)
+    return render_template('spa_results.html', results=results, baskets=baskets, 
+                            moisturizers=moisturizers,serums=serums,cleansers=cleansers)
+
+@app.route("/moisturizers", methods=['GET'])
+def get_category_results():
+    moisturizers = request.args.get('moisturizers')
+    concerns = request.args.get('concerns')
+    return render_template('moisturizers.html', moisturizers=moisturizers, concerns=concerns)
+
 
 
 if __name__ == '__main__':

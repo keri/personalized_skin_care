@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<!-- Title -->
-	<title>Razzbeauty</title>
+	<title>Razzbeauty Results</title>
 	
 	<!-- Required Meta Tags Always Come First -->
 	<meta charset="utf-8">
@@ -28,6 +28,8 @@
 	
 	<!-- CSS Template -->
 	<link rel="stylesheet" href="static/spa_assets/css/styles.op-spa.css">
+    <link rel="stylesheet" href="static/spa_assets/css/styles.e-commerce.css">
+
 	
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
@@ -59,29 +61,29 @@
 					<div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
 						<ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-11 g-pt-20 g-pt-0--lg ml-auto">
 							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg active">
-								<a href="#home" class="nav-link p-0">Home
+								<a href="templates/spa.html" class="nav-link p-0">Home
 									<span class="sr-only">(current)</span>
 								</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="#about" class="nav-link p-0">About</a>
+								<a href="/spa.html#about" class="nav-link p-0">About</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="#getstarted" class="nav-link p-0">Get Started</a>
+								<a href="#results" class="nav-link p-0">Results</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="#questionnaire" class="nav-link p-0">Questionnaire</a>
+								<a href="#baskets" class="nav-link p-0">Baskets</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="#login" class="nav-link p-0">Log In</a>
+								<a href="templates/spa.html#areas-of-concern" class="nav-link p-0">Search Again</a>
 							</li>
 
 							<li class="nav-item g-ml-12--lg">
-								<a href="#contact" class="nav-link p-0">Contact</a>
+								<a href="spa.html#contact" class="nav-link p-0">Contact</a>
 							</li>
 						</ul>
 					</div>
@@ -107,547 +109,129 @@
 	</header>
 	<!-- End Header -->
 	
-	<!-- Section Content -->
-	<section id="home" class="u-bg-overlay g-height-100vh g-min-height-600 g-bg-img-hero g-bg-black-opacity-0_3--after" style="background-image: url(static/spa_assets/img-temp/2100x1416/img1.jpg);">
-		<div class="u-bg-overlay__inner g-absolute-centered--y w-100">
-			<div class="container text-center g-max-width-750">
-				<h3 class="d-inline-block text-uppercase g-font-weight-700 g-font-size-22 g-color-white g-brd-bottom g-brd-3 g-brd-primary g-mb-10">Personalized Skin Care Recommendations Based - Because One Size Doesn't Fit All</h3>
+	<!--Section Results -->
+	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
+	  <form action = "/baskets" method = "GET" >
+		<div class="container-fluid px-0 text-center">
+			<h4 class="text-uppercase g-font-weight-700 g-font-size-22 mb-0">Recommended Products</h4>
 
-				<a class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" href="/questions">Get Started</a>
-			</div>
-		</div>
-	</section>
-	<!-- End Section Content -->
-	
-	<!-- Section Content -->
-	<section id="getstarted" class="g-theme-bg-gray-light-v1 g-py-80">
-		<form action = "/uploader#questionnaire" method = "POST" 
-			 enctype = "multipart/form-data">
-			<div class="container-fluid px-0 text-center">
-					<h4 class="g-font-weight-700 g-font-size-35 g-theme-h-v1 g-color-primary g-mb-25">Enter Images of Yourself</h4>
-				<div class="row no-gutters">
-					<div class="col-md-6 g-bg-img-hero g-min-height-400" style="background-image: url(static/spa_assets/img-temp/1200x781/img1.jpg);"></div>
-					
-					<div class="col-md-6 d-flex align-items-center text-center g-pa-50">
-						<div class="w-100">
-							<div class="g-mb-25">
-								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Face Close Up</h2>
-							</div>
-							
-							<p class="g-mb-35">Whole face in frame - bangs out of the way</p>
-							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file1" />
+				<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0"><br> Based on Your Concerns:
+					{% for concern in results.concerns %}
+			 		{{concern}} 
+			 		<br>
+			 		{% endfor %} 
+			 	</h2>
 
-						</div>
-					</div>
-				</div>
-				<div class="row no-gutters">
-					<div class="col-md-6 g-bg-img-hero g-min-height-400" style="background-image: url(static/spa_assets/img-temp/1200x781/img1.jpg);"></div>
-					
-					<div class="col-md-6 d-flex align-items-center text-center g-pa-50">
-						<div class="w-100">
-							<div class="g-mb-25">
-								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Forehead</h2>
-							</div>
-							
-							<p class="g-mb-35">Forehead - bangs out of the way</p>
-							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file2" />
+	{% for basket in baskets.popitem()  %}
+		<div class="row g-mx-minus-10 g-mb-50">
+			{% for product in basket.products %}
 
-						</div>
-					</div>
-				</div>
-				<div class="row no-gutters">
-					<div class="col-md-6 g-bg-img-hero g-min-height-400" style="background-image: url(static/spa_assets/img-temp/1200x781/img1.jpg);"></div>
-					
-					<div class="col-md-6 d-flex align-items-center text-center g-pa-50">
-						<div class="w-100">
-							<div class="g-mb-25">
-								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Mouth Area</h2>
-							</div>
-							
-							<p class="g-mb-35">Mouth and Chin</p>
-							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file3" />
+          <div class="col-md-6 col-lg-4 g-px-10">
+            <!-- Article -->
+            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+              <!-- Article Image -->
+          			<div class="g-max-width-100 g-mr-15">
 
-						</div>
-					</div>
-				</div>
-				<div class="row no-gutters">
-					<div class="col-md-6 g-bg-img-hero g-min-height-400" style="background-image: url(static/spa_assets/img-temp/1200x781/img1.jpg);"></div>
-					
-					<div class="col-md-6 d-flex align-items-center text-center g-pa-50">
-						<div class="w-100">
-							<div class="g-mb-25">
-								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Cheek</h2>
-							</div>
-							
-							<p class="g-mb-35">Cheek Close Up</p>
-							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file4" />
+          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">
+							<img class="w-100" src="{{product.imageurl}}" alt="Image description">
+						</a>
+          			</div>
+              <!-- End Article Image -->
 
-						</div>
-					</div>
-				</div>
-			</div>
-			<br>
-			<br>
-		<div class="container-fluid px-4 text-center">
-				<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit"/>
+              <!-- Article Info -->
+             
+              <div class="media-body align-self-center">
+                <h4 class="h5 g-mb-7">
+                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.title}}</a>
+                </h4>
+                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.category}}</a>
+
+                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
+
+
+                <!-- End Article Info -->
+
+              </div>
+            </article>
+            <!-- End Article -->
+          </div>
+          {% endfor %}
+        </div>
+	<div class="row g-mx-minus-10 g-mb-50">
+		<div class="col-12">
+
+	    {% for concern_total in basket.basket_concerns %}
+	    {{concern_total}}
+		<div class="concern_bar">
+		  	<div class="concern">
+			  	<div class="progress">
+			  		<div class="progress-bar" style="width: {{basket.basket_concerns[concern_total]*100}}%"></div>
+			  	</div>
+			  	<br>
+			</div> 
 		</div>
 
-	 </form>
-   </section>
-	<!-- End Section Content -->
-	
-	<!-- Section Questionnaire Content -->
-	<section id="questionnaire" class="g-theme-bg-gray-light-v1 g-py-80">
-		<form action="/questions#areas-of-concern" method="POST" >
-			<div class="container-fluid px-0 text-center">
-					<h4 class="g-font-weight-700 g-font-size-35 g-theme-h-v1 g-color-primary g-mb-25">Tell Us About Yourself</h4>
-					<br>
-				<div class="row no-gutters">
-					<div class="col-md-4 d-flex text-md-left g-pa-50">
-						<div class="w-100">
-							<div class="g-mb-25">
-
-							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How much time do you Spend on Your Morning Routine</h2>
-							  <br>
-								<div class="col-sm">
-									<input class="form-check-input" type="radio" name="day-routine" id="day-0"
-									value="0">
-									   <label class="form-check-label" for="day-0">
-									  No Time
-									   </label>
-								</div>
-
-								<div class="col-sm">
-									<input class="form-check-input" type="radio" name="day-routine" id="day-5"
-									value="5">
-									   <label class="form-check-label" for="day-5">
-									  Less Than 5 Minutes
-									   </label>
-								</div>
-
-								<div class="col-sm">
-									<input class="form-check-input" type="radio" name="day-routine" id="day-10"
-									  value="10">
-										<label class="form-check-label" for="day-10">
-										  5 - 10 Minutes
-										</label>
-								</div>
-
-								<div class="col-sm">
-									<input class="form-check-input" type="radio" name="day-routine" id="day-15"
-									  value="15">
-										<label class="form-check-label" for="day-15">
-										  10 - 15 Minutes
-										</label>
-								</div>
-
-								<div class="col-sm">
-									<input class="form-check-input" type="radio" name="day-routine" id="day-20"
-									  value="20">
-										<label class="form-check-label" for="day-20">
-										  At least 15 Minutes
-										</label>
-								</div>
-
-							  </div>
-							</div> 
-					</div>
-
-					<div class="col-md-4 d-flex text-md-left g-pa-50">
-						 <div class="w-100">
-							<div class="g-mb-25">
-							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How Much Time do you Spend on Your Night Routine</h2>
-							  <br>
-
-								<div class="col-sm">
-								  <input class="form-check-input" type="radio" name="night-routine" id="night-0"
-								  value="0">
-									<label class="form-check-label" for="night-0">
-									  No Time
-									</label>
-								</div>
-
-								<div class="col-sm">
-								  <input class="form-check-input" type="radio" name="night-routine" id="night-5"
-								  value="5">
-									<label class="form-check-label" for="night-5">
-									  Less Than 5 Minutes
-									</label>
-								</div>
-
-								<div class="col-sm">
-								   <input class="form-check-input" type="radio" name="night-routine" id="night-10"
-									  value="10">
-									<label class="form-check-label" for="night-10">
-									   5 - 10 Minutes
-									</label>
-								</div>
-
-								<div class="col-sm">
-									<input class="form-check-input" type="radio" name="night-routine" id="night-15"
-										value="15">
-									  <label class="form-check-label" for="night-15">
-										10 - 15 Minutes
-									  </label>
-								</div>
-
-								<div class="col-sm">
-									<input class="form-check-input" type="radio" name="night-routine" id="night-20"
-									 value="20">
-									  <label class="form-check-label" for="night-20">
-										At least 15 Minutes
-									  </label>
-								</div>
-							 </div>
-						 </div>
-					</div>
-
-					<div class="col-md-4 d-flex text-md-left g-pa-50">
-						 <div class="w-100">
-							<div class="g-mb-25">
-							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How old are you?</h2>
-							  <br>
-							<div class="col-sm">
-								 <input class="form-check-input" type="radio" name="age" 
-									id="20" value="20">
-									<label class="form-check-label" for="20">
-								   under 20 
-									</label>
-							</div>
-
-							<div class="col-sm">
-								 <input class="form-check-input" type="radio" name="age" 
-									id="25" value="25">
-									<label class="form-check-label" for="25">
-								   20-25
-									</label>
-							</div>
-
-							<div class="col-sm">
-							  <input class="form-check-input" type="radio" name="age" 
-								id="30" value="30">
-								<label class="form-check-label" for="30">
-								26-30
-								</label>
-							</div>
-
-							<div class="col-sm">
-							  <input class="form-check-input" type="radio" name="age" 
-							  id="35" value="35">
-								<label class="form-check-label" for="35">
-							   31-35
-								</label>
-							</div>
-
-							 <div class="col-sm">
-							   <input class="form-check-input" type="radio" name="age" 
-							   id="40" value="40">
-								  <label class="form-check-label" for="40">
-								  36-40
-								  </label>
-							  </div>
-
-							  <div class="col-sm">
-								 <input class="form-check-input" type="radio" name="age" 
-								 id="45" value="45">
-									<label class="form-check-label" for="45">
-									41-45
-									</label>
-							  </div>
-
-							  <div class="col-sm">
-								 <input class="form-check-input" type="radio" name="age" 
-								 id="50" value="50">
-									<label class="form-check-label" for="50">
-									46-50
-									</label>
-							  </div>
-
-							  <div class="col-sm">
-								 <input class="form-check-input" type="radio" name="age" 
-								 id="55" value="55">
-									<label class="form-check-label" for="55">
-									51-55
-									</label>
-							  </div>
-
-							  <div class="col-sm">
-								 <input class="form-check-input" type="radio" name="age" 
-								 id="60" value="60">
-									<label class="form-check-label" for="60">
-									56-60
-									</label>
-							  </div> 
-
-							  <div class="col-sm">
-								 <input class="form-check-input" type="radio" name="age" 
-								 id="65" value="65">
-									<label class="form-check-label" for="65">
-									61-65
-									</label>
-							  </div> 
-
-							  <div class="col-sm">
-								 <input class="form-check-input" type="radio" name="age" 
-								 id="70" value="70">
-									<label class="form-check-label" for="70">
-									65+
-									</label>
-							  </div> 
-							</div>
-						 </div>
-					  </div>
-				   </div>
-
-	<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">What is the closest match to your skin tone?</h2>
-	<br>
-
-				<div class="row no-gutters">
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "pale">
-							<img src="static/spa_assets/img/skintone/pale.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="pale" value="pale">
-					</div>
-
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "fair">
-							<img src="static/spa_assets/img/skintone/fair.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="fair" 
-						value="fair">
-					</div>
-
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "lt_brown">
-							<img src="static/spa_assets/img/skintone/lt_brown.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="lt_brown" 
-						value="lt_brown">
-					</div>
-
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "caramel">
-							<img src="static/spa_assets/img/skintone/caramel.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="caramel" 
-						value="caramel">
-					</div>
-
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "bronze">
-							<img src="static/spa_assets/img/skintone/bronze.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="bronze" 
-						value="bronze">
-					</div>
-
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "mahoganey">
-							<img src="static/spa_assets/img/skintone/mahoganey.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="mahoganey" 
-						value="mahoganey">
-					</div>
-				</div>	
-				<br>
-				<br>
-			<div class="container-fluid px-4 text-center">
-					<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit"/>
-			</div>
+		{% endfor %}
 		</div>
-	 </form>
-   </section>
+	</div>
+      {% endfor %}
+    </div>
+   </form>
+ </section>
 
- <!-- Section Area of Concern Content -->
-	<section id="areas-of-concern" class="g-theme-bg-gray-light-v1 g-py-80">
-	  <form action = "/results" method="POST" >
-		 <div class="container-fluid px-0 text-center">
-			<h4 class="g-font-weight-700 g-font-size-35 g-theme-h-v1 g-color-primary g-mb-25">What Are Your Areas Of Concern</h4>
-				<div class="row no-gutters">
-				  <div class="col-md-3 d-flex text-md-left g-pa-50">
-					<div class="w-100">
-					  <div class="g-mb-25">
+    <!-- Categories -->
+ <section id="categories" class="g-theme-bg-gray-light-v2 g-py-80">
+      <div class="container g-pt-100 g-pb-70">
+        <div class="row g-mx-minus-10">
+          <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
+            <article class="u-block-hover">
 
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="antiaging" value="antiaging">
-								<label class="form-check-label" for="antiaging">
-									Antiaging
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="night" value="night">
-								<label class="form-check-label" for="night">
-									Night Cream
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="sunscreen" value="sunscreen">
-								<label class="form-check-label" for="sunscreen">
-									Sun Screen
-								</label>
-							</div>
-						</div>
-					  </div>
-					</div>
+   	           <div class="g-pos-abs g-bottom-30 g-left-30">
+    	            <span class="d-block g-color-black">Collections</span>
+               		 <h2 class="h1 mb-0">Moisturizers</h2>
+               </div>
 
-					<div class="col-md-3 d-flex text-md-left g-pa-50">
-					  <div class="w-100">
-						<div class="g-mb-25">
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="oily" value="oily">
-								<label class="form-check-label" for="oily">
-									Oily
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="dry" value="dry">
-								<label class="form-check-label" for="dry">
-									Dry
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="combination" value="combination">
-								<label class="form-check-label" for="combination">
-									Combination
-								</label>
-							</div>
-						</div>
-					  </div>
-					</div>
+              <form action = "/moisturizers">
+              	<input type="hidden" name="moisturizers" value = "{{moisturizers, results}}"/>
+              	<input type="image" src="static/spa_assets/img-temp/650x850/img1.jpg" alt="Submit Form" />
+              </form>
 
-					<div class="col-md-3 d-flex text-md-left g-pa-50">
-					  <div class="w-100">
-						<div class="g-mb-25">
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="skintone" value="skintone">
-								<label class="form-check-label" for="skintone">
-									Skintone
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="rosacea" value="skintone">
-								<label class="form-check-label" for="rosacea">
-									Rosacea
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" id="pores" value="pores">
-								<label class="form-check-label" for="pores">
-									Poresize
-								</label>
-							</div>
-						</div>
-					  </div>
-					</div>
+            </article>
+          </div>
 
-					<div class="col-md-3 d-flex text-md-left g-pa-50">
-					  <div class="w-100">
-						<div class="g-mb-25">
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="psoriasis" 
-								 id="psoriasis" value="psoriasis">
-								<label class="form-check-label" for="psoriasis">
-									Psoriasis
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="sensitive" 
-								 id="sensitive" value="sensitive">
-								<label class="form-check-label" for="sensitive">
-									Sensitive
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="eyes" id="eyes" value="eyes">
-								<label class="form-check-label" for="eyes">
-									Eye Area
-								</label>
-							</div>
-						</div>
-					  </div>
-					</div>
+          <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
+            <article class="u-block-hover">
+              <img class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8" src="static/spa_assets/img-temp/650x850/img2.jpg" alt="Image Description">
+              <div class="g-pos-abs g-bottom-30 g-left-30">
+                <span class="d-block g-color-black">Collections</span>
+                <h2 class="h1 mb-0">Moisturizers</h2>
+              </div>
+                 <form action = "/categories">
+              		<input type="hidden" name="moisturizers" value="{{moisturizers}}, {{baskets.concerns}}"/>
+              		<input type="image" src="static/spa_assets/img-temp/650x850/img1.jpg" alt="Submit Form" />
+              	</form>
+            </article>
+          </div>
 
-				  </div>
-				
-					  <div class="form-group">
-						<label for="budget">Budget</label>
-						<select class="form-control" id="budget"  name="budget">
-						  <option value="10">under $20</option>
-						  <option value="15">$20 - $50</option>
-						  <option value="20" selected="selected">$50 - $75</option>
-						  <option value="25">$75 - $125</option>
-						  <option value="30">over $125</option>
-						</select>
-					  </div>
-
-			<div class="container-fluid px-4 text-center">
-					<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit"/>
-		</div>
-	  </form>
-	</section>
+          <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
+            <article class="u-block-hover">
+              <img class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8" src="static/spa_assets/img-temp/650x850/img3.jpg" alt="Image Description">
+              <div class="g-pos-abs g-bottom-30 g-left-30">
+                <span class="d-block g-color-black">Collections</span>
+                <h2 class="h1 mb-0">Cleansers</h2>
+              </div>
+              <a class="u-link-v2" href="cleansers.html"></a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+ </section>
+      <!-- End Categories -->
 
 	
 	<!-- Section Content -->
-	<section id="ourProcedures">
-		<div class="container-fluid px-0">
-			<div class="row no-gutters">
-				<div class="col-md-6 d-flex align-items-center text-center g-pa-50">
-					<div class="w-100">
-						<h3 class="text-uppercase g-font-weight-700 g-font-size-18 g-mb-25">Body care</h3>
-						<p class="g-mb-35">Morbi massa justo, gravida sollicitudin tortor vel, dignissim viverra lectus. In varius blandit condimentum. Pellentesque rutrum mauris ornare libero.</p>
-						<a class="btn btn-md text-uppercase u-btn-outline-primary g-font-weight-700 g-font-size-11 g-brd-2 rounded-0 g-py-10 g-px-25" href="#!">View more</a>
-					</div>
-				</div>
-				
-				<div class="col-md-6 g-bg-img-hero g-min-height-300" style="background-image: url(static/spa_assets/img-temp/800x457/img1.jpg);"></div>
-			</div>
-			
-			<div class="row no-gutters">
-				<div class="col-md-6 d-flex align-items-center text-center g-order-2--sm g-pa-50">
-					<div class="w-100">
-						<h3 class="text-uppercase g-font-weight-700 g-font-size-18 g-mb-25">Body Face</h3>
-						<p class="g-mb-35">Morbi massa justo, gravida sollicitudin tortor vel, dignissim viverra lectus. In varius blandit condimentum. Pellentesque rutrum mauris ornare libero.</p>
-						<a class="btn btn-md text-uppercase u-btn-outline-primary g-font-weight-700 g-font-size-11 g-brd-2 rounded-0 g-py-10 g-px-25" href="#!">View more</a>
-					</div>
-				</div>
-				
-				<div class="col-md-6 g-order-1--sm g-bg-img-hero g-min-height-300" style="background-image: url(static/spa_assets/img-temp/800x457/img2.jpg);"></div>
-			</div>
-			
-			<div class="row no-gutters">
-				<div class="col-md-6 d-flex align-items-center text-center g-pa-50">
-					<div class="w-100">
-						<h3 class="text-uppercase g-font-weight-700 g-font-size-18 g-mb-25">Foot care</h3>
-						<p class="g-mb-35">Morbi massa justo, gravida sollicitudin tortor vel, dignissim viverra lectus. In varius blandit condimentum. Pellentesque rutrum mauris ornare libero.</p>
-						<a class="btn btn-md text-uppercase u-btn-outline-primary g-font-weight-700 g-font-size-11 g-brd-2 rounded-0 g-py-10 g-px-25" href="#!">View more</a>
-					</div>
-				</div>
-				
-				<div class="col-md-6 g-bg-img-hero g-min-height-300" style="background-image: url(static/spa_assets/img-temp/800x457/img3.jpg);"></div>
-			</div>
-			
-			<div class="row no-gutters">
-				<div class="col-md-6 d-flex align-items-center text-center g-order-2--sm g-pa-50">
-					<div class="w-100">
-						<h3 class="text-uppercase g-font-weight-700 g-font-size-18 g-mb-25">Nails care</h3>
-						<p class="g-mb-35">Morbi massa justo, gravida sollicitudin tortor vel, dignissim viverra lectus. In varius blandit condimentum. Pellentesque rutrum mauris ornare libero.</p>
-						<a class="btn btn-md text-uppercase u-btn-outline-primary g-font-weight-700 g-font-size-11 g-brd-2 rounded-0 g-py-10 g-px-25" href="#!">View more</a>
-					</div>
-				</div>
-				
-				<div class="col-md-6 g-order-1--sm g-bg-img-hero g-min-height-300" style="background-image: url(static/spa_assets/img-temp/800x457/img4.jpg);"></div>
-			</div>
-		</div>
-	</section>
+
 	<!-- End Section Content -->
 	
 	<!-- Section Content -->
