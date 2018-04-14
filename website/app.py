@@ -10,6 +10,7 @@ import boto.s3.connection
 from boto.s3.key import Key
 import itertools
 import random
+import ast
 
 #from baskets import Baskets
 import json
@@ -91,10 +92,7 @@ def create_baskets(products, concerns):
             basket_dictionary[basket_count] = temp_basket
             basket_count += 1
         combo_idx += 1
-        print('basket dictionary = ',basket_dictionary)
     return(basket_dictionary, moisturizers, serums, cleansers)
-    
-
 
 @app.route('/')
 def index():
@@ -116,9 +114,6 @@ def inputquestions():
     night_routine = request.form.getlist('night-routine')
     age = request.form.get('age')
     skintone = request.form.get('ethnicity-img')
-
-    print(day_routine,night_routine,age,skintone)
-
     return (render_template('spa.html'))
 
 @app.route("/results", methods=['GET','POST'])
@@ -139,11 +134,26 @@ def results2():
     return render_template('spa_results.html', results=results, baskets=baskets, 
                             moisturizers=moisturizers,serums=serums,cleansers=cleansers)
 
-@app.route("/moisturizers", methods=['GET'])
-def get_category_results():
-    moisturizers = request.args.get('moisturizers')
-    concerns = request.args.get('concerns')
-    return render_template('moisturizers.html', moisturizers=moisturizers, concerns=concerns)
+@app.route("/moisturizers", methods=['POST'])
+def moisturizer_results():
+    moisturizers = request.form.get('moisturizers')
+    concerns = request.form.get('concerns')
+    return render_template('moisturizers.html', moisturizers=ast.literal_eval(moisturizers), 
+                            concerns=ast.literal_eval(concerns))
+
+@app.route("/serums", methods=["POST"])
+def serum_results():
+    serums = request.form.get('serums')
+    concerns = request.form.get('concerns')
+    return render_template('serums.html', serums=ast.literal_eval(serums), 
+                            concerns=ast.literal_eval(concerns))
+
+@app.route("/cleansers", methods=["POST"])
+def cleanser_results():
+    cleansers = request.form.get('cleansers')
+    concerns = request.form.get('concerns')
+    return render_template('cleansers.html', cleansers=ast.literal_eval(cleansers), 
+                            concerns=ast.literal_eval(concerns))
 
 
 
