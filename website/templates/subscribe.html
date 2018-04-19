@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<!-- Title -->
-	<title>Moisturizers</title>
+	<title>Subscribe</title>
 	
 	<!-- Required Meta Tags Always Come First -->
 	<meta charset="utf-8">
@@ -23,13 +23,9 @@
 	
 	<!-- CSS Implementing Plugins -->
 	<link rel="stylesheet" href="static/spa_assets/vendor/hamburgers/hamburgers.min.css">
-	<link rel="stylesheet" href="static/spa_assets/vendor/slick-carousel/slick/slick.css">
-	<link rel="stylesheet" href="static/spa_assets/vendor/cubeportfolio-full/cubeportfolio/css/cubeportfolio.min.css">
 	
 	<!-- CSS Template -->
 	<link rel="stylesheet" href="static/spa_assets/css/styles.op-spa.css">
-    <link rel="stylesheet" href="static/spa_assets/css/styles.e-commerce.css">
-
 	
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
@@ -71,15 +67,15 @@
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">Results</a>
+								<a href="/#getstarted" class="nav-link p-0">Get Started</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">Baskets</a>
+								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/areas-of-concern" class="nav-link p-0">Search Again</a>
+								<a href="#subscribe" class="nav-link p-0">Subscribe</a>
 							</li>
 
 							<li class="nav-item g-ml-12--lg">
@@ -108,72 +104,41 @@
 		</div>
 	</header>
 	<!-- End Header -->
-	
-	<!--Section Results -->
-	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
-	  <form action = "/baskets" method = "GET" >
-		<div class="container-fluid px-0 text-center">
+		
+	<section id="subscribe" class="g-py-100">
+		<form action='/subscribe' method="POST">
 
-			<div class="row g-mx-minus-10 g-mb-50">
-			{% for product in moisturizers %}
-
-	          <div class="col-md-6 col-lg-4 g-px-10">
-	            <!-- Article -->
-	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
-	              <!-- Article Image -->
-	          			<div class="g-max-width-100 g-mr-15">
-
-	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">
-								<img class="w-100" src="{{product.imageurl}}" alt="Image description">
-							</a>
-	          			</div>
-	              <!-- End Article Image -->
-
-	              <!-- Article Info -->
-	              <div class="media-body align-self-center">
-	                <h4 class="h5 g-mb-7">
-	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.title}}</a>
-	                </h4>
-	                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.category}}</a>
-	                 	<br>
-	                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
-
-
-	                {% for concern in concerns %}
-	        		<div class="concern_bar">
-					  	<div class="concern">
-							{{concern}}
-						  	<div class="progress">
-							  	<div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
-						  	</div>
-						  	<br>
-						</div> 
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 text-center">
+						<img class="img-fluid" src="static/spa_assets/img-temp/582x356/img1.jpg" alt="Image description">
 					</div>
-					{% endfor %}
+					
+					<div class="col-lg-6 d-flex align-items-center g-pt-50 g-pl-50--lg">
+						<div class="w-100">
+							<div class="g-mb-25">
+								<h4 class="g-font-weight-700 g-font-size-20 g-theme-h-v1 g-color-primary g-mb-25">Subscribe</h4>
+								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Stay Informed</h2>
+							</div>
+							
+								<div class="input-group rounded-0">
+									<input class="form-control g-theme-bg-gray-light-v1 g-brd-none g-py-14 g-px-12" type="email" placeholder="email" id="email" name="email">
+									
+									<div class="input-group-btn">
 
-                <!-- End Article Info -->
+										<button class="btn btn-md h-100 text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-12 g-px-25" type="submit">Subscribe</button>
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
 
-                <!-- Article Footer -->
-                <footer class="d-flex justify-content-between g-font-size-16">
-     
-                </footer>
-                <!-- End Article Footer -->
-              </div>
-            </article>
-            <!-- End Article -->
-          </div>
-          {% endfor %}
-
-        </div>
-     </div>
-   </form>
- </section>
-
-	
+	</section>
 	
 	<!-- Footer -->
 	<footer>
-		
 		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
 			<a class="d-inline-block g-mb-25" href="/"> <img src="" alt="Logo"> </a>
 			
@@ -204,15 +169,15 @@
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Get Started</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#getstarted">Get Started</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/questionnaire">Questionnaire</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#questionnaire">Questionnaire</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/contact">Contact</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#contact">Contact</a>
 				</li>
 			</ul>
 		</div>
@@ -248,9 +213,6 @@
 <script src="static/spa_assets/js/helpers/hs.hamburgers.js"></script>
 <script src="static/spa_assets/js/components/hs.scroll-nav.js"></script>
 <script src="static/spa_assets/js/components/hs.rating.js"></script>
-<script src="static/spa_assets/js/components/hs.carousel.js"></script>
-<script src="static/spa_assets/js/components/hs.cubeportfolio.js"></script>
-<script src="static/spa_assets/js/components/gmap/hs.map.js"></script>
 <script src="static/spa_assets/js/components/hs.go-to.js"></script>
 
 <!-- JS Customization -->
@@ -259,13 +221,8 @@
 <!-- JS Plugins Init. -->
 <script>
   // initialization of google map
-  function initMap() {
-	$.HSCore.components.HSGMap.init('.js-g-map');
-  }
 
   $(document).on('ready', function () {
-	// initialization of carousel
-	$.HSCore.components.HSCarousel.init('.js-carousel');
 
 	// initialization of header
 	$.HSCore.components.HSHeader.init($('#js-header'));
@@ -286,8 +243,6 @@
 	  duration: 700
 	});
 
-	// initialization of cubeportfolio
-	$.HSCore.components.HSCubeportfolio.init('.cbp');
   });
 </script>
 

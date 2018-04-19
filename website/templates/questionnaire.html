@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Title -->
+	<title>Upload Images</title>
+	
+	<!-- Required Meta Tags Always Come First -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="../../favicon.ico">
+	
+	<!-- Google Fonts -->
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600%2C700%2C800%7CLeckerli+One%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
+	
+	<!-- CSS Global Compulsory -->
+	<link rel="stylesheet" href="static/spa_assets/vendor/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="static/spa_assets/vendor/icon-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/spa_assets/vendor/icon-hs/style.css">
+	<link rel="stylesheet" href="static/spa_assets/vendor/icon-line/css/simple-line-icons.css">
+	
+	<!-- CSS Implementing Plugins -->
+	<link rel="stylesheet" href="static/spa_assets/vendor/hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" href="static/spa_assets/vendor/slick-carousel/slick/slick.css">
+	<link rel="stylesheet" href="static/spa_assets/vendor/cubeportfolio-full/cubeportfolio/css/cubeportfolio.min.css">
+	
+	<!-- CSS Template -->
+	<link rel="stylesheet" href="static/spa_assets/css/styles.op-spa.css">
+	
+	<!-- CSS Customization -->
+	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
+</head>
+
+<body>
+<main>
+	<!-- Header -->
+	<header id="js-header" class="u-header u-header--sticky-top u-header--change-appearance g-z-index-9999"
+			data-header-fix-moment="100">
+		<div class="light-theme u-header__section g-transition-0_3 g-py-6 g-py-14--md"
+			 data-header-fix-moment-exclude="light-theme g-py-14--md"
+			 data-header-fix-moment-classes="dark-theme u-shadow-v27 g-bg-white g-py-11--md">
+			<nav class="navbar navbar-expand-lg g-py-0">
+				<div class="container g-pos-rel">
+					<!-- Logo -->
+					<a href="#!" class="js-go-to navbar-brand u-header__logo"
+					   data-type="static">
+						<img class="u-header__logo-img u-header__logo-img--main d-block g-width-60" src="static/spa_assets/img/Capture.png" alt="Image description"
+							 data-header-fix-moment-exclude="d-block"
+							 data-header-fix-moment-classes="d-none">
+						
+						<img class="u-header__logo-img u-header__logo-img--main d-none g-width-60" src="static/spa_assets/img/Capture.png" alt="Image description"
+							 data-header-fix-moment-exclude="d-none"
+							 data-header-fix-moment-classes="d-block"> </a>
+					<!-- End Logo -->
+					
+					<!-- Navigation -->
+					<div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
+						<ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-11 g-pt-20 g-pt-0--lg ml-auto">
+							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg active">
+								<a href="#home" class="nav-link p-0">Home
+									<span class="sr-only">(current)</span>
+								</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/about" class="nav-link p-0">About</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="#getstarted" class="nav-link p-0">Get Started</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="#questionnaire" class="nav-link p-0">Questionnaire</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
+							</li>
+
+							<li class="nav-item g-ml-12--lg">
+								<a href="#contact" class="nav-link p-0">Contact</a>
+							</li>
+						</ul>
+					</div>
+					<!-- End Navigation -->
+					
+					<!-- Responsive Toggle Button -->
+					<button class="navbar-toggler btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-20 g-right-0" type="button"
+							aria-label="Toggle navigation"
+							aria-expanded="false"
+							aria-controls="navBar"
+							data-toggle="collapse"
+							data-target="#navBar">
+				<span class="hamburger hamburger--slider">
+				  <span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				  </span>
+				</span>
+					</button>
+					<!-- End Responsive Toggle Button -->
+				</div>
+			</nav>
+		</div>
+	</header>
+	<!-- End Header -->
+		
+	<!-- Section Questionnaire Content -->
+	<section id="questionnaire" class="g-theme-bg-gray-light-v1 g-py-80">
+		<form action="/questions" method="POST" >
+			<div class="container-fluid px-0 text-center">
+					<h4 class="g-font-weight-700 g-font-size-35 g-theme-h-v1 g-color-primary g-mb-25">Tell Us About Yourself</h4>
+					<br>
+				<div class="row no-gutters">
+					<div class="col-md-4 d-flex text-md-left g-pa-50">
+						<div class="w-100">
+							<div class="g-mb-25">
+
+							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How much time do you Spend on Your Morning Routine</h2>
+							  <br>
+								<div class="col-sm">
+									<input class="form-check-input" type="radio" name="day-routine" id="day-0"
+									value="0">
+									   <label class="form-check-label" for="day-0">
+									  No Time
+									   </label>
+								</div>
+
+								<div class="col-sm">
+									<input class="form-check-input" type="radio" name="day-routine" id="day-5"
+									value="5">
+									   <label class="form-check-label" for="day-5">
+									  Less Than 5 Minutes
+									   </label>
+								</div>
+
+								<div class="col-sm">
+									<input class="form-check-input" type="radio" name="day-routine" id="day-10"
+									  value="10">
+										<label class="form-check-label" for="day-10">
+										  5 - 10 Minutes
+										</label>
+								</div>
+
+								<div class="col-sm">
+									<input class="form-check-input" type="radio" name="day-routine" id="day-15"
+									  value="15">
+										<label class="form-check-label" for="day-15">
+										  10 - 15 Minutes
+										</label>
+								</div>
+
+								<div class="col-sm">
+									<input class="form-check-input" type="radio" name="day-routine" id="day-20"
+									  value="20">
+										<label class="form-check-label" for="day-20">
+										  At least 15 Minutes
+										</label>
+								</div>
+
+							  </div>
+							</div> 
+					</div>
+
+					<div class="col-md-4 d-flex text-md-left g-pa-50">
+						 <div class="w-100">
+							<div class="g-mb-25">
+							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How Much Time do you Spend on Your Night Routine</h2>
+							  <br>
+
+								<div class="col-sm">
+								  <input class="form-check-input" type="radio" name="night-routine" id="night-0"
+								  value="0">
+									<label class="form-check-label" for="night-0">
+									  No Time
+									</label>
+								</div>
+
+								<div class="col-sm">
+								  <input class="form-check-input" type="radio" name="night-routine" id="night-5"
+								  value="5">
+									<label class="form-check-label" for="night-5">
+									  Less Than 5 Minutes
+									</label>
+								</div>
+
+								<div class="col-sm">
+								   <input class="form-check-input" type="radio" name="night-routine" id="night-10"
+									  value="10">
+									<label class="form-check-label" for="night-10">
+									   5 - 10 Minutes
+									</label>
+								</div>
+
+								<div class="col-sm">
+									<input class="form-check-input" type="radio" name="night-routine" id="night-15"
+										value="15">
+									  <label class="form-check-label" for="night-15">
+										10 - 15 Minutes
+									  </label>
+								</div>
+
+								<div class="col-sm">
+									<input class="form-check-input" type="radio" name="night-routine" id="night-20"
+									 value="20">
+									  <label class="form-check-label" for="night-20">
+										At least 15 Minutes
+									  </label>
+								</div>
+							 </div>
+						 </div>
+					</div>
+
+					<div class="col-md-4 d-flex text-md-left g-pa-50">
+						 <div class="w-100">
+							<div class="g-mb-25">
+							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How old are you?</h2>
+							  <br>
+							<div class="col-sm">
+								 <input class="form-check-input" type="radio" name="age" 
+									id="20" value="20">
+									<label class="form-check-label" for="20">
+								   under 20 
+									</label>
+							</div>
+
+							<div class="col-sm">
+								 <input class="form-check-input" type="radio" name="age" 
+									id="25" value="25">
+									<label class="form-check-label" for="25">
+								   20-25
+									</label>
+							</div>
+
+							<div class="col-sm">
+							  <input class="form-check-input" type="radio" name="age" 
+								id="30" value="30">
+								<label class="form-check-label" for="30">
+								26-30
+								</label>
+							</div>
+
+							<div class="col-sm">
+							  <input class="form-check-input" type="radio" name="age" 
+							  id="35" value="35">
+								<label class="form-check-label" for="35">
+							   31-35
+								</label>
+							</div>
+
+							 <div class="col-sm">
+							   <input class="form-check-input" type="radio" name="age" 
+							   id="40" value="40">
+								  <label class="form-check-label" for="40">
+								  36-40
+								  </label>
+							  </div>
+
+							  <div class="col-sm">
+								 <input class="form-check-input" type="radio" name="age" 
+								 id="45" value="45">
+									<label class="form-check-label" for="45">
+									41-45
+									</label>
+							  </div>
+
+							  <div class="col-sm">
+								 <input class="form-check-input" type="radio" name="age" 
+								 id="50" value="50">
+									<label class="form-check-label" for="50">
+									46-50
+									</label>
+							  </div>
+
+							  <div class="col-sm">
+								 <input class="form-check-input" type="radio" name="age" 
+								 id="55" value="55">
+									<label class="form-check-label" for="55">
+									51-55
+									</label>
+							  </div>
+
+							  <div class="col-sm">
+								 <input class="form-check-input" type="radio" name="age" 
+								 id="60" value="60">
+									<label class="form-check-label" for="60">
+									56-60
+									</label>
+							  </div> 
+
+							  <div class="col-sm">
+								 <input class="form-check-input" type="radio" name="age" 
+								 id="65" value="65">
+									<label class="form-check-label" for="65">
+									61-65
+									</label>
+							  </div> 
+
+							  <div class="col-sm">
+								 <input class="form-check-input" type="radio" name="age" 
+								 id="70" value="70">
+									<label class="form-check-label" for="70">
+									65+
+									</label>
+							  </div> 
+							</div>
+						 </div>
+					  </div>
+				   </div>
+
+	<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">What is the closest match to your skin tone?</h2>
+	<br>
+
+				<div class="row no-gutters">
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "pale">
+							<img src="static/spa_assets/img/skintone/pale.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="pale" value="pale">
+					</div>
+
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "fair">
+							<img src="static/spa_assets/img/skintone/fair.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="fair" 
+						value="fair">
+					</div>
+
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "lt_brown">
+							<img src="static/spa_assets/img/skintone/lt_brown.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="lt_brown" 
+						value="lt_brown">
+					</div>
+
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "caramel">
+							<img src="static/spa_assets/img/skintone/caramel.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="caramel" 
+						value="caramel">
+					</div>
+
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "bronze">
+							<img src="static/spa_assets/img/skintone/bronze.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="bronze" 
+						value="bronze">
+					</div>
+
+					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
+						<label for = "mahoganey">
+							<img src="static/spa_assets/img/skintone/mahoganey.jpeg" >
+						</label>
+						<input class="form-check-input" type="radio" name="ethnicity-img" id="mahoganey" 
+						value="mahoganey">
+					</div>
+				</div>	
+				<br>
+				<br>
+			<div class="container-fluid px-4 text-center">
+					<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit" value="Continue"/>
+			</div>
+		</div>
+	 </form>
+   </section>
+
+	
+	<!-- Footer -->
+	<footer>
+		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
+			<a class="d-inline-block g-mb-25" href="/"> <img src="" alt="Logo"> </a>
+			
+			<p class="g-mb-30">Connect With Us!</p>
+			
+			<ul class="list-inline d-inline-block g-mb-30">
+				<li class="list-inline-item g-mr-10">
+					<a class="u-icon-v3 g-width-35 g-height-35 g-font-size-15 g-color-gray-dark-v2 g-color-white--hover g-bg-white g-bg-primary--hover g-transition-0_2 g-transition--ease-in" href="#!"><i class="fa fa-twitter"></i></a>
+				</li>
+				<li class="list-inline-item g-mr-10">
+					<a class="u-icon-v3 g-width-35 g-height-35 g-font-size-15 g-color-gray-dark-v2 g-color-white--hover g-bg-white g-bg-primary--hover g-transition-0_2 g-transition--ease-in" href="#!"><i class="fa fa-pinterest"></i></a>
+				</li>
+				<li class="list-inline-item g-mr-10">
+					<a class="u-icon-v3 g-width-35 g-height-35 g-font-size-15 g-color-gray-dark-v2 g-color-white--hover g-bg-white g-bg-primary--hover g-transition-0_2 g-transition--ease-in" href="#!"><i class="fa fa-facebook"></i></a>
+				</li>
+				<li class="list-inline-item">
+					<a class="u-icon-v3 g-width-35 g-height-35 g-font-size-15 g-color-gray-dark-v2 g-color-white--hover g-bg-white g-bg-primary--hover g-transition-0_2 g-transition--ease-in" href="#!"><i class="fa fa-linkedin"></i></a>
+				</li>
+			</ul>
+			
+			<ul class="list-inline text-uppercase g-font-weight-700 g-font-size-11 mb-0">
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#home">Home</a>
+				</li>
+
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/about">About</a>
+				</li>
+
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="#getstarted">Get Started</a>
+				</li>
+
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#questionnaire">Questionnaire</a>
+				</li>
+
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#contact">Contact</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+	<!-- End Footer -->
+	
+	<a class="js-go-to u-go-to-v1" href="#!"
+	   data-type="fixed"
+	   data-position='{
+		   "bottom": 15,
+		   "right": 15
+		 }'
+	   data-offset-top="400"
+	   data-compensation="#js-header"
+	   data-show-effect="zoomIn"> <i class="hs-icon hs-icon-arrow-top"></i> </a>
+</main>
+
+<!-- JS Global Compulsory -->
+<script src="static/spa_assets/vendor/jquery/jquery.min.js"></script>
+<script src="static/spa_assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+<script src="static/spa_assets/vendor/popper.min.js"></script>
+<script src="static/spa_assets/vendor/bootstrap/bootstrap.min.js"></script>
+
+<!-- JS Implementing Plugins -->
+<script src="static/spa_assets/vendor/appear.js"></script>
+<script src="static/spa_assets/vendor/slick-carousel/slick/slick.js"></script>
+<script src="static/spa_assets/vendor/cubeportfolio-full/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+<script src="static/spa_assets/vendor/gmaps/gmaps.min.js"></script>
+
+<!-- JS Unify -->
+<script src="static/spa_assets/js/hs.core.js"></script>
+<script src="static/spa_assets/js/components/hs.header.js"></script>
+<script src="static/spa_assets/js/helpers/hs.hamburgers.js"></script>
+<script src="static/spa_assets/js/components/hs.scroll-nav.js"></script>
+<script src="static/spa_assets/js/components/hs.rating.js"></script>
+<script src="static/spa_assets/js/components/hs.carousel.js"></script>
+<script src="static/spa_assets/js/components/hs.cubeportfolio.js"></script>
+<script src="static/spa_assets/js/components/gmap/hs.map.js"></script>
+<script src="static/spa_assets/js/components/hs.go-to.js"></script>
+
+<!-- JS Customization -->
+<script src="static/spa_assets/js/custom.js"></script>
+
+<!-- JS Plugins Init. -->
+<script>
+  // initialization of google map
+  function initMap() {
+	$.HSCore.components.HSGMap.init('.js-g-map');
+  }
+
+  $(document).on('ready', function () {
+	// initialization of carousel
+	$.HSCore.components.HSCarousel.init('.js-carousel');
+
+	// initialization of header
+	$.HSCore.components.HSHeader.init($('#js-header'));
+	$.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+	// initialization of rating
+	$.HSCore.components.HSRating.init($('.js-rating'), {
+	  spacing: 2
+	});
+
+	// initialization of go to section
+	$.HSCore.components.HSGoTo.init('.js-go-to');
+  });
+
+  $(window).on('load', function () {
+	// initialization of HSScrollNav
+	$.HSCore.components.HSScrollNav.init($('#js-scroll-nav'), {
+	  duration: 700
+	});
+
+	// initialization of cubeportfolio
+	$.HSCore.components.HSCubeportfolio.init('.cbp');
+  });
+</script>
+
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAtt1z99GtrHZt_IcnK-wryNsQ30A112J0&callback=initMap" async></script>
+</body>
+</html>

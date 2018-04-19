@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<!-- Title -->
-	<title>Moisturizers</title>
+	<title>Upload Images</title>
 	
 	<!-- Required Meta Tags Always Come First -->
 	<meta charset="utf-8">
@@ -28,8 +28,6 @@
 	
 	<!-- CSS Template -->
 	<link rel="stylesheet" href="static/spa_assets/css/styles.op-spa.css">
-    <link rel="stylesheet" href="static/spa_assets/css/styles.e-commerce.css">
-
 	
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
@@ -71,15 +69,15 @@
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">Results</a>
+								<a href="/upload_images" class="nav-link p-0">Get Started</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">Baskets</a>
+								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/areas-of-concern" class="nav-link p-0">Search Again</a>
+								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
 							</li>
 
 							<li class="nav-item g-ml-12--lg">
@@ -108,72 +106,150 @@
 		</div>
 	</header>
 	<!-- End Header -->
-	
-	<!--Section Results -->
-	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
-	  <form action = "/baskets" method = "GET" >
-		<div class="container-fluid px-0 text-center">
+		
+ <!-- Section Area of Concern Content -->
+	<section id="areas-of-concern" class="g-theme-bg-gray-light-v1 g-py-80">
+	  <form action = "/results" method="POST" >
+		 <div class="container-fluid px-0 text-center">
+			<h4 class="g-font-weight-700 g-font-size-35 g-theme-h-v1 g-color-primary g-mb-25">What Are Your Areas Of Concern</h4>
+				<div class="row no-gutters">
+				  <div class="col-md-3 d-flex text-md-left g-pa-50">
+					<div class="w-100">
+					  <div class="g-mb-25">
 
-			<div class="row g-mx-minus-10 g-mb-50">
-			{% for product in moisturizers %}
-
-	          <div class="col-md-6 col-lg-4 g-px-10">
-	            <!-- Article -->
-	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
-	              <!-- Article Image -->
-	          			<div class="g-max-width-100 g-mr-15">
-
-	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">
-								<img class="w-100" src="{{product.imageurl}}" alt="Image description">
-							</a>
-	          			</div>
-	              <!-- End Article Image -->
-
-	              <!-- Article Info -->
-	              <div class="media-body align-self-center">
-	                <h4 class="h5 g-mb-7">
-	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.title}}</a>
-	                </h4>
-	                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.category}}</a>
-	                 	<br>
-	                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
-
-
-	                {% for concern in concerns %}
-	        		<div class="concern_bar">
-					  	<div class="concern">
-							{{concern}}
-						  	<div class="progress">
-							  	<div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
-						  	</div>
-						  	<br>
-						</div> 
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+								 id="antiaging" value="antiaging">
+								<label class="form-check-label" for="antiaging">
+									Antiaging
+								</label>
+							</div>
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+								 id="night" value="night">
+								<label class="form-check-label" for="night">
+									Night Cream
+								</label>
+							</div>
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+								 id="sunscreen" value="sunscreen">
+								<label class="form-check-label" for="sunscreen">
+									Sun Screen
+								</label>
+							</div>
+						</div>
+					  </div>
 					</div>
-					{% endfor %}
 
-                <!-- End Article Info -->
+					<div class="col-md-3 d-flex text-md-left g-pa-50">
+					  <div class="w-100">
+						<div class="g-mb-25">
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+								 id="oily" value="oily">
+								<label class="form-check-label" for="oily">
+									Oily
+								</label>
+							</div>
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+								 id="dry" value="dry">
+								<label class="form-check-label" for="dry">
+									Dry
+								</label>
+							</div>
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+								 id="combination" value="combination">
+								<label class="form-check-label" for="combination">
+									Combination
+								</label>
+							</div>
+						</div>
+					  </div>
+					</div>
 
-                <!-- Article Footer -->
-                <footer class="d-flex justify-content-between g-font-size-16">
-     
-                </footer>
-                <!-- End Article Footer -->
-              </div>
-            </article>
-            <!-- End Article -->
-          </div>
-          {% endfor %}
+					<div class="col-md-3 d-flex text-md-left g-pa-50">
+					  <div class="w-100">
+						<div class="g-mb-25">
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+								 id="skintone" value="skintone">
+								<label class="form-check-label" for="skintone">
+									Skintone
+								</label>
+							</div>
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+								 id="acne" value="oily">
+								<label class="form-check-label" for="acne">
+									Acne
+								</label>
+							</div>
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+							  id="pores" value="pores">
+								<label class="form-check-label" for="pores">
+									Poresize
+								</label>
+							</div>
+						</div>
+					  </div>
+					</div>
 
-        </div>
-     </div>
-   </form>
- </section>
+					<div class="col-md-3 d-flex text-md-left g-pa-50">
+					  <div class="w-100">
+						<div class="g-mb-25">
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+								 id="psoriasis" value="psoriasis">
+								<label class="form-check-label" for="psoriasis">
+									Psoriasis
+								</label>
+							</div>
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+								 id="sensitive" value="sensitive">
+								<label class="form-check-label" for="sensitive">
+									Sensitive
+								</label>
+							</div>
+							<div class="col-sm">
+							  <input class="form-check-input" type="checkbox" name="concern" 
+							  id="eyes" value="eyes">
+								<label class="form-check-label" for="eyes">
+									Eye Area
+								</label>
+							</div>
+						</div>
+					  </div>
+					</div>
 
-	
+				  </div>
+				
+					  <div class="form-group">
+						<label for="budget">Budget</label>
+						<select class="form-control" id="budget"  name="budget">
+						  <option value="10">under $20</option>
+						  <option value="15">$20 - $50</option>
+						  <option value="20" selected="selected">$50 - $75</option>
+						  <option value="25">$75 - $125</option>
+						  <option value="30">over $125</option>
+						</select>
+					  </div>
+
+			<div class="container-fluid px-4 text-center">
+					<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit" value="Continue"/>
+			</div>
+		</div>
+	  </form>
+	</section>
+
+
 	
 	<!-- Footer -->
 	<footer>
-		
 		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
 			<a class="d-inline-block g-mb-25" href="/"> <img src="" alt="Logo"> </a>
 			

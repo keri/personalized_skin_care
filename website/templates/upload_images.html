@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<!-- Title -->
-	<title>Moisturizers</title>
+	<title>Upload Images</title>
 	
 	<!-- Required Meta Tags Always Come First -->
 	<meta charset="utf-8">
@@ -28,8 +28,6 @@
 	
 	<!-- CSS Template -->
 	<link rel="stylesheet" href="static/spa_assets/css/styles.op-spa.css">
-    <link rel="stylesheet" href="static/spa_assets/css/styles.e-commerce.css">
-
 	
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
@@ -61,7 +59,7 @@
 					<div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
 						<ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-11 g-pt-20 g-pt-0--lg ml-auto">
 							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg active">
-								<a href="/" class="nav-link p-0">Home
+								<a href="#home" class="nav-link p-0">Home
 									<span class="sr-only">(current)</span>
 								</a>
 							</li>
@@ -71,19 +69,19 @@
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">Results</a>
+								<a href="#getstarted" class="nav-link p-0">Get Started</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">Baskets</a>
+								<a href="#questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/areas-of-concern" class="nav-link p-0">Search Again</a>
+								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
 							</li>
 
 							<li class="nav-item g-ml-12--lg">
-								<a href="/contact" class="nav-link p-0">Contact</a>
+								<a href="#contact" class="nav-link p-0">Contact</a>
 							</li>
 						</ul>
 					</div>
@@ -108,72 +106,78 @@
 		</div>
 	</header>
 	<!-- End Header -->
-	
-	<!--Section Results -->
-	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
-	  <form action = "/baskets" method = "GET" >
-		<div class="container-fluid px-0 text-center">
-
-			<div class="row g-mx-minus-10 g-mb-50">
-			{% for product in moisturizers %}
-
-	          <div class="col-md-6 col-lg-4 g-px-10">
-	            <!-- Article -->
-	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
-	              <!-- Article Image -->
-	          			<div class="g-max-width-100 g-mr-15">
-
-	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">
-								<img class="w-100" src="{{product.imageurl}}" alt="Image description">
-							</a>
-	          			</div>
-	              <!-- End Article Image -->
-
-	              <!-- Article Info -->
-	              <div class="media-body align-self-center">
-	                <h4 class="h5 g-mb-7">
-	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.title}}</a>
-	                </h4>
-	                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.category}}</a>
-	                 	<br>
-	                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
-
-
-	                {% for concern in concerns %}
-	        		<div class="concern_bar">
-					  	<div class="concern">
-							{{concern}}
-						  	<div class="progress">
-							  	<div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
-						  	</div>
-						  	<br>
-						</div> 
+		
+	<!-- Section Content -->
+	<section id="getstarted" class="g-theme-bg-gray-light-v1 g-py-80">
+		<form action = "/uploader#questionnaire" method = "POST" 
+			 enctype = "multipart/form-data">
+			<div class="container-fluid px-0 text-center">
+					<h4 class="text-uppercase g-font-weight-700 g-font-size-24 mb-0">Help us develop a better tool:</h4>
+				<div class="row no-gutters">
+					<div class="col-md-3 g-bg-img-hero g-min-height-100" style="background-image: url(https://image.shutterstock.com/z/stock-photo-beautiful-woman-face-closeup-eye-woman-eyebrow-eyes-lashes-beauty-portrait-model-girl-557922523.jpg);">
+						<div class="w-100">
+							<div class="g-mb-25">
+								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Face Close Up</h2>
+							</div>
+							
+							<p class="g-mb-35">Whole face in frame - bangs out of the way</p>
+							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file1" />
+						</div>
 					</div>
-					{% endfor %}
 
-                <!-- End Article Info -->
+					<div class="col-md-3 g-bg-img-hero g-min-height-100" style="background-image: url(https://image.shutterstock.com/z/stock-photo-sweating-man-forehead-close-up-646105396.jpg);">
+						<div class="w-100">
+							<div class="g-mb-25">
+								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Forehead</h2>
+							</div>
+							
+							<p class="g-mb-35">Forehead - bangs out of the way</p>
+							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file2" id="file2">
+							<label class="custom-file-label" for="file2">Upload Image</label>
 
-                <!-- Article Footer -->
-                <footer class="d-flex justify-content-between g-font-size-16">
-     
-                </footer>
-                <!-- End Article Footer -->
-              </div>
-            </article>
-            <!-- End Article -->
-          </div>
-          {% endfor %}
 
-        </div>
-     </div>
-   </form>
- </section>
+						</div>
+					</div>
 
+					<div class="col-md-3 g-bg-img-hero g-min-height-100" style="background-image: url(https://image.shutterstock.com/z/stock-photo-beautiful-perfect-lips-sexy-mouth-close-up-519329362.jpg);">
+						<div class="w-100">
+							<div class="g-mb-25">
+								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Mouth Area</h2>
+							</div>
+							
+							<p class="g-mb-35">Mouth and Chin</p>
+							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file3" />
+
+						</div>
+					</div>
+
+					<div class="col-md-3 g-bg-img-hero g-min-height-100" style="background-image: url(https://image.shutterstock.com/z/stock-photo-profile-of-feminine-face-with-closed-eyes-and-make-up-18259333.jpg);">
+						<div class="w-100">
+							<div class="g-mb-25">
+								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Cheek</h2>
+							</div>
+							
+							<p class="g-mb-35">Cheek Close Up</p>
+							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file4" />
+
+						</div>
+					</div>
+				</div>	
+			</div>
+			<br>
+			<br>
+		<div class="container-fluid px-4 text-center">
+				<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit" value="Continue"/> 
+		</div>
+
+	 </form>
+   </section>
+	<!-- End Section Content -->
 	
+
 	
 	<!-- Footer -->
 	<footer>
-		
 		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
 			<a class="d-inline-block g-mb-25" href="/"> <img src="" alt="Logo"> </a>
 			
@@ -196,7 +200,7 @@
 			
 			<ul class="list-inline text-uppercase g-font-weight-700 g-font-size-11 mb-0">
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/">Home</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#home">Home</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
@@ -204,15 +208,15 @@
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Get Started</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="#getstarted">Get Started</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/questionnaire">Questionnaire</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#questionnaire">Questionnaire</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/contact">Contact</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#contact">Contact</a>
 				</li>
 			</ul>
 		</div>

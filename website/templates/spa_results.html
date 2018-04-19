@@ -61,29 +61,29 @@
 					<div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
 						<ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-11 g-pt-20 g-pt-0--lg ml-auto">
 							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg active">
-								<a href="templates/spa.html" class="nav-link p-0">Home
+								<a href="/" class="nav-link p-0">Home
 									<span class="sr-only">(current)</span>
 								</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/spa.html#about" class="nav-link p-0">About</a>
+								<a href="/about" class="nav-link p-0">About</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="#results" class="nav-link p-0">Results</a>
+								<a href="/results" class="nav-link p-0">Results</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="#baskets" class="nav-link p-0">Baskets</a>
+								<a href="/results" class="nav-link p-0">Baskets</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="templates/spa.html#areas-of-concern" class="nav-link p-0">Search Again</a>
+								<a href="/questionnaire" class="nav-link p-0">questionnaire</a>
 							</li>
 
 							<li class="nav-item g-ml-12--lg">
-								<a href="spa.html#contact" class="nav-link p-0">Contact</a>
+								<a href="/contact" class="nav-link p-0">Contact</a>
 							</li>
 						</ul>
 					</div>
@@ -110,45 +110,47 @@
 	<!-- End Header -->
 	
 	<!--Section Results -->
+  <form action = "/new_basket" method = "POST" >
 	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
-	  <form action = "/baskets" method = "GET" >
 		<div class="container-fluid px-0 text-center">
-			<h4 class="text-uppercase g-font-weight-700 g-font-size-22 mb-0">Recommended Products</h4>
-
-				<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0"><br> Based on Your Concerns:
-					{% for concern in results.concerns %}
-			 		{{concern}} 
-			 		<br>
-			 		{% endfor %} 
+			<br>
+			<br>
+			<h3 class="text-uppercase g-font-weight-700 g-font-size-24 mb-0">Totals For This Basket</h3>
+			{% set basket = baskets.popitem()[1]  %}
+				{% for concern in basket.basket_concerns %}
+				<h2 class="text-uppercase g-font-weight-600 g-font-size-20 mb-0">
+					{{concern}}:
+			 		{{((basket.basket_concerns[concern] * 100)|round(2)|string).rstrip('0').rstrip('.')}}% 
 			 	</h2>
+			 	{% endfor %} 
+			 	<h2 class="text-uppercase g-font-weight-600 g-font-size-20 mb-0">
+					${{basket['price']}}
+				</h2>
+				<br>
 
-	{% for basket in baskets.popitem()  %}
-		<div class="row g-mx-minus-10 g-mb-50">
+		<div class="row g-mx-minus-10 g-mb-5">
 			{% for product in basket.products %}
 
-          <div class="col-md-6 col-lg-4 g-px-10">
-            <!-- Article -->
-            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
-              <!-- Article Image -->
-          			<div class="g-max-width-100 g-mr-15">
-
-          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">
+	          <div class="col-md-4 col-lg-4 g-px-10">
+	            <!-- Article -->
+	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+	              <!-- Article Image -->
+	          			<div class="g-max-width-100 g-mr-15">
+	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">
 							<img class="w-100" src="{{product.imageurl}}" alt="Image description">
-						</a>
-          			</div>
-              <!-- End Article Image -->
+							</a>
+	          			</div>
+	              <!-- End Article Image -->
 
-              <!-- Article Info -->
-             
-              <div class="media-body align-self-center">
-                <h4 class="h5 g-mb-7">
-                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.title}}</a>
-                </h4>
-                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.category}}</a>
-                 	<br>
-                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
+	              <!-- Article Info -->
+	              <div class="media-body align-self-center">
+	                <h4 class="h5 g-mb-7">
+	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.title}}</a>
+	                </h4>
+	                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.category}}</a>
+	                 	<br>
 
-                   {% for concern in concerns %}
+	                {% for concern in basket.basket_concerns %}
 	        		<div class="concern_bar">
 					  	<div class="concern">
 							{{concern}}
@@ -160,36 +162,21 @@
 					</div>
 					{% endfor %}
 
-
                 <!-- End Article Info -->
-
-              </div>
-            </article>
+	              </div>
+            	</article>
             <!-- End Article -->
           </div>
           {% endfor %}
+
         </div>
-	<div class="row g-mx-minus-10 g-mb-50">
-		<div class="col-12">
-
-	    {% for concern_total in basket.basket_concerns %}
-	    {{concern_total}}
-		<div class="concern_bar">
-		  	<div class="concern">
-			  	<div class="progress">
-			  		<div class="progress-bar" style="width: {{basket.basket_concerns[concern_total]*100}}%"></div>
-			  	</div>
-			  	<br>
-			</div> 
-		</div>
-
-		{% endfor %}
-		</div>
-	</div>
-      {% endfor %}
-    </div>
-   </form>
- </section>
+	
+		 <a href="javascript:location.reload();" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
+	 		name="baskets">
+	 		New Basket</a>
+	    </div>
+	 </section>
+	</form>
 
     <!-- Categories -->
  <section id="categories" class="g-theme-bg-gray-light-v2 g-py-80">
@@ -198,48 +185,47 @@
 
           <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
             <article class="u-block-hover">
-   	           <div class="g-pos-abs g-bottom-30 g-left-30">
-    	            <span class="d-block g-color-black">Collections</span>
-               		 <h2 class="h1 mb-0">Moisturizers</h2>
-               </div>
-
               <form action = "/moisturizers" method="POST">
               	<input type="hidden" name="moisturizers" value = "{{moisturizers}}"/>
               	<input type="hidden" name="concerns" value = "{{results.concerns}}"/>
               	<input type="image" class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8" 
               	src="static/spa_assets/img-temp/650x850/img1.jpg" alt="Submit Form" />
+	              	<div class="g-pos-abs g-bottom-30 g-left-30">
+	    	            <span class="d-block g-color-black">Collections</span>
+	               		 <h2 class="h1 mb-0">Moisturizers</h2>
+	               	</div>
+
               </form>
-
             </article>
           </div>
 
           <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
             <article class="u-block-hover">
-              <div class="g-pos-abs g-bottom-30 g-left-30">
-                <span class="d-block g-color-black">Collections</span>
-                <h2 class="h1 mb-0">Serums</h2>
-              </div>
-                 <form action = "/serums" method="POST">
-              		<input type="hidden" name="serums" value="{{serums}}"/>
-              		<input type="hidden" name="concerns" value = "{{results.concerns}}"/>
-              		<input type="image" class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8" 
-              		src="static/spa_assets/img-temp/650x850/img1.jpg" alt="Submit Form" />
-              	</form>
+             <form action = "/serums" method="POST">
+          		<input type="hidden" name="serums" value="{{serums}}"/>
+          		<input type="hidden" name="concerns" value = "{{results.concerns}}"/>
+          		<input type="image" class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8" 
+          		src="static/spa_assets/img-temp/650x850/img1.jpg" alt="Submit Form" />
+	              <div class="g-pos-abs g-bottom-30 g-left-30">
+	                <span class="d-block g-color-black">Collections</span>
+	                <h2 class="h1 mb-0">Serums</h2>
+	              </div>
+          	</form>
             </article>
           </div>
 
           <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
             <article class="u-block-hover">
-              <div class="g-pos-abs g-bottom-30 g-left-30">
-                <span class="d-block g-color-black">Collections</span>
-                <h2 class="h1 mb-0">Cleansers</h2>
-              </div>
-                 <form action = "/cleansers" method="POST">
+	        	<form action = "/cleansers" method="POST">
               		<input type="hidden" name="cleansers" value="{{cleansers}}"/>
               		<input type="hidden" name="concerns" value = "{{results.concerns}}"/>
               		<input type="image" class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8" 
               		src="static/spa_assets/img-temp/650x850/img1.jpg" alt="Submit Form" />
-              	</form>
+    	              	<div class="g-pos-abs g-bottom-30 g-left-30">
+	                		<span class="d-block g-color-black">Collections</span>
+	                		<h2 class="h1 mb-0">Cleansers</h2>
+	              		</div>
+	           	</form>
             </article>
           </div>
 
@@ -248,683 +234,12 @@
  </section>
       <!-- End Categories -->
 
-	
-	<!-- Section Content -->
-
-	<!-- End Section Content -->
-	
-	<!-- Section Content -->
-	<section id="advices" class="g-bg-primary g-py-90">
-		<div class="container text-center g-width-590 g-mb-60">
-			<h4 class="g-font-weight-700 g-font-size-20 g-theme-h-v1 g-color-white-opacity-0_6 g-mb-25">Some Advices</h4>
-			<h2 class="text-uppercase g-font-weight-600 g-font-size-22 g-color-white mb-0">We care about our clients</h2>
-		</div>
-		
-		<div class="container">
-			<div class="js-carousel g-pb-80"
-				 data-infinite="true"
-				 data-slides-show="4"
-				 data-arrows-classes="u-arrow-v1 g-absolute-centered--x g-bottom-0 g-width-45 g-height-45 g-font-size-10 g-theme-color-gray-dark-v1 g-bg-white"
-				 data-arrow-left-classes="fa fa-chevron-left g-ml-minus-45"
-				 data-arrow-right-classes="fa fa-chevron-right g-ml-45"
-				 data-responsive='[{
-			 "breakpoint": 1200,
-			 "settings": {
-			   "slidesToShow": 4
-			 }
-		   }, {
-			 "breakpoint": 992,
-			 "settings": {
-			   "slidesToShow": 2
-			 }
-		   }, {
-			 "breakpoint": 576,
-			 "settings": {
-			   "slidesToShow": 1
-			 }
-		   }]'>
-				<div class="js-slide g-pt-10 g-px-7">
-					<!-- Article -->
-					<article class="u-block-hover u-block-hover__additional--jump u-shadow-v19 g-bg-white g-transition-0_3">
-						<!-- Article Image -->
-						<img class="w-100" src="static/spa_assets/img-temp/600x333/img1.jpg" alt="Image description">
-						<!-- End Article Image -->
-						
-						<!-- Article Content -->
-						<div class="g-pa-25">
-							<!-- Article Header -->
-							<header class="row">
-								<div class="col-md-6 d-flex align-self-center">
-									<h4 class="text-uppercase g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v1 mb-0">Face care</h4>
-								</div>
-								
-								<div class="col-md-6 text-right">
-									<div class="js-rating g-font-size-12 g-color-primary" data-rating="5"></div>
-								</div>
-							</header>
-							<!-- End Article Header -->
-							
-							<!-- Article Info -->
-							<div class="text-center g-flex-middle g-pos-rel g-min-height-275 g-py-30">
-								<div class="g-flex-middle-item">
-									<h3 class="text-uppercase g-line-height-1_8 g-font-weight-700 g-font-size-12 mb-0">Morbi ex urna, porttitor vel consequat non, rhoncus nec nibh efficitur est ut justo viverra dapibus aliquet iaculis</h3>
-								</div>
-								
-								<div class="u-block-hover__additional--fade g-bg-white g-flex-middle">
-									<div class="g-flex-middle-item">
-										<p class="g-font-size-13 g-theme-color-gray-dark-v1 mb-0">Morbi ex urna, porttitor vel consequat non, rhoncus nec nibh. Sed euismod, lectus posuere euismod lobortis, velit enim sollicitudin orci, et interdum justo nisl facilisis nibh.</p>
-									</div>
-								</div>
-							</div>
-							<!-- End Article Info -->
-							
-							<!-- Article Footer -->
-							<footer class="d-flex justify-content-between g-font-size-13">
-								<a class="g-font-weight-700 g-color-gray-dark-v5 g-text-underline--none--hover" href="#!">
-									<i class="fa fa-thumbs-o-up g-mr-5"></i> 25 </a>
-								<a class="g-font-weight-700 g-color-gray-dark-v5 g-text-underline--none--hover" href="#!">
-									<i class="fa fa-thumbs-o-down g-mr-5"></i> 0 </a>
-							</footer>
-							<!-- End Article Footer -->
-						</div>
-						<!-- End Article Content -->
-					</article>
-					<!-- End Article -->
-				</div>
-				
-				<div class="js-slide g-pt-10 g-px-7">
-					<!-- Article -->
-					<article class="u-block-hover u-block-hover__additional--jump u-shadow-v19 g-bg-white g-transition-0_3">
-						<!-- Article Image -->
-						<img class="w-100" src="static/spa_assets/img-temp/600x333/img2.jpg" alt="Image description">
-						<!-- End Article Image -->
-						
-						<!-- Article Content -->
-						<div class="g-pa-25">
-							<!-- Article Header -->
-							<header class="row">
-								<div class="col-md-6 d-flex align-self-center">
-									<h4 class="text-uppercase g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v1 mb-0">Foot care</h4>
-								</div>
-								
-								<div class="col-md-6 text-right">
-									<div class="js-rating g-font-size-12 g-color-primary" data-rating="5"></div>
-								</div>
-							</header>
-							<!-- End Article Header -->
-							
-							<!-- Article Info -->
-							<div class="text-center g-flex-middle g-pos-rel g-min-height-275 g-py-30">
-								<div class="g-flex-middle-item">
-									<h3 class="text-uppercase g-line-height-1_8 g-font-weight-700 g-font-size-12 mb-0">Duis ultricies augue purus, sed venenatis velit blandit sed porttitor turpis</h3>
-								</div>
-								
-								<div class="u-block-hover__additional--fade g-bg-white g-flex-middle">
-									<div class="g-flex-middle-item">
-										<p class="g-font-size-13 g-theme-color-gray-dark-v1 mb-0">Morbi ex urna, porttitor vel consequat non, rhoncus nec nibh. Sed euismod, lectus posuere euismod lobortis, velit enim sollicitudin orci, et interdum justo nisl facilisis nibh. Pellentesque molestie ac massa vel fringilla. Aliquam at risus metus. Praesent velit nunc, interdum quis turpis sodales, varius ultrices lorem.</p>
-									</div>
-								</div>
-							</div>
-							<!-- End Article Info -->
-							
-							<!-- Article Footer -->
-							<footer class="d-flex justify-content-between g-font-size-13">
-								<a class="g-font-weight-700 g-color-gray-dark-v5 g-text-underline--none--hover" href="#!">
-									<i class="fa fa-thumbs-o-up g-mr-5"></i> 33 </a>
-								<a class="g-font-weight-700 g-color-gray-dark-v5 g-text-underline--none--hover" href="#!">
-									<i class="fa fa-thumbs-o-down g-mr-5"></i> 0 </a>
-							</footer>
-							<!-- End Article Footer -->
-						</div>
-						<!-- End Article Content -->
-					</article>
-					<!-- End Article -->
-				</div>
-				
-				<div class="js-slide g-pt-10 g-px-7">
-					<!-- Article -->
-					<article class="u-block-hover u-block-hover__additional--jump u-shadow-v19 g-bg-white g-transition-0_3">
-						<!-- Article Image -->
-						<img class="w-100" src="static/spa_assets/img-temp/600x333/img3.jpg" alt="Image description">
-						<!-- End Article Image -->
-						
-						<!-- Article Content -->
-						<div class="g-pa-25">
-							<!-- Article Header -->
-							<header class="row">
-								<div class="col-md-6 d-flex align-self-center">
-									<h4 class="text-uppercase g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v1 mb-0">Hands care</h4>
-								</div>
-								
-								<div class="col-md-6 text-right">
-									<div class="js-rating g-font-size-12 g-color-primary" data-rating="4"></div>
-								</div>
-							</header>
-							<!-- End Article Header -->
-							
-							<!-- Article Info -->
-							<div class="text-center g-flex-middle g-pos-rel g-min-height-275 g-py-30">
-								<div class="g-flex-middle-item">
-									<h3 class="text-uppercase g-line-height-1_8 g-font-weight-700 g-font-size-12 mb-0">Praesent augue mi, placerat vel finibus at, semper sit amet nisl</h3>
-								</div>
-								
-								<div class="u-block-hover__additional--fade g-bg-white g-flex-middle">
-									<div class="g-flex-middle-item">
-										<p class="g-font-size-13 g-theme-color-gray-dark-v1 mb-0">Morbi ex urna, porttitor vel consequat non, rhoncus nec nibh. Sed euismod, lectus posuere euismod lobortis, velit enim sollicitudin orci, et interdum justo nisl facilisis nibh. Pellentesque molestie ac massa vel fringilla. Aliquam at risus metus. Praesent velit nunc, interdum quis turpis sodales, varius ultrices lorem.</p>
-									</div>
-								</div>
-							</div>
-							<!-- End Article Info -->
-							
-							<!-- Article Footer -->
-							<footer class="d-flex justify-content-between g-font-size-13">
-								<a class="g-font-weight-700 g-color-gray-dark-v5 g-text-underline--none--hover" href="#!">
-									<i class="fa fa-thumbs-o-up g-mr-5"></i> 24 </a>
-								<a class="g-font-weight-700 g-color-gray-dark-v5 g-text-underline--none--hover" href="#!">
-									<i class="fa fa-thumbs-o-down g-mr-5"></i> 2 </a>
-							</footer>
-							<!-- End Article Footer -->
-						</div>
-						<!-- End Article Content -->
-					</article>
-					<!-- End Article -->
-				</div>
-				
-				<div class="js-slide g-pt-10 g-px-7">
-					<!-- Article -->
-					<article class="u-block-hover u-block-hover__additional--jump u-shadow-v19 g-bg-white g-transition-0_3">
-						<!-- Article Image -->
-						<img class="w-100" src="static/spa_assets/img-temp/600x333/img4.jpg" alt="Image description">
-						<!-- End Article Image -->
-						
-						<!-- Article Content -->
-						<div class="g-pa-25">
-							<!-- Article Header -->
-							<header class="row">
-								<div class="col-md-6 d-flex align-self-center">
-									<h4 class="text-uppercase g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v1 mb-0">Body care</h4>
-								</div>
-								
-								<div class="col-md-6 text-right">
-									<div class="js-rating g-font-size-12 g-color-primary" data-rating="4"></div>
-								</div>
-							</header>
-							<!-- End Article Header -->
-							
-							<!-- Article Info -->
-							<div class="text-center g-flex-middle g-pos-rel g-min-height-275 g-py-30">
-								<div class="g-flex-middle-item">
-									<h3 class="text-uppercase g-line-height-1_8 g-font-weight-700 g-font-size-12 mb-0">Tiam ullamcorper luctus nibh, eu malesuada tortor interdum et Donec eu tortor id ipsum</h3>
-								</div>
-								
-								<div class="u-block-hover__additional--fade g-bg-white g-flex-middle">
-									<div class="g-flex-middle-item">
-										<p class="g-font-size-13 g-theme-color-gray-dark-v1 mb-0">Morbi ex urna, porttitor vel consequat non, rhoncus nec nibh. Sed euismod, lectus posuere euismod lobortis, velit enim sollicitudin orci, et interdum justo nisl facilisis nibh. Pellentesque molestie ac massa vel fringilla. Aliquam at risus metus. Praesent velit nunc, interdum quis turpis sodales, varius ultrices lorem.</p>
-									</div>
-								</div>
-							</div>
-							<!-- End Article Info -->
-							
-							<!-- Article Footer -->
-							<footer class="d-flex justify-content-between g-font-size-13">
-								<a class="g-font-weight-700 g-color-gray-dark-v5 g-text-underline--none--hover" href="#!">
-									<i class="fa fa-thumbs-o-up g-mr-5"></i> 21 </a>
-								<a class="g-font-weight-700 g-color-gray-dark-v5 g-text-underline--none--hover" href="#!">
-									<i class="fa fa-thumbs-o-down g-mr-5"></i> 3 </a>
-							</footer>
-							<!-- End Article Footer -->
-						</div>
-						<!-- End Article Content -->
-					</article>
-					<!-- End Article -->
-				</div>
-				
-				<div class="js-slide g-pt-10 g-px-7">
-					<!-- Article -->
-					<article class="u-block-hover u-block-hover__additional--jump u-shadow-v19 g-bg-white g-transition-0_3">
-						<!-- Article Image -->
-						<img class="w-100" src="static/spa_assets/img-temp/600x333/img5.jpg" alt="Image description">
-						<!-- End Article Image -->
-						
-						<!-- Article Content -->
-						<div class="g-pa-25">
-							<!-- Article Header -->
-							<header class="row">
-								<div class="col-md-6 d-flex align-self-center">
-									<h4 class="text-uppercase g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v1 mb-0">Head care</h4>
-								</div>
-								
-								<div class="col-md-6 text-right">
-									<div class="js-rating g-font-size-12 g-color-primary" data-rating="3"></div>
-								</div>
-							</header>
-							<!-- End Article Header -->
-							
-							<!-- Article Info -->
-							<div class="text-center g-flex-middle g-pos-rel g-min-height-275 g-py-30">
-								<div class="g-flex-middle-item">
-									<h3 class="text-uppercase g-line-height-1_8 g-font-weight-700 g-font-size-12 mb-0">Morbi ex urna, porttitor vel consequat non, rhoncus nec nibh efficitur est ut justo viverra dapibus aliquet iaculis</h3>
-								</div>
-								
-								<div class="u-block-hover__additional--fade g-bg-white g-flex-middle">
-									<div class="g-flex-middle-item">
-										<p class="g-font-size-13 g-theme-color-gray-dark-v1 mb-0">Morbi ex urna, porttitor vel consequat non, rhoncus nec nibh. Sed euismod, lectus posuere euismod lobortis, velit enim sollicitudin orci, et interdum justo nisl facilisis nibh. Pellentesque molestie ac massa vel fringilla. Aliquam at risus metus. Praesent velit nunc, interdum quis turpis sodales, varius ultrices lorem.</p>
-									</div>
-								</div>
-							</div>
-							<!-- End Article Info -->
-							
-							<!-- Article Footer -->
-							<footer class="d-flex justify-content-between g-font-size-13">
-								<a class="g-font-weight-700 g-color-gray-dark-v5 g-text-underline--none--hover" href="#!">
-									<i class="fa fa-thumbs-o-up g-mr-5"></i> 10 </a>
-								<a class="g-font-weight-700 g-color-gray-dark-v5 g-text-underline--none--hover" href="#!">
-									<i class="fa fa-thumbs-o-down g-mr-5"></i> 3 </a>
-							</footer>
-							<!-- End Article Footer -->
-						</div>
-						<!-- End Article Content -->
-					</article>
-					<!-- End Article -->
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End Section Content -->
-	
-	<section id="subscribe" class="g-py-100">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 text-center">
-					<img class="img-fluid" src="static/spa_assets/img-temp/582x356/img1.jpg" alt="Image description">
-				</div>
-				
-				<div class="col-lg-6 d-flex align-items-center g-pt-50 g-pl-50--lg">
-					<div class="w-100">
-						<div class="g-mb-25">
-							<h4 class="g-font-weight-700 g-font-size-20 g-theme-h-v1 g-color-primary g-mb-25">Subscribe</h4>
-							<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Only fresh information</h2>
-						</div>
-						
-						<p class="g-color-gray-dark-v5 g-mb-35">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
-						
-						<form role="form">
-							<div class="input-group rounded-0">
-								<input class="form-control g-theme-bg-gray-light-v1 g-brd-none g-py-14 g-px-12" type="text" placeholder="Your name">
-								
-								<div class="input-group-btn">
-									<button class="btn btn-md h-100 text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-12 g-px-25" type="button">Subscribe</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	
-	<!-- Section Content -->
-	<section id="gallery">
-		<!-- Cube Portfolio -->
-		<div class="cbp"
-			 data-layout="grid"
-			 data-animation="slideLeft"
-			 data-caption-animation="zoom"
-			 data-x-gap="0"
-			 data-y-gap="0"
-			 data-media-queries='[
-			   {"width": 1200, "cols": 5},
-			   {"width": 800, "cols": 3},
-			   {"width": 500, "cols": 2},
-			   {"width": 320, "cols": 1}
-			 ]'>
-			<div class="cbp-item">
-				<a class="cbp-caption cbp-lightbox" href="static/spa_assets/img-temp/800x534/img1.jpg"
-				   data-title="Image 1">
-					<div class="cbp-caption-defaultWrap">
-						<img src="static/spa_assets/img-temp/400x400/img1.jpg" alt="Image description">
-					</div>
-				</a>
-			</div>
-			
-			<div class="cbp-item">
-				<a class="cbp-caption cbp-lightbox" href="static/spa_assets/img-temp/800x534/img2.jpg"
-				   data-title="Image 2">
-					<div class="cbp-caption-defaultWrap">
-						<img src="static/spa_assets/img-temp/400x400/img2.jpg" alt="Image description">
-					</div>
-				</a>
-			</div>
-			
-			<div class="cbp-item">
-				<a class="cbp-caption cbp-lightbox" href="static/spa_assets/img-temp/800x534/img3.jpg"
-				   data-title="Image 3">
-					<div class="cbp-caption-defaultWrap">
-						<img src="static/spa_assets/img-temp/400x400/img3.jpg" alt="Image description">
-					</div>
-				</a>
-			</div>
-			
-			<div class="cbp-item">
-				<a class="cbp-caption cbp-lightbox" href="static/spa_assets/img-temp/800x534/img4.jpg"
-				   data-title="Image 4">
-					<div class="cbp-caption-defaultWrap">
-						<img src="static/spa_assets/img-temp/400x400/img4.jpg" alt="Image description">
-					</div>
-				</a>
-			</div>
-			
-			<div class="cbp-item">
-				<a class="cbp-caption cbp-lightbox" href="static/spa_assets/img-temp/800x534/img5.jpg"
-				   data-title="Image 5">
-					<div class="cbp-caption-defaultWrap">
-						<img src="static/spa_assets/img-temp/400x400/img5.jpg" alt="Image description">
-					</div>
-				</a>
-			</div>
-			
-			<div class="cbp-item">
-				<a class="cbp-caption cbp-lightbox" href="static/spa_assets/img-temp/800x534/img6.jpg"
-				   data-title="Image 6">
-					<div class="cbp-caption-defaultWrap">
-						<img src="static/spa_assets/img-temp/400x400/img6.jpg" alt="Image description">
-					</div>
-				</a>
-			</div>
-			
-			<div class="cbp-item">
-				<a class="cbp-caption cbp-lightbox" href="static/spa_assets/img-temp/800x534/img7.jpg"
-				   data-title="Image 7">
-					<div class="cbp-caption-defaultWrap">
-						<img src="static/spa_assets/img-temp/400x400/img7.jpg" alt="Image description">
-					</div>
-				</a>
-			</div>
-			
-			<div class="cbp-item">
-				<a class="cbp-caption cbp-lightbox" href="static/spa_assets/img-temp/800x534/img8.jpg"
-				   data-title="Image 8">
-					<div class="cbp-caption-defaultWrap">
-						<img src="static/spa_assets/img-temp/400x400/img8.jpg" alt="Image description">
-					</div>
-				</a>
-			</div>
-			
-			<div class="cbp-item">
-				<a class="cbp-caption cbp-lightbox" href="static/spa_assets/img-temp/800x534/img9.jpg"
-				   data-title="Image 9">
-					<div class="cbp-caption-defaultWrap">
-						<img src="static/spa_assets/img-temp/400x400/img9.jpg" alt="Image description">
-					</div>
-				</a>
-			</div>
-			
-			<div class="cbp-item">
-				<a class="cbp-caption cbp-lightbox" href="static/spa_assets/img-temp/800x534/img10.jpg"
-				   data-title="Image 10">
-					<div class="cbp-caption-defaultWrap">
-						<img src="static/spa_assets/img-temp/400x400/img10.jpg" alt="Image description">
-					</div>
-				</a>
-			</div>
-		</div>
-		<!-- End Cube Portfolio -->
-	</section>
-	<!-- End Section Content -->
-	
-	<!-- Section Content -->
-	<section id="products" class="g-theme-bg-gray-light-v1 g-py-80">
-		<div class="container text-center g-width-590 g-mb-50">
-			<div class="g-mb-25">
-				<h4 class="g-font-weight-700 g-font-size-20 g-theme-h-v1 g-color-primary g-mb-25">Our products</h4>
-				<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">We care about our clients</h2>
-			</div>
-			
-			<p class="mb-0">Fusce dolor libero, efficitur et lobortis at, faucibus nec nunc. Proin fermentum turpis eget nisi facilisis lobortis. Praesent malesuada facilisis maximus.</p>
-		</div>
-		
-		<div class="container">
-			<div class="g-mx-minus-15">
-				<div class="js-carousel g-pb-40"
-					 data-infinite="true"
-					 data-slides-show="4"
-					 data-slides-scroll="4"
-					 data-pagi-classes="u-carousel-indicators-v1 g-absolute-centered--x g-bottom-0"
-					 data-responsive='[{
-			   "breakpoint": 1200,
-			   "settings": {
-				 "slidesToShow": 4,
-				 "slidesToScroll": 4
-			   }
-			 }, {
-			   "breakpoint": 992,
-			   "settings": {
-				 "slidesToShow": 2,
-				 "slidesToScroll": 2
-			   }
-			 }, {
-			   "breakpoint": 576,
-			   "settings": {
-				 "slidesToShow": 1,
-				 "slidesToScroll": 1
-			   }
-			 }]'>
-					<div class="js-slide g-py-5 g-px-15">
-						<!-- Article -->
-						<article class="u-shadow-v19 g-bg-white text-center g-pa-45">
-							<!-- Article Image -->
-							<img class="img-fluid d-inline-block g-mb-10" src="static/spa_assets/img-temp/180x288/img1.png" alt="Image Description">
-							<!-- End Article Image -->
-							
-							<!-- Article Content -->
-							<h4 class="h6 text-uppercase g-font-weight-700 g-mb-15">Corata</h4>
-							<p class="g-mb-20">In rutrum tellus vitae blandit lacinia</p>
-							<strong class="d-block g-color-primary g-font-size-16">$50.00</strong>
-							<!-- End Article Content -->
-						</article>
-						<!-- End Article -->
-					</div>
-					
-					<div class="js-slide g-py-5 g-px-15">
-						<!-- Article -->
-						<article class="u-shadow-v19 g-bg-white text-center g-pa-45">
-							<!-- Article Image -->
-							<img class="img-fluid d-inline-block g-mb-10" src="static/spa_assets/img-temp/180x288/img2.png" alt="Image Description">
-							<!-- End Article Image -->
-							
-							<!-- Article Content -->
-							<h4 class="h6 text-uppercase g-font-weight-700 g-mb-15">Morbi</h4>
-							<p class="g-mb-20">In rutrum tellus vitae blandit lacinia</p>
-							<strong class="d-block g-color-primary g-font-size-16">$50.00</strong>
-							<!-- End Article Content -->
-						</article>
-						<!-- End Article -->
-					</div>
-					
-					<div class="js-slide g-py-5 g-px-15">
-						<!-- Article -->
-						<article class="u-shadow-v19 g-bg-white text-center g-pa-45">
-							<!-- Article Image -->
-							<img class="img-fluid d-inline-block g-mb-10" src="static/spa_assets/img-temp/180x288/img3.png" alt="Image Description">
-							<!-- End Article Image -->
-							
-							<!-- Article Content -->
-							<h4 class="h6 text-uppercase g-font-weight-700 g-mb-15">Proin</h4>
-							<p class="g-mb-20">In rutrum tellus vitae blandit lacinia</p>
-							<strong class="d-block g-color-primary g-font-size-16">$50.00</strong>
-							<!-- End Article Content -->
-						</article>
-						<!-- End Article -->
-					</div>
-					
-					<div class="js-slide g-py-5 g-px-15">
-						<!-- Article -->
-						<article class="u-shadow-v19 g-bg-white text-center g-pa-45">
-							<!-- Article Image -->
-							<img class="img-fluid d-inline-block g-mb-10" src="static/spa_assets/img-temp/180x288/img4.png" alt="Image Description">
-							<!-- End Article Image -->
-							
-							<!-- Article Content -->
-							<h4 class="h6 text-uppercase g-font-weight-700 g-mb-15">Aliquim</h4>
-							<p class="g-mb-20">In rutrum tellus vitae blandit lacinia</p>
-							<strong class="d-block g-color-primary g-font-size-16">$50.00</strong>
-							<!-- End Article Content -->
-						</article>
-						<!-- End Article -->
-					</div>
-					
-					<div class="js-slide g-py-5 g-px-15">
-						<!-- Article -->
-						<article class="u-shadow-v19 g-bg-white text-center g-pa-45">
-							<!-- Article Image -->
-							<img class="img-fluid d-inline-block g-mb-10" src="static/spa_assets/img-temp/180x288/img1.png" alt="Image Description">
-							<!-- End Article Image -->
-							
-							<!-- Article Content -->
-							<h4 class="h6 text-uppercase g-font-weight-700 g-mb-15">Corata</h4>
-							<p class="g-mb-20">In rutrum tellus vitae blandit lacinia</p>
-							<strong class="d-block g-color-primary g-font-size-16">$50.00</strong>
-							<!-- End Article Content -->
-						</article>
-						<!-- End Article -->
-					</div>
-					
-					<div class="js-slide g-py-5 g-px-15">
-						<!-- Article -->
-						<article class="u-shadow-v19 g-bg-white text-center g-pa-45">
-							<!-- Article Image -->
-							<img class="img-fluid d-inline-block g-mb-10" src="static/spa_assets/img-temp/180x288/img2.png" alt="Image Description">
-							<!-- End Article Image -->
-							
-							<!-- Article Content -->
-							<h4 class="h6 text-uppercase g-font-weight-700 g-mb-15">Morbi</h4>
-							<p class="g-mb-20">In rutrum tellus vitae blandit lacinia</p>
-							<strong class="d-block g-color-primary g-font-size-16">$50.00</strong>
-							<!-- End Article Content -->
-						</article>
-						<!-- End Article -->
-					</div>
-					
-					<div class="js-slide g-py-5 g-px-15">
-						<!-- Article -->
-						<article class="u-shadow-v19 g-bg-white text-center g-pa-45">
-							<!-- Article Image -->
-							<img class="img-fluid d-inline-block g-mb-10" src="static/spa_assets/img-temp/180x288/img3.png" alt="Image Description">
-							<!-- End Article Image -->
-							
-							<!-- Article Content -->
-							<h4 class="h6 text-uppercase g-font-weight-700 g-mb-15">Proin</h4>
-							<p class="g-mb-20">In rutrum tellus vitae blandit lacinia</p>
-							<strong class="d-block g-color-primary g-font-size-16">$50.00</strong>
-							<!-- End Article Content -->
-						</article>
-						<!-- End Article -->
-					</div>
-					
-					<div class="js-slide g-py-5 g-px-15">
-						<!-- Article -->
-						<article class="u-shadow-v19 g-bg-white text-center g-pa-45">
-							<!-- Article Image -->
-							<img class="img-fluid d-inline-block g-mb-10" src="static/spa_assets/img-temp/180x288/img4.png" alt="Image Description">
-							<!-- End Article Image -->
-							
-							<!-- Article Content -->
-							<h4 class="h6 text-uppercase g-font-weight-700 g-mb-15">Aliquim</h4>
-							<p class="g-mb-20">In rutrum tellus vitae blandit lacinia</p>
-							<strong class="d-block g-color-primary g-font-size-16">$50.00</strong>
-							<!-- End Article Content -->
-						</article>
-						<!-- End Article -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End Section Content -->
-	
-	<!-- Section Content -->
-	<section id="contact" class="g-py-70">
-		<div class="container text-center g-width-590 g-mb-50">
-			<div class="g-mb-25">
-				<h4 class="g-font-weight-700 g-font-size-20 g-theme-h-v1 g-color-primary g-mb-25">Contact us</h4>
-				<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Get in touch</h2>
-			</div>
-			
-			<p class="mb-0">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
-		</div>
-		
-		<div class="container">
-			<div class="row">
-				<div class="col-md-9 g-mb-40 g-mb-0--md">
-					<form>
-						<div class="form-group g-mb-25">
-							<input class="form-control g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v1 g-brd-none rounded-0 g-pa-12" type="text" placeholder="Your name">
-						</div>
-						
-						<div class="form-group g-mb-25">
-							<input class="form-control g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v1 g-brd-none rounded-0 g-pa-12" type="tel" placeholder="Your email *">
-						</div>
-						
-						<div class="form-group g-mb-25">
-							<textarea class="form-control g-resize-none g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v1 g-brd-none rounded-0 g-py-6 g-px-12" rows="5" placeholder="Message"></textarea>
-						</div>
-						
-						<button class="btn btn-md text-uppercase btn-block u-btn-outline-primary g-font-weight-700 g-font-size-11 g-brd-2 rounded-0 g-py-19 g-px-20" type="submit" role="button">Submit</button>
-					</form>
-				</div>
-				
-				<div class="col-md-3 text-center text-md-left g-mb-40--md">
-					<div class="g-mb-25">
-				<span class="u-icon-v1 u-icon-size--xs g-color-primary">
-				  <i class="icon-directions"></i>
-				</span>
-						<em class="d-block g-color-black-light-v2 text-uppercase g-font-size-12 g-font-style-normal g-mb-5">Address</em>
-						<strong class="d-block">Sit amet adipiscing</strong>
-					</div>
-					
-					<div class="g-mb-25">
-				<span class="u-icon-v1 u-icon-size--xs g-color-primary">
-				  <i class="icon-call-in"></i>
-				</span>
-						<em class="d-block g-color-black-light-v2 text-uppercase g-font-size-12 g-font-style-normal g-mb-5">Phone Number</em>
-						<strong class="d-block">+4586 585 4580</strong>
-					</div>
-					
-					<div>
-				<span class="u-icon-v1 u-icon-size--xs g-color-primary">
-				  <i class="icon-envelope-letter"></i>
-				</span>
-						<em class="d-block g-color-black-light-v2 text-uppercase g-font-size-12 g-font-style-normal g-mb-5">Email</em>
-						<strong class="d-block"><a href="#!" class="g-color-main">info@unify.com</a></strong>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End Section Content -->
-	
 	<!-- Footer -->
 	<footer>
-		<!-- Google Map -->
-		<div id="gMap" class="js-g-map g-min-height-450 h-100"
-			 data-type="custom"
-			 data-lat="40.674"
-			 data-lng="-73.946"
-			 data-zoom="12"
-			 data-title="Travel"
-			 data-styles='[
-			   ["", "", [{"gamma":1},{"weight":1},{"visibility":"simplified"},{"hue":"#8dab68"}]],
-			   ["", "labels", [{"visibility":"on"}]],
-			   ["water", "", [{"color":"#aee2e0"}]]
-			 ]'
-			 data-pin="true"
-			 data-pin-icon="static/spa_assets/img/pin.png"></div>
-		<!-- End Google Map -->
-		
 		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
-			<a class="d-inline-block g-mb-25" href="/"> <img src="static/spa_assets/img/Capture.png" alt="Logo"> </a>
+			<a class="d-inline-block g-mb-25" href="/"> <img src="" alt="Logo"> </a>
 			
-			<p class="g-mb-30">In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
+			<p class="g-mb-30">Connect With Us!</p>
 			
 			<ul class="list-inline d-inline-block g-mb-30">
 				<li class="list-inline-item g-mr-10">
@@ -943,23 +258,23 @@
 			
 			<ul class="list-inline text-uppercase g-font-weight-700 g-font-size-11 mb-0">
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="#!">Home</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/">Home</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="#!">About</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/about">About</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="#!">Get Started</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Get Started</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="#!">Questionnaire</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/questionnaire">Questionnaire</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="#!">Contact</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/contact">Contact</a>
 				</li>
 			</ul>
 		</div>
