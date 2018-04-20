@@ -59,8 +59,7 @@
 					<div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
 						<ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-11 g-pt-20 g-pt-0--lg ml-auto">
 							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg active">
-								<a href="#home" class="nav-link p-0">Home
-									<span class="sr-only">(current)</span>
+								<a href="/" class="nav-link p-0">Home
 								</a>
 							</li>
 
@@ -73,7 +72,7 @@
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="#questionnaire" class="nav-link p-0">Questionnaire</a>
+								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
@@ -81,7 +80,7 @@
 							</li>
 
 							<li class="nav-item g-ml-12--lg">
-								<a href="#contact" class="nav-link p-0">Contact</a>
+								<a href="/contact" class="nav-link p-0">Contact</a>
 							</li>
 						</ul>
 					</div>
@@ -112,54 +111,47 @@
 		<form action = "/uploader#questionnaire" method = "POST" 
 			 enctype = "multipart/form-data">
 			<div class="container-fluid px-0 text-center">
-					<h4 class="text-uppercase g-font-weight-700 g-font-size-24 mb-0">Help us develop a better tool:</h4>
+					<h4 class="text-uppercase g-font-weight-700 g-font-size-22 mb-0">start by Uploading images of yourself:</h4>
+					<h2 class="g-font-weight-500 g-font-size-22 mb-5">So we can make better recommendations for you.</h2>
+
 				<div class="row no-gutters">
-					<div class="col-md-3 g-bg-img-hero g-min-height-100" style="background-image: url(https://image.shutterstock.com/z/stock-photo-beautiful-woman-face-closeup-eye-woman-eyebrow-eyes-lashes-beauty-portrait-model-girl-557922523.jpg);">
-						<div class="w-100">
-							<div class="g-mb-25">
-								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Face Close Up</h2>
-							</div>
-							
-							<p class="g-mb-35">Whole face in frame - bangs out of the way</p>
-							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file1" />
+
+					<div class="col-md-6 g-bg-img-hero g-min-height-300" style="background-image: url(static/images/face.jpg);">
+						<div class="w-100">							
+							<p class="g-mb-35"></p>
+									<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Whole Face</h2>
+									<br>
+								<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file1" />
 						</div>
 					</div>
 
-					<div class="col-md-3 g-bg-img-hero g-min-height-100" style="background-image: url(https://image.shutterstock.com/z/stock-photo-sweating-man-forehead-close-up-646105396.jpg);">
+					<div class="col-md-6 g-bg-img-hero g-min-height-300" style="background-image: url(static/images/forehead_man.jpg);">
 						<div class="w-100">
-							<div class="g-mb-25">
-								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Forehead</h2>
-							</div>
-							
-							<p class="g-mb-35">Forehead - bangs out of the way</p>
-							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file2" id="file2">
-							<label class="custom-file-label" for="file2">Upload Image</label>
-
-
+							<p class="g-mb-35"></p>
+									<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Forehead</h2>
+									<br>
+								<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file2" id="file2">
 						</div>
 					</div>
 
-					<div class="col-md-3 g-bg-img-hero g-min-height-100" style="background-image: url(https://image.shutterstock.com/z/stock-photo-beautiful-perfect-lips-sexy-mouth-close-up-519329362.jpg);">
+
+					<div class="col-md-6 g-bg-img-hero g-min-height-300" style="background-image: url(static/images/mouth.jpg);">
 						<div class="w-100">
-							<div class="g-mb-25">
+							<p class="g-mb-35"></p>
 								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Mouth Area</h2>
-							</div>
-							
-							<p class="g-mb-35">Mouth and Chin</p>
+								<br>
 							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file3" />
-
 						</div>
 					</div>
 
-					<div class="col-md-3 g-bg-img-hero g-min-height-100" style="background-image: url(https://image.shutterstock.com/z/stock-photo-profile-of-feminine-face-with-closed-eyes-and-make-up-18259333.jpg);">
-						<div class="w-100">
-							<div class="g-mb-25">
-								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Cheek</h2>
-							</div>
-							
-							<p class="g-mb-35">Cheek Close Up</p>
-							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file4" />
 
+					<div class="col-md-6 g-bg-img-hero g-min-height-300" style="background-image: url(static/images/cheek.jpg);">
+						<div class="w-100">
+							<p class="g-mb-35"></p>
+								<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Cheek
+								</h2>
+								<br>
+							<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25" type="file" name="file4" />
 						</div>
 					</div>
 				</div>	
@@ -200,7 +192,7 @@
 			
 			<ul class="list-inline text-uppercase g-font-weight-700 g-font-size-11 mb-0">
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#home">Home</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/">Home</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
@@ -212,11 +204,11 @@
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#questionnaire">Questionnaire</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/questionnaire">Questionnaire</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#contact">Contact</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/contact">Contact</a>
 				</li>
 			</ul>
 		</div>

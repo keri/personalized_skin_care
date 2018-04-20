@@ -66,7 +66,6 @@ def upload_images_to_s3(filename, path):
 def create_baskets(products, concerns):
     '''creating a basket of products in which product totals for each concern is greater than .9'''
     moisturizers = [result for result in products if result['category'] == 'moisturizer']
-    print('moisturizers = ',moisturizers)
     serums = [result for result in products if result['category'] == 'serum']
     cleansers = [result for result in products if result['category'] == 'cleanser']
 
@@ -117,7 +116,6 @@ def upload_file():
         for f in request.files:
             file = request.files[f]
             filename = secure_filename(file.filename)
-            print('filename')
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     return render_template('questionnaire.html')
 
@@ -168,11 +166,6 @@ def cleanser_results():
     return render_template('cleansers.html', cleansers=ast.literal_eval(cleansers), 
                             concerns=ast.literal_eval(concerns))
 
-# @app.route("/new_basket", methods=["POST"])
-# def new_basket():
-#     new_baskets = request.form.get('baskets')
-#     return render_template('spa_results.html', baskets=ast.literal_eval(new_baskets))
-
 @app.route("/subscribe", methods=['GET'])
 def subscribe_get():
     return render_template('subscribe.html')
@@ -180,20 +173,20 @@ def subscribe_get():
 @app.route("/subscribe", methods=['POST'])
 def subscribe_post():
     email = request.form.get('email')
-    print(email)
     return redirect('/')
 
 @app.route("/upload_images", methods=["GET","POST"])
 def upload():
     return render_template('upload_images.html')
 
-@app.route("/questionnaire",methods=["POST"])
+@app.route("/questionnaire",methods=["GET"])
 def questionnaire():
     return render_template('questionnaire.html')
 
 @app.route("/contact",methods=["GET"])
 def contact_get():
     return render_template('contact.html')
+
 
 
 
