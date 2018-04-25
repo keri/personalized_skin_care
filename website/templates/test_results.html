@@ -33,20 +33,14 @@
 	
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
-	<script src="static/js/results.js"></script>
 
+	<script type="text/javascript">
 
-	{% autoescape off %}
-	<script>
-	var jmoisturizers = {{moisturizers}}
-	var jserums = {{serums}}
-	var jcleansers = {{cleansers}}
-	var moisturizer = testFunction( jmoisturizers );
-	var serum = testFunction( jserums );
-	var cleanser = testFunction( jcleansers );
-	var test_string = "hello I'm here"
+		function new_product(product) {
+			var products = _.shuffle({{product}})
+            return _.sample(products);
+    					}
 	</script>
-	{% endautoescape %}
 </head>
 
 <body>
@@ -85,7 +79,7 @@
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">Results</a>
+								<a href="/results" class="nav-link p-0">Your Results</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
@@ -124,79 +118,29 @@
 	<!-- End Header -->
 	
 	<!--Section Results -->
-  <form action = "/new_basket" method = "POST" >
+  <form action = "/new_product" method = "POST" >
 	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
 		<div class="container-fluid px-0 text-center">
 			<br>
 			<br>
 			<h3 class="text-uppercase g-font-weight-700 g-font-size-24 mb-0">Totals For This Basket</h3>
-			{% set basket = baskets.popitem()[1]  %}
+			<script type="text/javascript">
+				var prduct1 = new_product("{{moisturizers}}")
+				var product2 = new_product("{{serums}}")
+				var product3 = new_product("{{cleansers}}")
 
-				{% for concern in basket.basket_concerns %}
-				<h2 class="text-uppercase g-font-weight-600 g-font-size-20 mb-0" id="basket_concerns">
-					{{concern}}:
-			 		{{((basket.basket_concerns[concern] * 100)|round(2)|string).rstrip('0').rstrip('.')}}% 
-			 	</h2>
-			 	{% endfor %} 
-			 	<h2 class="text-uppercase g-font-weight-600 g-font-size-20 mb-0" id="basket_price">
-					${{basket['price']}}
-				</h2>
-				<br>
-
-		<div class="row g-mx-minus-10 g-mb-5">
-			{% for product in basket.products %}
-
-	          <div class="col-md-4 col-lg-4 g-px-10">
-	            <!-- Article -->
-	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
-	              <!-- Article Image -->
-	          			<div class="g-max-width-100 g-mr-15">
-	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">
-							<img class="w-100" src="{{product.imageurl}}" alt="Image description">
-							</a>
-	          			</div>
-	              <!-- End Article Image -->
-
-	              <!-- Article Info -->
-	              <div class="media-body align-self-center">
-	                <h4 class="h5 g-mb-7">
-	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.title}}</a>
-	                </h4>
-	                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.category}}</a>
-	                 	<br>
-
-	                {% for concern in basket.basket_concerns %}
-	        		<div class="concern_bar">
-					  	<div class="concern">
-							{{concern}}
-						  	<div class="progress">
-							  	<div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
-						  	</div>
-						  	<br>
-						</div> 
-					</div>
-					{% endfor %}
-
-                <!-- End Article Info -->
-	              </div>
-				 <a href="static/js/results.js" class="btn btn-primary btn-sm active" role="button" aria-pressed="true" name="{{product.category}}" id="btn-{{product.category}}" 
-				 >
-	 				New {{product.category}}</a>
-
-
-
-            	</article>
-            <!-- End Article -->
-          </div>
-          {% endfor %}
-
-        </div>
+							document.write(product1)
+			<br>
+			documnet.write(product2)
+			<br>
+			document.wrtie(product3)
+			</script>
+			document.write(product1)
+			<br>
+			documnet.write(product2)
+			<br>
+			document.wrtie(product3)
 	
-		 <a href="javascript:location.reload();" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" name="baskets">
-	 		New Basket</a>
-	    </div>
-	 </section>
-	</form>
 
     <!-- Categories -->
  <section id="categories" class="g-theme-bg-gray-light-v2 g-py-80">
@@ -341,8 +285,6 @@
 <!-- JS Plugins Init. -->
 <script>
   // initialization of google map
-  init_clicks();
-
   function initMap() {
 	$.HSCore.components.HSGMap.init('.js-g-map');
   }

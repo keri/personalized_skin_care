@@ -92,7 +92,7 @@ def create_baskets(products, concerns):
             temp_basket['price'] = round(basket_price,2)
             basket_dictionary[basket_count] = temp_basket
             basket_count += 1
-        elif all(i >= .5 for i in basket_concerns.values()):
+        elif all(i >= .7 for i in basket_concerns.values()):
             temp_basket = {}
             temp_basket['products'] = combinations[combo_idx]
             temp_basket['basket_concerns'] = basket_concerns
@@ -142,8 +142,13 @@ def results2():
         'products':products
     }
 
+    jresults = json.dumps({'one':1, 'two':2})
+    print(type(jresults))
+    print(type(moisturizers))
+
     return render_template('spa_results.html', results=results, baskets=baskets, 
-                            moisturizers=moisturizers,serums=serums,cleansers=cleansers)
+                            moisturizers=moisturizers,serums=serums,cleansers=cleansers,
+                            jresults=jresults)
 
 @app.route("/moisturizers", methods=['POST'])
 def moisturizer_results():
