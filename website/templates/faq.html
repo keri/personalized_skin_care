@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<!-- Title -->
-	<title>Razzbeauty Results</title>
+	<title>About Us</title>
 	
 	<!-- Required Meta Tags Always Come First -->
 	<meta charset="utf-8">
@@ -28,19 +28,9 @@
 	
 	<!-- CSS Template -->
 	<link rel="stylesheet" href="static/spa_assets/css/styles.op-spa.css">
-    <link rel="stylesheet" href="static/spa_assets/css/styles.e-commerce.css">
-
 	
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
-
-	<script type="text/javascript">
-
-		function new_product(product) {
-			var products = _.shuffle({{product}})
-            return _.sample(products);
-    					}
-	</script>
 </head>
 
 <body>
@@ -51,7 +41,7 @@
 		<div class="light-theme u-header__section g-transition-0_3 g-py-6 g-py-14--md"
 			 data-header-fix-moment-exclude="light-theme g-py-14--md"
 			 data-header-fix-moment-classes="dark-theme u-shadow-v27 g-bg-white g-py-11--md">
-			<nav class="navbar navbar-expand-lg g-py-0">
+			<nav class="navbar navbar-expand-lg g-py-0" >
 				<div class="container g-pos-rel">
 					<!-- Logo -->
 					<a href="#!" class="js-go-to navbar-brand u-header__logo"
@@ -68,29 +58,28 @@
 					<!-- Navigation -->
 					<div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
 						<ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-11 g-pt-20 g-pt-0--lg ml-auto">
-							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg active">
+							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg" >
 								<a href="/" class="nav-link p-0">Home
-									<span class="sr-only">(current)</span>
 								</a>
 							</li>
 
-							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/about" class="nav-link p-0">About</a>
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg active">
+								<a href="/faq" class="nav-link p-0">FAQ</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">Your Results</a>
+								<a href="/areas_of_concern" class="nav-link p-0">Update Concerns</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">Baskets</a>
+								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/questionnaire" class="nav-link p-0">questionnaire</a>
+								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
 							</li>
 
-							<li class="nav-item g-ml-12--lg">
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/contact" class="nav-link p-0">Contact</a>
 							</li>
 						</ul>
@@ -115,89 +104,88 @@
 			</nav>
 		</div>
 	</header>
+
 	<!-- End Header -->
 	
-	<!--Section Results -->
-  <form action = "/new_product" method = "POST" >
-	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
-		<div class="container-fluid px-0 text-center">
-			<br>
-			<br>
-			<h3 class="text-uppercase g-font-weight-700 g-font-size-24 mb-0">Totals For This Basket</h3>
-			<script type="text/javascript">
-				var prduct1 = new_product("{{moisturizers}}")
-				var product2 = new_product("{{serums}}")
-				var product3 = new_product("{{cleansers}}")
+	<!-- Section Content -->
+	<section id="about" class="g-py-100">
+		<div class="container g-width-600 g-mb-50">
+			<div class="g-mb-25">
+					<h4 class="g-font-weight-600 g-font-size-25 g-theme-h-v1 g-color-primary g-mb-25 text-center">Frequently Asked Questions</h4>
 
-							document.write(product1)
-			<br>
-			documnet.write(product2)
-			<br>
-			document.wrtie(product3)
-			</script>
-			document.write(product1)
-			<br>
-			documnet.write(product2)
-			<br>
-			document.wrtie(product3)
+						<h2 class="text-uppercase g-font-weight-600 g-font-size-18 mb-0">Who Are We?</h2>
+						<br>
+
+
+Keri Multerer is the founder of RazzBeauty. She has an MS in Genetics, a passion for skin care, and recently completed a bootcamp for machine learning in Seattle. She identified a need to help consumers navigate the thousands of skin care products available based on unique skin concerns and launched an app combining her three passions.
+The RazzBeauty tool provides product recommendations taking into consideration all of your areas of concern, lifestyle, and budget. Machine learning was used based on customer reviews and ingredients, paired with subject matter expertise to build a basket of products for your unique skin.
+					<br>
+
+					<br>
+					<h2 class="text-uppercase g-font-weight-600 g-font-size-18 mb-0">Why are you asking me to upload images of myself?</h2>
+					<br>
+
+We are training an image recognition model in the background for the next version of the tool.  The goal of this next version would be to predict user’s area of concern with a couple of pictures of themselves, streamlining the user experience.
+					<br>
 	
+					<br>
+					<h2 class="text-uppercase g-font-weight-600 g-font-size-18 mb-0">What do you do with the images I provide?</h2>
+					<br>
 
-    <!-- Categories -->
- <section id="categories" class="g-theme-bg-gray-light-v2 g-py-80">
-    <div class="container g-pt-100 g-pb-70">
-      <div class="row g-mx-minus-10">
 
-          <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
-            <article class="u-block-hover">
-              <form action = "/moisturizers" method="POST">
-              	<input type="hidden" name="moisturizers" value = "{{moisturizers}}"/>
-              	<input type="hidden" name="concerns" value = "{{results.concerns}}"/>
-              	<input type="image" class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8" 
-              	src="static/images/moisturizers.jpg" alt="Submit Form" />
-	              	<div class="g-pos-abs g-bottom-30 g-left-30">
-	    	            <span class="d-block g-color-black">Collections</span>
-	               		 <h2 class="h1 mb-0">Moisturizers</h2>
-	               	</div>
+They are uploaded and kept in a secure database. The pictures you provide are detached from your personal information and used only in the machine learning model with the labeled areas of concern you provide. We have no intention of publicizing, selling, or providing this information to the public.
+					<br>
 
-              </form>
-            </article>
-          </div>
+					<br>
+					<h2 class="text-uppercase g-font-weight-600 g-font-size-18 mb-0">How do I become a partner?
+					</h2>
+					<br>
 
-          <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
-            <article class="u-block-hover">
-             <form action = "/serums" method="POST">
-          		<input type="hidden" name="serums" value="{{serums}}"/>
-          		<input type="hidden" name="concerns" value = "{{results.concerns}}"/>
-          		<input type="image" class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8" 
-          		src="static/images/serums.jpg" alt="Submit Form" />
-	              <div class="g-pos-abs g-bottom-30 g-left-30">
-	                <span class="d-block g-color-black">Collections</span>
-	                <h2 class="h1 mb-0">Serums</h2>
-	              </div>
-          	</form>
-            </article>
-          </div>
+We are working with salons directly to bridge the gap of personalized product recommendations for the customer between services,  before and after a service, as well as providing high touch for ecommerce platforms. 
 
-          <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
-            <article class="u-block-hover">
-	        	<form action = "/cleansers" method="POST">
-              		<input type="hidden" name="cleansers" value="{{cleansers}}"/>
-              		<input type="hidden" name="concerns" value = "{{results.concerns}}"/>
-              		<input type="image" class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8" 
-              		src="static/images/cleansers.jpg" alt="Submit Form" />
-    	              	<div class="g-pos-abs g-bottom-30 g-left-30">
-	                		<span class="d-block g-color-black">Collections</span>
-	                		<h2 class="h1 mb-0">Cleansers</h2>
-	              		</div>
-	           	</form>
-            </article>
-          </div>
+Reach out us directly (via contact page) if interested in learning more.
+					<br>
+					<br>
 
-      </div>
-    </div>
- </section>
-      <!-- End Categories -->
-
+				<div class="mx-auto" style="width:200px;">		
+					<a class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-10 g-px-25 mx-auto" href="/upload_images">Get Started</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Section Content -->
+	
+	
+	<section id="subscribe" class="g-py-100">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 text-center">
+					<img class="img-fluid" src="static/spa_assets/img-temp/582x356/img1.jpg" alt="Image description">
+				</div>
+				
+				<div class="col-lg-6 d-flex align-items-center g-pt-50 g-pl-50--lg">
+					<div class="w-100">
+						<div class="g-mb-25">
+							<h4 class="g-font-weight-700 g-font-size-20 g-theme-h-v1 g-color-primary g-mb-25">Subscribe</h4>
+							<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Get the latest news</h2>
+						</div>
+												
+						<form role="form">
+							<div class="input-group rounded-0">
+								<input class="form-control g-theme-bg-gray-light-v1 g-brd-none g-py-14 g-px-12" type="text" placeholder="Your name">
+								
+								<div class="input-group-btn">
+									<button class="btn btn-md h-100 text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-brd-none rounded-0 g-py-12 g-px-25" type="button">Subscribe</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+		
 	<!-- Footer -->
 	<footer>
 		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
@@ -226,7 +214,7 @@
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/about">About</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/faq">About</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">

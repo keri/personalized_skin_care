@@ -33,20 +33,7 @@
 	
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
-	<script src="static/js/results.js"></script>
 
-
-	{% autoescape off %}
-	<script>
-	var jmoisturizers = {{moisturizers}}
-	var jserums = {{serums}}
-	var jcleansers = {{cleansers}}
-	var moisturizer = testFunction( jmoisturizers );
-	var serum = testFunction( jserums );
-	var cleanser = testFunction( jcleansers );
-	var test_string = "hello I'm here"
-	</script>
-	{% endautoescape %}
 </head>
 
 <body>
@@ -57,7 +44,7 @@
 		<div class="light-theme u-header__section g-transition-0_3 g-py-6 g-py-14--md"
 			 data-header-fix-moment-exclude="light-theme g-py-14--md"
 			 data-header-fix-moment-classes="dark-theme u-shadow-v27 g-bg-white g-py-11--md">
-			<nav class="navbar navbar-expand-lg g-py-0">
+			<nav class="navbar navbar-expand-lg g-py-0" style="background-color: #555;">
 				<div class="container g-pos-rel">
 					<!-- Logo -->
 					<a href="#!" class="js-go-to navbar-brand u-header__logo"
@@ -74,29 +61,33 @@
 					<!-- Navigation -->
 					<div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
 						<ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-11 g-pt-20 g-pt-0--lg ml-auto">
-							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg active">
+							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/" class="nav-link p-0">Home
-									<span class="sr-only">(current)</span>
 								</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/about" class="nav-link p-0">About</a>
+								<a href="/about" class="nav-link p-0">How It Works</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg active">
+								<a href="#categories" class="nav-link p-0">Recommended Products</a>
+									<span class="sr-only">(current)</span>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">Results</a>
+								<a href="/areas_of_concern" class="nav-link p-0">Update Concerns</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">Baskets</a>
+								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/questionnaire" class="nav-link p-0">questionnaire</a>
+								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
 							</li>
 
-							<li class="nav-item g-ml-12--lg">
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/contact" class="nav-link p-0">Contact</a>
 							</li>
 						</ul>
@@ -124,16 +115,16 @@
 	<!-- End Header -->
 	
 	<!--Section Results -->
-  <form action = "/new_basket" method = "POST" >
-	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
+<!--   <form action = "/new_product" method = "POST" >
+ -->	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
 		<div class="container-fluid px-0 text-center">
 			<br>
 			<br>
-			<h3 class="text-uppercase g-font-weight-700 g-font-size-24 mb-0">Totals For This Basket</h3>
-			{% set basket = baskets.popitem()[1]  %}
+			<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25">Totals For This Basket
+			</h4>
 
 				{% for concern in basket.basket_concerns %}
-				<h2 class="text-uppercase g-font-weight-600 g-font-size-20 mb-0" id="basket_concerns">
+				<h2 class="text-uppercase g-font-weight-500 g-font-size-20 mb-0" id="basket_concerns">
 					{{concern}}:
 			 		{{((basket.basket_concerns[concern] * 100)|round(2)|string).rstrip('0').rstrip('.')}}% 
 			 	</h2>
@@ -151,26 +142,28 @@
 	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
 	              <!-- Article Image -->
 	          			<div class="g-max-width-100 g-mr-15">
-	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">
-							<img class="w-100" src="{{product.imageurl}}" alt="Image description">
+	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" id="image-href">
+							<img class="w-100" src="{{product.imageurl}}" alt="Image description" 
+							id="image">
 							</a>
 	          			</div>
 	              <!-- End Article Image -->
 
 	              <!-- Article Info -->
-	              <div class="media-body align-self-center">
+	             <div class="media-body align-self-center">
 	                <h4 class="h5 g-mb-7">
-	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.title}}</a>
+	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" 
+	                  id="title">{{product.title}}</a>
 	                </h4>
-	                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.category}}</a>
+	                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" id="category-href">{{product.category}}</a>
 	                 	<br>
 
 	                {% for concern in basket.basket_concerns %}
 	        		<div class="concern_bar">
-					  	<div class="concern">
+					  	<div class="concern" id="concern">
 							{{concern}}
 						  	<div class="progress">
-							  	<div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
+							  	<div class="progress-bar" id="progress-bar" style="width: {{product[concern]*100}}%;background-color:222;"></div>
 						  	</div>
 						  	<br>
 						</div> 
@@ -178,27 +171,35 @@
 					{% endfor %}
 
                 <!-- End Article Info -->
-	              </div>
-				 <a href="static/js/results.js" class="btn btn-primary btn-sm active" role="button" aria-pressed="true" name="{{product.category}}" id="btn-{{product.category}}" 
-				 >
-	 				New {{product.category}}</a>
+	           		<footer class="d-flex justify-content-between g-font-size-16 text-center">
+		            <form action = "/new_product" method="POST">
+		 				<input type="hidden" name="category" value = "{{product.category}}"/>
+	              		<input type="hidden" name="moisturizers" value = "{{moisturizers}}"/>
+	 	              	<input type="hidden" name="cleansers" value = "{{cleansers}}"/>
+	 	              	<input type="hidden" name="serums" value = "{{serums}}"/>
+	              		<input type="hidden" name="basket" value = "{{basket}}"/>
+	              		<input type="hidden" name="concerns" value = "{{results.concerns}}"/>
+	              		<input type="hidden" name="baskets" value = "{{baskets}}"/>
+	              		<input type="hidden" name="results" value = "{{results}}"/>
+	              		<input type="submit" value="New {{product.category}}" class="btn btn-primary btn-sm active align-center"/>
 
-
+		 			</form>
+	 				</footer>
+	         	</div>
 
             	</article>
-            <!-- End Article -->
-          </div>
+<!--             End Article-->          
+			</div>
           {% endfor %}
 
         </div>
 	
-		 <a href="javascript:location.reload();" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" name="baskets">
+		 <a href="javascript:location.reload();" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" name="basket">
 	 		New Basket</a>
 	    </div>
 	 </section>
-	</form>
 
-    <!-- Categories -->
+ <!--   Categories-->
  <section id="categories" class="g-theme-bg-gray-light-v2 g-py-80">
     <div class="container g-pt-100 g-pb-70">
       <div class="row g-mx-minus-10">
@@ -294,6 +295,10 @@
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/areas_of_concern">Search Again</a>
+				</li>
+
+				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/contact">Contact</a>
 				</li>
 			</ul>
@@ -341,7 +346,6 @@
 <!-- JS Plugins Init. -->
 <script>
   // initialization of google map
-  init_clicks();
 
   function initMap() {
 	$.HSCore.components.HSGMap.init('.js-g-map');

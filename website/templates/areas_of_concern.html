@@ -58,18 +58,17 @@
 					<!-- Navigation -->
 					<div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
 						<ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-11 g-pt-20 g-pt-0--lg ml-auto">
-							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg active">
+							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/" class="nav-link p-0">Home
-									<span class="sr-only">(current)</span>
 								</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/about" class="nav-link p-0">About</a>
+								<a href="/faq" class="nav-link p-0">FAQ</a>
 							</li>
 
-							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/upload_images" class="nav-link p-0">Get Started</a>
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg active">
+								<a href="/areas_of_concern" class="nav-link p-0">Update Concerns</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
@@ -80,7 +79,7 @@
 								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
 							</li>
 
-							<li class="nav-item g-ml-12--lg">
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/contact" class="nav-link p-0">Contact</a>
 							</li>
 						</ul>
@@ -105,14 +104,16 @@
 			</nav>
 		</div>
 	</header>
+
 	<!-- End Header -->
 		
  <!-- Section Area of Concern Content -->
 	<section id="areas-of-concern" class="g-theme-bg-gray-light-v1 g-py-80">
 	  <form action = "/results" method="POST" >
-		 <div class="container-fluid px-0 text-center">
-			<h4 class="g-font-weight-700 g-font-size-35 g-theme-h-v1 g-color-primary g-mb-25">What Are Your Areas Of Concern</h4>
+		 <div class="container-fluid px-0 text-left">
+			<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">What Are Your Areas Of Concern</h4>
 				<div class="row no-gutters">
+
 				  <div class="col-md-3 d-flex text-md-left g-pa-50">
 					<div class="w-100">
 					  <div class="g-mb-25">
@@ -226,37 +227,23 @@
 					  </div>
 					</div>
 
-				  </div>
 
-				  <div class="btn-group">
-					  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					    Budget 
-					  </button>
-					  <div class="dropdown-menu dropdown-menu-right">
-					    <button class="dropdown-item" type="button" name="budget" value="10">
-					    Under $20</button>
-					    <button class="dropdown-item" type="button" name="budget" value="50">
-					    $20 - $50</button>
-					    <button class="dropdown-item" type="button" name="budget" value="75">
-					    $50 - $75</button>
-
-					  </div>
-				</div>
+					<div class="container-fluid px-4 text-center">
+						  <div class="form-group g-px-12--md" style="align-items: center">
+							<label for="budget">Budget</label>
+							<select class="form-control g-px-10" id="budget" name="budget" 
+							style="width:100%;align-items: center">
+							  <option value="15">under $20</option>
+							  <option value="50">$20 - $50</option>
+							  <option value="75" selected="selected">$50 - $75</option>
+							  <option value="125">$75 - $125</option>
+							  <option value="300">over $125</option>
+							</select>
+						  </div>
 				
-					  <div class="form-group">
-						<label for="budget">Budget</label>
-						<select class="form-control" id="budget"  name="budget">
-						  <option value="15">under $20</option>
-						  <option value="50">$20 - $50</option>
-						  <option value="75" selected="selected">$50 - $75</option>
-						  <option value="125">$75 - $125</option>
-						  <option value="300">over $125</option>
-						</select>
-					  </div>
-
-			<div class="container-fluid px-4 text-center">
-					<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit" value="Continue"/>
-			</div>
+						<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit" value="Continue"/>
+					</div>
+				</div>
 		</div>
 	  </form>
 	</section>
@@ -291,7 +278,7 @@
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/about">About</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/faq">FAQ</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
@@ -300,6 +287,10 @@
 
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/questionnaire">Questionnaire</a>
+				</li>
+
+				<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+					<a href="/subscribe" class="nav-link p-0">Subscribe</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">

@@ -58,30 +58,29 @@
 					<!-- Navigation -->
 					<div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
 						<ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-11 g-pt-20 g-pt-0--lg ml-auto">
-							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg active">
-								<a href="#home" class="nav-link p-0">Home
-									<span class="sr-only">(current)</span>
+							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/" class="nav-link p-0">Home
 								</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/about" class="nav-link p-0">About</a>
+								<a href="/faq" class="nav-link p-0">FAQ</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="#getstarted" class="nav-link p-0">Get Started</a>
+								<a href="/areas_of_concern" class="nav-link p-0">Update Concerns</a>
 							</li>
 
-							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="#questionnaire" class="nav-link p-0">Questionnaire</a>
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg active">
+								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
 							</li>
 
-							<li class="nav-item g-ml-12--lg">
-								<a href="#contact" class="nav-link p-0">Contact</a>
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/contact" class="nav-link p-0">Contact</a>
 							</li>
 						</ul>
 					</div>
@@ -105,22 +104,23 @@
 			</nav>
 		</div>
 	</header>
+
 	<!-- End Header -->
 		
 	<!-- Section Questionnaire Content -->
 	<section id="questionnaire" class="g-theme-bg-gray-light-v1 g-py-80">
 		<form action="/questions" method="POST" >
-			<div class="container-fluid px-0 text-center">
-					<h4 class="g-font-weight-700 g-font-size-35 g-theme-h-v1 g-color-primary g-mb-25">Tell Us About Yourself</h4>
+			<div class="container-fluid px-0 text-md-left">
+					<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">Tell Us About Yourself</h4>
 					<br>
 				<div class="row no-gutters">
 					<div class="col-md-4 d-flex text-md-left g-pa-50">
 						<div class="w-100">
 							<div class="g-mb-25">
 
-							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How much time do you Spend on Your Morning Routine</h2>
+							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Time Spent On Morning Routine</h2>
 							  <br>
-								<div class="col-sm">
+								<div class="col-sm" id="questionnaire">
 									<input class="form-check-input" type="radio" name="day-routine" id="day-0"
 									value="0">
 									   <label class="form-check-label" for="day-0">
@@ -167,7 +167,7 @@
 					<div class="col-md-4 d-flex text-md-left g-pa-50">
 						 <div class="w-100">
 							<div class="g-mb-25">
-							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How Much Time do you Spend on Your Night Routine</h2>
+							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Time Spent On Night Routine</h2>
 							  <br>
 
 								<div class="col-sm">
@@ -214,9 +214,45 @@
 					</div>
 
 					<div class="col-md-4 d-flex text-md-left g-pa-50">
+						<div class="w-100">
+							<div class="g-mb-25">
+							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Gender</h2>
+							  <br>
+
+								<div class="col-sm">
+								  <input class="form-check-input" type="radio" name="gender" id="female"
+								  value="0">
+									<label class="form-check-label" for="female">
+									  Female
+									</label>
+								</div>
+
+								<div class="col-sm">
+								  <input class="form-check-input" type="radio" name="gender" id="male"
+								  value="1">
+									<label class="form-check-label" for="male">
+									  Male
+									</label>
+								</div>
+
+								<div class="col-sm">
+								  <input class="form-check-input" type="radio" name="gender" id="neither"
+								  value="2">
+									<label class="form-check-label" for="neither">
+									  Non-Binary
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row no-gutters">
+					<div class="col-md-4 d-flex text-md-left g-pa-50">
 						 <div class="w-100">
 							<div class="g-mb-25">
-							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">How old are you?</h2>
+							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Age</h2>
 							  <br>
 							<div class="col-sm">
 								 <input class="form-check-input" type="radio" name="age" 
@@ -308,63 +344,77 @@
 							</div>
 						 </div>
 					  </div>
-				   </div>
 
-	<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">What is the closest match to your skin tone?</h2>
-	<br>
+					   <div class="col-md-4 d-flex text-md-left g-pa-25">
+					   		<div class="w-100">
+								<div class="g-mb-25">
 
-				<div class="row no-gutters">
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "pale">
-							<img src="static/spa_assets/img/skintone/pale.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="pale" value="pale">
-					</div>
+		
+									<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Closest Match To Skin Tone</h2>
+									<br>
 
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "fair">
-							<img src="static/spa_assets/img/skintone/fair.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="fair" 
-						value="fair">
-					</div>
+								<div class="form-check g-min-height-100 g-max-width-400" >
 
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "lt_brown">
-							<img src="static/spa_assets/img/skintone/lt_brown.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="lt_brown" 
-						value="lt_brown">
-					</div>
+									<div class="row">
+										<div class="col-sm">
+											<label for = "pale">
+												<img src="static/spa_assets/img/skintone/pale.jpeg" >
+											</label>
+											<input class="form-check-input" type="radio" name="ethnicity-img" id="pale" value="pale">
+										</div>
 
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "caramel">
-							<img src="static/spa_assets/img/skintone/caramel.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="caramel" 
-						value="caramel">
-					</div>
+										<div class="col-sm">
+											<label for = "fair">
+												<img src="static/spa_assets/img/skintone/fair.jpeg" >
+											</label>
+											<input class="form-check-input" type="radio" name="ethnicity-img" id="fair" 
+											value="fair">
+										</div>
 
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "bronze">
-							<img src="static/spa_assets/img/skintone/bronze.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="bronze" 
-						value="bronze">
-					</div>
+										<div class="col-sm">
+											<label for = "lt_brown">
+												<img src="static/spa_assets/img/skintone/lt_brown.jpeg" >
+											</label>
+											<input class="form-check-input" type="radio" name="ethnicity-img" id="lt_brown" 
+											value="lt_brown">
+										</div>
+									</div>
 
-					<div class="form-check col-md-6 g-min-height-100 g-max-width-400" >
-						<label for = "mahoganey">
-							<img src="static/spa_assets/img/skintone/mahoganey.jpeg" >
-						</label>
-						<input class="form-check-input" type="radio" name="ethnicity-img" id="mahoganey" 
-						value="mahoganey">
-					</div>
-				</div>	
+									<div class="row">
+										<div class="col-sm">
+											<label for = "caramel">
+												<img src="static/spa_assets/img/skintone/caramel.jpeg" >
+											</label>
+											<input class="form-check-input" type="radio" name="ethnicity-img" id="caramel" 
+											value="caramel">
+										</div>
+
+										<div class="col-sm">
+											<label for = "bronze">
+												<img src="static/spa_assets/img/skintone/bronze.jpeg" >
+											</label>
+											<input class="form-check-input" type="radio" name="ethnicity-img" id="bronze" 
+											value="bronze">
+										</div>
+
+										<div class="col-sm">
+											<label for = "mahoganey">
+												<img src="static/spa_assets/img/skintone/mahoganey.jpeg" >
+											</label>
+											<input class="form-check-input" type="radio" name="ethnicity-img" id="mahoganey" 
+											value="mahoganey">
+										</div>
+									</div>
+								</div>
+								</div>
+							</div>
+						</div>	
 				<br>
 				<br>
-			<div class="container-fluid px-4 text-center">
-					<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit" value="Continue"/>
+						<div class="container-fluid px-4 text-center">
+								<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit" value="Continue"/>
+						</div>
+				</div>
 			</div>
 		</div>
 	 </form>
@@ -395,23 +445,23 @@
 			
 			<ul class="list-inline text-uppercase g-font-weight-700 g-font-size-11 mb-0">
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#home">Home</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/">Home</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/about">About</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/faq">FAQ</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="#getstarted">Get Started</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Get Started</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#questionnaire">Questionnaire</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/questionnaire">Questionnaire</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#contact">Contact</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/contact">Contact</a>
 				</li>
 			</ul>
 		</div>

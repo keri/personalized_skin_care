@@ -7,3 +7,16 @@
 			  height: 140
               top:50%
               transform: translate(-50%, -50%);}
+
+#progress-bar{
+			background-color: 343a40;
+			}
+
+#custom-nav{
+			color:#555;
+}
+
+.light-theme .nav-item .nav-link {
+  color: #555;
+}
+
