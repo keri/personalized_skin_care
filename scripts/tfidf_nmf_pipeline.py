@@ -73,6 +73,9 @@ def create_corpus(df):
     return(corpus)
 
 def fit_nmf(X, n_components=20):
+    '''create model with n_components = latent features
+        input : matrix
+        output : model object'''
     nmf = NMF(n_components)
     nmf.fit(X)
     return(nmf)
@@ -136,7 +139,10 @@ def tfidf_transform(vec,corpus):
     return(X, features)
 
 def get_words(H,features,n):
+    word_set = {}
     top_words_index = np.argsort(-H)[:,0:n]
     most_common_words_per_topic = np.array(features)[top_words_index]
     for i, items in enumerate(most_common_words_per_topic):
         print(i, items)
+        word_set[i] = items
+    return word_set

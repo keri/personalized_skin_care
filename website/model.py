@@ -42,7 +42,7 @@ class DataModel(object):
         3 products for each concern equaling 18 products in total.'''
         self.product_list = []
         self.concerns = concern_list
-        self.budget = float(budget)
+        self.budget = round(float(budget),2)
         query = ''
         for category in self.categories:
             #gets each product category from list, runs a query for recommendations in 
@@ -53,20 +53,15 @@ class DataModel(object):
             df = self.clean_df(df)
             df['category'] = category
             product_df = self.get_products(df)
-            #generalize the concerns to produce a list to be passed back to the app.py
-            # for i in range(len(self.concerns)): 
-            #     product_df.rename(columns = {'p_unweighted_'+self.concerns[i] : 'concern'+str(i+1)}, inplace=True)
             for concern in self.concerns: 
                 product_df.rename(columns = {'p_unweighted_'+concern : concern}, inplace=True)
             
             self.product_list.extend(product_df.to_dict(orient='records'))
-
         return(self.product_list)
 
 
-
     def create_weighted_concern(self, df, concern):
-        df['weighted_'+ concern]  = (df['review_ratio'] * df[concern])
+        df['weighted_'+ concern]  = df['review_ratio'] * df[concern]
 
     def clean_df(self,df):
         '''columns are ints or floats, except asin and imageurl which are strings'''
@@ -136,5 +131,5 @@ class DataModel(object):
         df2 = products.filter(regex='p_unweighted')
         df3 = products.filter(columns)
         recommendations = pd.concat([df2,df3],axis=1)
-        return(recommendations)
+        return(recommendations.round(2))
 
