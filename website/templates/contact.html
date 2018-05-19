@@ -44,13 +44,7 @@
 					<!-- Logo -->
 					<a href="#!" class="js-go-to navbar-brand u-header__logo"
 					   data-type="static">
-						<img class="u-header__logo-img u-header__logo-img--main d-block g-width-60" src="static/spa_assets/img/Capture.png" alt="Image description"
-							 data-header-fix-moment-exclude="d-block"
-							 data-header-fix-moment-classes="d-none">
-						
-						<img class="u-header__logo-img u-header__logo-img--main d-none g-width-60" src="static/spa_assets/img/Capture.png" alt="Image description"
-							 data-header-fix-moment-exclude="d-none"
-							 data-header-fix-moment-classes="d-block"> </a>
+					</a>
 					<!-- End Logo -->
 					
 					<!-- Navigation -->
@@ -107,20 +101,21 @@
 		
 		<!-- Section Content -->
 	<section id="contact" class="g-py-70">
-		<form></form>
-		<div class="container text-center g-width-600 g-mb-50">
-			<div class="g-mb-25">
-				<h4 class="g-font-weight-700 g-font-size-20 g-theme-h-v1 g-color-primary g-mb-25">Contact us</h4>
-				<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Get in touch</h2>
-				<span class="u-icon-v1 u-icon-size--xs g-color-primary">
-				  <i class="icon-envelope-letter"></i>
-				</span>
+	  	<form action = "/contact" method="POST" >
+
+			<div class="container text-center g-width-600 g-mb-50">
+				<div class="g-mb-25">
+					<h4 class="g-font-weight-700 g-font-size-20 g-theme-h-v1 g-color-primary g-mb-25">Contact us</h4>
+					<h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">Get in touch</h2>
+					<span class="u-icon-v1 u-icon-size--xs g-color-primary">
+					  <i class="icon-envelope-letter"></i>
+					</span>
 						<em class="d-block g-color-black-light-v2 text-uppercase g-font-size-12 g-font-style-normal g-mb-5">Email</em>
 						<strong class="d-block"><a href="#!" class="g-color-main">keri@multerer.com</a></strong>
 
-					<form>
 						<div class="form-group g-mb-25">
-							<input class="form-control g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v1 g-brd-none rounded-0 g-pa-12" type="text" placeholder="Your name">
+							<input class="form-control g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v1 g-brd-none rounded-0 g-pa-12" type="text" placeholder="Your name"
+							name="name" value="name">
 						</div>
 						
 						<div class="form-group g-mb-25">
@@ -132,9 +127,9 @@
 						</div>
 						
 						<button class="btn btn-md text-uppercase btn-block u-btn-outline-primary g-font-weight-700 g-font-size-11 g-brd-2 rounded-0 g-py-19 g-px-20" type="submit" role="button">Submit</button>
-					</form>
-			</div>		
-		</div>
+				</div>		
+			</div>
+	  	</form>
 	</section>
 	<!-- End Section Content -->
 
@@ -142,7 +137,7 @@
 	<!-- Footer -->
 	<footer>
 		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
-			<a class="d-inline-block g-mb-25" href="/"> <img src="" alt="Logo"> </a>
+			<a class="d-inline-block g-mb-25" href="/"> <img src="static/spa_assets/img/font_footer.png" alt="Logo"> </a>
 			
 			<p class="g-mb-30">Connect With Us!</p>
 			

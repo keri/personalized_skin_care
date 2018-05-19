@@ -135,9 +135,6 @@ def create_baskets(products, concerns):
 def replace_product(basket, product_list, category, concerns):
     new_basket = {}
     products = basket['products']
-
-    print('products = ', products)
-    print('category = ',category)
     for product in products:
         if product['category'] == category:
             lbasket = list(products)
@@ -177,14 +174,10 @@ def inputquestions():
     age = request.form.get('age')
     skintone = request.form.get('ethnicity-img')
     gender = request.form.get('gender')
-    print('day routine = ',day_routine)
-    print('age = ',age)
-    print('skine tone = ',skintone)
-    print('gender = ',gender)
     return (render_template('areas_of_concern.html'))
 
 @app.route("/results", methods=['GET','POST'])
-def results2():
+def results():
     concerns = request.form.getlist('concern')
     update_csv(concerns)
 
@@ -231,6 +224,7 @@ def subscribe_get():
 @app.route("/subscribe", methods=['POST'])
 def subscribe_post():
     email = request.form.get('email')
+    print('email = ',email)
     return redirect('/')
 
 @app.route("/upload_images", methods=["GET","POST"])
@@ -245,8 +239,15 @@ def questionnaire():
 def input_concerns():
     return render_template('areas_of_concern.html')
 
-@app.route("/contact",methods=["GET"])
+@app.route("/contact",methods=["POST"])
 def contact_get():
+    email = request.form.get('email')
+    name = request.form.get('name')
+    message = request.form.get('message')
+    print('email = ',email)
+    print('name = ',name)
+    print('message = ',message)
+
     return render_template('contact.html')
 
 
