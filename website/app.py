@@ -47,18 +47,19 @@ def update_csv(concern_list):
     '''image was saved from start.html into the data/folder. Put an exention on the filename
     for each concern so the model can see what images are attached to which concern.'''
     converted_files = []
-    path = 'data/images'
-    files = listdir(path)
-    for file in files:
-        upload_images_to_s3(file, path)
+    path = 'data/images/'
+    if path != None:
+        files = listdir(path)
+        for file in files:
+            upload_images_to_s3(file, path)
 
-        for concern in concern_list:
-            converted_files.append((file, concern))
-        os.remove('data/images/'+file)
-    insert_row_csv(converted_files)
+            for concern in concern_list:
+                converted_files.append((file, concern))
+            os.remove('data/images/'+file)
+        insert_row_csv(converted_files)
 
 def upload_images_to_s3(filename, path):
-    path_file = path+'/'+filename
+    path_file = path+filename
     k = Key(bucket)
     k.key = 'test/'+filename
     k.set_contents_from_filename(path_file)
@@ -224,7 +225,6 @@ def subscribe_get():
 @app.route("/subscribe", methods=['POST'])
 def subscribe_post():
     email = request.form.get('email')
-    print('email = ',email)
     return redirect('/')
 
 @app.route("/upload_images", methods=["GET","POST"])
@@ -239,7 +239,7 @@ def questionnaire():
 def input_concerns():
     return render_template('areas_of_concern.html')
 
-@app.route("/contact",methods=["POST"])
+@app.route("/contact",methods=["GET","POST"])
 def contact_get():
     email = request.form.get('email')
     name = request.form.get('name')
@@ -248,7 +248,7 @@ def contact_get():
     print('name = ',name)
     print('message = ',message)
 
-    return render_template('contact.html')
+    return redirect('/')
 
 
 @app.route("/new_product",methods=["POST"])
