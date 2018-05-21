@@ -37,7 +37,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def insert_row_csv(converted_list):
-    training_path = ('/Users/keri/git/galvanize/capstone/psc/website/data/training/images_for_training.csv')
+    training_path = ('data/training/images_for_training.csv')
     '''updates the csv with new images'''
     with open(training_path,"a", newline='') as f: 
             cw=csv.writer(f, delimiter=",", lineterminator="\r\n") 
