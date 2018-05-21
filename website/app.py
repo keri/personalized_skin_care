@@ -47,14 +47,14 @@ def update_csv(concern_list):
     '''image was saved from start.html into the data/folder. Put an exention on the filename
     for each concern so the model can see what images are attached to which concern.'''
     converted_files = []
-    path = '/Users/keri/git/galvanize/capstone/psc/website/data/images'
+    path = 'data/images'
     files = listdir(path)
     for file in files:
         upload_images_to_s3(file, path)
 
         for concern in concern_list:
             converted_files.append((file, concern))
-        os.remove('/Users/keri/git/galvanize/capstone/psc/website/data/images/'+file)
+        os.remove('data/images/'+file)
     insert_row_csv(converted_files)
 
 def upload_images_to_s3(filename, path):
