@@ -49,7 +49,13 @@
 					<!-- Logo -->
 					<a href="#!" class="js-go-to navbar-brand u-header__logo"
 					   data-type="static">
-					</a>
+						<img class="u-header__logo-img u-header__logo-img--main d-block g-width-60" src="static/spa_assets/img/Capture.png" alt="Image description"
+							 data-header-fix-moment-exclude="d-block"
+							 data-header-fix-moment-classes="d-none">
+						
+						<img class="u-header__logo-img u-header__logo-img--main d-none g-width-60" src="static/spa_assets/img/Capture.png" alt="Image description"
+							 data-header-fix-moment-exclude="d-none"
+							 data-header-fix-moment-classes="d-block"> </a>
 					<!-- End Logo -->
 					
 					<!-- Navigation -->
@@ -109,8 +115,8 @@
 	<!-- End Header -->
 	
 	<!--Section Results -->
-<!--   <form action = "/new_product" method = "POST" >
- -->	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
+<!--   <form action = "/new_product" method = "POST" -->
+	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
 		<div class="container-fluid px-0 text-center">
 			<br>
 			<br>
@@ -187,9 +193,14 @@
           {% endfor %}
 
         </div>
-	
-		 <a href="javascript:location.reload();" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" name="basket">
-	 		New Basket</a>
+          	<form action="/custom_basket" method="POST">
+			 	<input type="hidden" name="moisturizers" value="{{moisturizers}}"/>
+			 	<input type="hidden" name="serums" value="{{serums}}"/>
+			 	<input type="hidden" name="cleansers" value="{{cleansers}}"/>
+			 	<input type="hidden" name="concerns" value="{{results.concerns}}"/>
+			 	<input type="submit" value="Create Your Own Basket" class="btn btn-primary btn-sm active align-center"/>
+	 		</form>
+
 	    </div>
 	 </section>
 
@@ -252,7 +263,7 @@
 	<!-- Footer -->
 	<footer>
 		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
-			<a class="d-inline-block g-mb-25" href="/"> <img src="static/spa_assets/img/font_footer.png" alt="Logo"> </a>
+			<a class="d-inline-block g-mb-25" href="/"> <img src="" alt="Logo"> </a>
 			
 			<p class="g-mb-30">Connect With Us!</p>
 			
