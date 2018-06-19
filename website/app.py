@@ -203,6 +203,37 @@ def results2():
                             moisturizers=moisturizers,serums=serums,cleansers=cleansers,
                             basket=basket)
 
+@app.route("/temp_results", methods=['GET','POST'])
+def temp_results():
+    concerns = request.form.getlist('concern')
+    update_csv(concerns)
+
+    budget = request.form.get('budget')
+    products = data_model.get_recommendations(budget, concerns)
+    baskets, moisturizers, serums, cleansers = create_baskets(products, concerns)
+    basket = baskets.popitem()[1]
+
+    results = {
+        'concerns':concerns,
+        'budget':budget,
+        'products':products
+    }
+    
+    day_routine = request.form.get('day-routine')
+    night_routine = request.form.get('night-routine')
+    age = request.form.get('age')
+    skintone = request.form.get('ethnicity-img')
+    gender = request.form.get('gender')
+    print('day routine = ',day_routine)
+    print('age = ',age)
+    print('skine tone = ',skintone)
+    print('gender = ',gender)
+
+    return render_template('spa_results.html', results=results, baskets=baskets, 
+                            moisturizers=moisturizers,serums=serums,cleansers=cleansers,
+                            basket=basket)
+
+
 @app.route("/moisturizers", methods=['POST'])
 def moisturizer_results():
     moisturizers = request.form.get('moisturizers')
