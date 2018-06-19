@@ -230,6 +230,7 @@ def custom_basket():
     serums = ast.literal_eval(request.form.get('serums'))
     cleansers = ast.literal_eval(request.form.get('cleansers'))
     concerns = ast.literal_eval(request.form.get('concerns'))
+    print('concerns from custom basket = ',concerns)
     basket.create_basket(concerns)
 
     return render_template('custom_basket.html',moisturizers=moisturizers,serums=serums,
@@ -241,6 +242,7 @@ def add_to_basket():
     serums = ast.literal_eval(request.form.get('serums'))
     cleansers = ast.literal_eval(request.form.get('cleansers'))
     concerns = ast.literal_eval(request.form.get('concerns'))
+    print('concerns from add product = ',concerns)
     product = ast.literal_eval(request.form.get("product"))
     basket.add_product(product)
     current_basket = basket.get_basket()
