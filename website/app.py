@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, redirect, abort, url_for, flash, session, make_response
 from werkzeug import secure_filename
 from model import DataModel
+from basket import Basket
 from os import listdir
 import csv
 import pdb
@@ -18,7 +19,7 @@ Bucketname = 'skin-care-app'
 conn = boto.s3.connect_to_region('us-west-2',
        aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
        aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
-       is_secure=True,       
+       is_secure=True,
        calling_format = boto.s3.connection.OrdinaryCallingFormat(),
        )
 bucket = conn.get_bucket(Bucketname)
@@ -31,7 +32,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = "super secret key"
 
 data_model = DataModel()
-#baskets = Baskets()
+basket = Basket()
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -39,8 +41,8 @@ def allowed_file(filename):
 def insert_row_csv(converted_list):
     training_path = ('data/training/images_for_training.csv')
     '''updates the csv with new images'''
-    with open(training_path,"a", newline='') as f: 
-            cw=csv.writer(f, delimiter=",", lineterminator="\r\n") 
+    with open(training_path,"a", newline='') as f:
+            cw=csv.writer(f, delimiter=",", lineterminator="\r\n")
             cw.writerows(converted_list)
 
 def update_csv(concern_list):
@@ -70,10 +72,10 @@ def get_basket_price(basket):
 def get_basket_concerns(basket, concerns):
     basket_concerns = {}
     for concern in concerns:
-        concern_total = (basket[0][concern] + basket[1][concern] + 
+        concern_total = (basket[0][concern] + basket[1][concern] +
                         basket[2][concern])
         basket_concerns[concern] = concern_total
-    return(basket_concerns)       
+    return(basket_concerns)
 
 
 def create_baskets(products, concerns):
@@ -82,7 +84,7 @@ def create_baskets(products, concerns):
     serums = [result for result in products if result['category'] == 'serum']
     cleansers = [result for result in products if result['category'] == 'cleanser']
 
-    combinations =  list(itertools.product(moisturizers, serums, cleansers))
+    baskets =  list(itertools.product(moisturizers, serums, cleansers))
     basket_dictionary = {}
 
     '''scales to any number of concerns the user chooses. Adds up total for each concern for each basket
@@ -90,41 +92,41 @@ def create_baskets(products, concerns):
     combo_idx = 0
     basket_count = 0
 
-    for combination in combinations:
+    for combination in baskets:
         basket_price = get_basket_price(combination)
         basket_concerns = get_basket_concerns(combination, concerns)
 
         if all(i >= .9 for i in basket_concerns.values()):
             temp_basket = {}
-            temp_basket['products'] = combinations[combo_idx]
-            temp_basket['basket_concerns'] = basket_concerns
-            temp_basket['price'] = round(basket_price,2)
-            basket_dictionary[basket_count] = temp_basket
-            basket_count += 1
-        elif any(i >= .9 for i in basket_concerns.values()):
-            temp_basket = {}
-            temp_basket['products'] = combinations[combo_idx]
+            temp_basket['products'] = baskets[combo_idx]
             temp_basket['basket_concerns'] = basket_concerns
             temp_basket['price'] = round(basket_price,2)
             basket_dictionary[basket_count] = temp_basket
             basket_count += 1
         elif all(i >= .7 for i in basket_concerns.values()):
             temp_basket = {}
-            temp_basket['products'] = combinations[combo_idx]
+            temp_basket['products'] = baskets[combo_idx]
+            temp_basket['basket_concerns'] = basket_concerns
+            temp_basket['price'] = round(basket_price,2)
+            basket_dictionary[basket_count] = temp_basket
+            basket_count += 1
+        elif any(i >= .9 for i in basket_concerns.values()):
+            temp_basket = {}
+            temp_basket['products'] = baskets[combo_idx]
             temp_basket['basket_concerns'] = basket_concerns
             temp_basket['price'] = round(basket_price,2)
             basket_dictionary[basket_count] = temp_basket
             basket_count += 1
         elif any(i >= .7 for i in basket_concerns.values()):
             temp_basket = {}
-            temp_basket['products'] = combinations[combo_idx]
+            temp_basket['products'] = baskets[combo_idx]
             temp_basket['basket_concerns'] = basket_concerns
             temp_basket['price'] = round(basket_price,2)
             basket_dictionary[basket_count] = temp_basket
             basket_count += 1
         else:
             temp_basket = {}
-            temp_basket['products'] = combinations[combo_idx]
+            temp_basket['products'] = baskets[combo_idx]
             temp_basket['basket_concerns'] = basket_concerns
             temp_basket['price'] = round(basket_price,2)
             basket_dictionary[basket_count] = temp_basket
@@ -136,6 +138,7 @@ def create_baskets(products, concerns):
 def replace_product(basket, product_list, category, concerns):
     new_basket = {}
     products = basket['products']
+
     for product in products:
         if product['category'] == category:
             lbasket = list(products)
@@ -175,10 +178,14 @@ def inputquestions():
     age = request.form.get('age')
     skintone = request.form.get('ethnicity-img')
     gender = request.form.get('gender')
+    print('day routine = ',day_routine)
+    print('age = ',age)
+    print('skine tone = ',skintone)
+    print('gender = ',gender)
     return (render_template('areas_of_concern.html'))
 
 @app.route("/results", methods=['GET','POST'])
-def results():
+def results2():
     concerns = request.form.getlist('concern')
     update_csv(concerns)
 
@@ -193,7 +200,7 @@ def results():
         'products':products
     }
 
-    return render_template('spa_results.html', results=results, baskets=baskets, 
+    return render_template('spa_results.html', results=results, baskets=baskets,
                             moisturizers=moisturizers,serums=serums,cleansers=cleansers,
                             basket=basket)
 
@@ -201,22 +208,61 @@ def results():
 def moisturizer_results():
     moisturizers = request.form.get('moisturizers')
     concerns = request.form.get('concerns')
-    return render_template('moisturizers.html', moisturizers=ast.literal_eval(moisturizers), 
+    return render_template('moisturizers.html', moisturizers=ast.literal_eval(moisturizers),
                             concerns=ast.literal_eval(concerns))
 
 @app.route("/serums", methods=["POST"])
 def serum_results():
     serums = request.form.get('serums')
     concerns = request.form.get('concerns')
-    return render_template('serums.html', serums=ast.literal_eval(serums), 
+    return render_template('serums.html', serums=ast.literal_eval(serums),
                             concerns=ast.literal_eval(concerns))
 
 @app.route("/cleansers", methods=["POST"])
 def cleanser_results():
     cleansers = request.form.get('cleansers')
     concerns = request.form.get('concerns')
-    return render_template('cleansers.html', cleansers=ast.literal_eval(cleansers), 
+    return render_template('cleansers.html', cleansers=ast.literal_eval(cleansers),
                             concerns=ast.literal_eval(concerns))
+
+@app.route("/custom_basket", methods=["POST"])
+def custom_basket():
+    moisturizers = ast.literal_eval(request.form.get('moisturizers'))
+    serums = ast.literal_eval(request.form.get('serums'))
+    cleansers = ast.literal_eval(request.form.get('cleansers'))
+    concerns = ast.literal_eval(request.form.get('concerns'))
+    print('concerns from custom basket = ',concerns)
+    basket.create_basket(concerns)
+
+    return render_template('custom_basket.html',moisturizers=moisturizers,serums=serums,
+                            cleansers=cleansers,concerns=concerns)
+
+@app.route("/add_product",methods=["POST"])
+def add_to_basket():
+    moisturizers = ast.literal_eval(request.form.get('moisturizers'))
+    serums = ast.literal_eval(request.form.get('serums'))
+    cleansers = ast.literal_eval(request.form.get('cleansers'))
+    concerns = ast.literal_eval(request.form.get('concerns'))
+    print('concerns from add product = ',concerns)
+    product = ast.literal_eval(request.form.get("product"))
+    basket.add_product(product)
+    current_basket = basket.get_basket()
+
+    return render_template('/update_basket.html',basket=current_basket,serums=serums,moisturizers=moisturizers,
+                            cleansers=cleansers,concerns=concerns)
+
+@app.route("/delete_product",methods=["POST"])
+def delete_from_basket():
+    moisturizers = ast.literal_eval(request.form.get('moisturizers'))
+    serums = ast.literal_eval(request.form.get('serums'))
+    cleansers = ast.literal_eval(request.form.get('cleansers'))
+    concerns = ast.literal_eval(request.form.get('concerns'))
+    product = ast.literal_eval(request.form.get("product"))
+    basket.delete_product(product)
+    current_basket = basket.get_basket()
+
+    return render_template('/update_basket.html',basket=current_basket,serums=serums,moisturizers=moisturizers,
+                            cleansers=cleansers,concerns=concerns)
 
 @app.route("/subscribe", methods=['GET'])
 def subscribe_get():
@@ -271,7 +317,7 @@ def replace_product_in_basket():
 
     new_basket = replace_product(basket, product_list, category, concerns)
 
-    return render_template('spa_results.html', results=results, baskets=baskets, 
+    return render_template('spa_results.html', results=results, baskets=baskets,
                             moisturizers=moisturizers,serums=serums,cleansers=cleansers,
                             basket=new_basket)
 
@@ -281,4 +327,3 @@ if __name__ == '__main__':
 
 #    app.debug = True
     app.run(host='0.0.0.0', threaded=True)
-
