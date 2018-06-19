@@ -154,7 +154,7 @@ def replace_product(basket, product_list, category, concerns):
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('questionnaire.html')
 
 @app.route('/faq')
 def about():
