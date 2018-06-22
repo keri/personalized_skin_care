@@ -24,6 +24,10 @@ class Basket(object):
 		for concern in self.concerns:
 			self.basket['basket_concerns'][concern] = 0
 
+	def new_basket(self):
+		self.basket = {'basket_concerns':{},'price':0,'products':[]}
+
+
 	def add_product(self,product):
 		self.basket['products'].append(product)
 		self.total_price += product['price']
