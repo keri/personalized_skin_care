@@ -207,7 +207,8 @@ def results2():
 def temp_results():
     concerns = request.form.getlist('concern')
     update_csv(concerns)
-
+    if concerns == []:
+        concerns = ['antiaging','skintone','pores','sensitive']
     budget = request.form.get('budget')
     products = data_model.get_recommendations(budget, concerns)
     baskets, moisturizers, serums, cleansers = create_baskets(products, concerns)
@@ -218,16 +219,12 @@ def temp_results():
         'budget':budget,
         'products':products
     }
-    
+
     day_routine = request.form.get('day-routine')
     night_routine = request.form.get('night-routine')
     age = request.form.get('age')
     skintone = request.form.get('ethnicity-img')
     gender = request.form.get('gender')
-    print('day routine = ',day_routine)
-    print('age = ',age)
-    print('skine tone = ',skintone)
-    print('gender = ',gender)
 
     return render_template('spa_results.html', results=results, baskets=baskets, 
                             moisturizers=moisturizers,serums=serums,cleansers=cleansers,
@@ -262,6 +259,7 @@ def custom_basket():
     cleansers = ast.literal_eval(request.form.get('cleansers'))
     concerns = ast.literal_eval(request.form.get('concerns'))
     print('concerns from custom basket = ',concerns)
+    basket.new_basket()
     basket.create_basket(concerns)
 
     return render_template('custom_basket.html',moisturizers=moisturizers,serums=serums,
@@ -273,10 +271,10 @@ def add_to_basket():
     serums = ast.literal_eval(request.form.get('serums'))
     cleansers = ast.literal_eval(request.form.get('cleansers'))
     concerns = ast.literal_eval(request.form.get('concerns'))
-    print('concerns from add product = ',concerns)
     product = ast.literal_eval(request.form.get("product"))
     basket.add_product(product)
     current_basket = basket.get_basket()
+    print('current basket = ',current_basket)
 
     return render_template('/update_basket.html',basket=current_basket,serums=serums,moisturizers=moisturizers,
                             cleansers=cleansers,concerns=concerns)
