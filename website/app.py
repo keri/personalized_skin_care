@@ -298,6 +298,7 @@ def subscribe_get():
 @app.route("/subscribe", methods=['POST'])
 def subscribe_post():
     email = request.form.get('email')
+    print('email is: ',email)
     return redirect('/')
 
 @app.route("/upload_images", methods=["GET","POST"])
