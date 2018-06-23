@@ -312,8 +312,13 @@ def questionnaire():
 def input_concerns():
     return render_template('areas_of_concern.html')
 
-@app.route("/contact",methods=["GET","POST"])
+@app.route("/contact",methods=["GET"])
 def contact_get():
+    return render_template('contact.html')
+
+
+@app.route("/contact",methods=["POST"])
+def contact_post():
     email = request.form.get('email')
     name = request.form.get('name')
     message = request.form.get('message')
