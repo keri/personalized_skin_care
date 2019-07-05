@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, abort, url_for, flash, session, make_response
+from flask import Flask, render_template, request, session, make_response
 from werkzeug import secure_filename
 from model import DataModel
 from basket import Basket
@@ -7,32 +7,45 @@ import csv
 import pdb
 import hashlib
 import boto
-import boto.s3.connection
-from boto.s3.key import Key
-import itertools
 import random
 import ast
 import json
 import os
 
 Bucketname = 'skin-care-app'
-conn = boto.s3.connect_to_region('us-west-2',
-       aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
-       aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
-       is_secure=True,
-       calling_format = boto.s3.connection.OrdinaryCallingFormat(),
-       )
-bucket = conn.get_bucket(Bucketname)
+# conn = boto.s3.connect_to_region('us-west-2',
+#        aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+#        aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+#        is_secure=True,
+#        calling_format = boto.s3.connection.OrdinaryCallingFormat(),
+#        )
+# bucket = conn.get_bucket(Bucketname)
 
-
-UPLOAD_FOLDER = 'data/images'
-ALLOWED_EXTENSIONS = set(['txt','pdf', 'png', 'jpg', 'jpeg', 'gif','docx','doc'])
+UPLOAD_FOLDER = 'data/training/images/'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.secret_key = "super secret key"
-
+app.config['SESSION_TYPE'] = 'filesystem'
+app.secret_key = b'\x96\x05\xac\xc2\x1b\xe7\xb6\x84u\xbaC\xcd'
 data_model = DataModel()
 basket = Basket()
+Session(app)
+
+def upload_to_aws(local_file, bucket, s3_file):
+    s3 = boto3.client('s3', aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+                      aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
+    local_file = UPLOAD_FOLDER + local_file
+    s3_file = 'test/' + s3_file
+    try:
+        s3.upload_file(local_file, bucket, s3_file)
+        print("Upload Successful")
+        return True
+    except FileNotFoundError:
+        print("The file was not found")
+        return False
+    except NoCredentialsError:
+        print("Credentials not available")
+        return False
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -49,113 +62,24 @@ def update_csv(concern_list):
     '''image was saved from start.html into the data/folder. Put an exention on the filename
     for each concern so the model can see what images are attached to which concern.'''
     converted_files = []
-    path = 'data/images/'
-    if path != None:
-        files = listdir(path)
-        for file in files:
-            upload_images_to_s3(file, path)
-
+    path = UPLOAD_FOLDER
+    files = listdir(path)
+    for file in files:
+        # upload_images_to_s3(file)
+        if file[0] != '.':
+            upload_to_aws(file,Bucketname,file)
             for concern in concern_list:
                 converted_files.append((file, concern))
-            os.remove('data/images/'+file)
-        insert_row_csv(converted_files)
-
-def upload_images_to_s3(filename, path):
-    path_file = path+filename
-    k = Key(bucket)
-    k.key = 'test/'+filename
-    k.set_contents_from_filename(path_file)
+            os.remove('data/training/images/'+file)
+    insert_row_csv(converted_files)
 
 def get_basket_price(basket):
     return(round((basket[0]['price'] + basket[1]['price'] + basket[2]['price']),2))
 
-def get_basket_concerns(basket, concerns):
-    basket_concerns = {}
-    for concern in concerns:
-        concern_total = (basket[0][concern] + basket[1][concern] +
-                        basket[2][concern])
-        basket_concerns[concern] = concern_total
-    return(basket_concerns)
-
-
-def create_baskets(products, concerns):
-    '''creating a basket of products in which product totals for each concern is greater than .9'''
-    moisturizers = [result for result in products if result['category'] == 'moisturizer']
-    serums = [result for result in products if result['category'] == 'serum']
-    cleansers = [result for result in products if result['category'] == 'cleanser']
-
-    baskets =  list(itertools.product(moisturizers, serums, cleansers))
-    basket_dictionary = {}
-
-    '''scales to any number of concerns the user chooses. Adds up total for each concern for each basket
-        and appends to final list that comtains each basket as an element'''
-    combo_idx = 0
-    basket_count = 0
-
-    for combination in baskets:
-        basket_price = get_basket_price(combination)
-        basket_concerns = get_basket_concerns(combination, concerns)
-
-        if all(i >= .9 for i in basket_concerns.values()):
-            temp_basket = {}
-            temp_basket['products'] = baskets[combo_idx]
-            temp_basket['basket_concerns'] = basket_concerns
-            temp_basket['price'] = round(basket_price,2)
-            basket_dictionary[basket_count] = temp_basket
-            basket_count += 1
-        elif all(i >= .7 for i in basket_concerns.values()):
-            temp_basket = {}
-            temp_basket['products'] = baskets[combo_idx]
-            temp_basket['basket_concerns'] = basket_concerns
-            temp_basket['price'] = round(basket_price,2)
-            basket_dictionary[basket_count] = temp_basket
-            basket_count += 1
-        elif any(i >= .9 for i in basket_concerns.values()):
-            temp_basket = {}
-            temp_basket['products'] = baskets[combo_idx]
-            temp_basket['basket_concerns'] = basket_concerns
-            temp_basket['price'] = round(basket_price,2)
-            basket_dictionary[basket_count] = temp_basket
-            basket_count += 1
-        elif any(i >= .7 for i in basket_concerns.values()):
-            temp_basket = {}
-            temp_basket['products'] = baskets[combo_idx]
-            temp_basket['basket_concerns'] = basket_concerns
-            temp_basket['price'] = round(basket_price,2)
-            basket_dictionary[basket_count] = temp_basket
-            basket_count += 1
-        else:
-            temp_basket = {}
-            temp_basket['products'] = baskets[combo_idx]
-            temp_basket['basket_concerns'] = basket_concerns
-            temp_basket['price'] = round(basket_price,2)
-            basket_dictionary[basket_count] = temp_basket
-            basket_count += 1
-        combo_idx += 1
-    return(basket_dictionary, moisturizers, serums, cleansers)
-
-
-def replace_product(basket, product_list, category, concerns):
-    new_basket = {}
-    products = basket['products']
-
-    for product in products:
-        if product['category'] == category:
-            lbasket = list(products)
-            product_idx = lbasket.index(product)
-            lbasket.remove(product)
-            new_product = random.choice(product_list)
-            lbasket.insert( product_idx, new_product)
-            new_basket['price'] = get_basket_price(lbasket)
-            new_basket['basket_concerns'] = get_basket_concerns(lbasket, concerns)
-            new_basket['products'] = tuple(lbasket)
-
-            return(new_basket)
-
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('home2.html')
 
 @app.route('/faq')
 def about():

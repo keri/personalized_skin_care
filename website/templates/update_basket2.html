@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Title -->
+	<title>Skinlytics Custom Basket</title>
+	
+	<!-- Required Meta Tags Always Come First -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="../../favicon.ico">
+	
+	<!-- Google Fonts -->
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600%2C700%2C800%7CLeckerli+One%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
+	
+	<!-- CSS Global Compulsory -->
+	<link rel="stylesheet" href="static/spa_assets/vendor/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="static/spa_assets/vendor/icon-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/spa_assets/vendor/icon-hs/style.css">
+	<link rel="stylesheet" href="static/spa_assets/vendor/icon-line/css/simple-line-icons.css">
+	
+	<!-- CSS Implementing Plugins -->
+	<link rel="stylesheet" href="static/spa_assets/vendor/hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" href="static/spa_assets/vendor/slick-carousel/slick/slick.css">
+	<link rel="stylesheet" href="static/spa_assets/vendor/cubeportfolio-full/cubeportfolio/css/cubeportfolio.min.css">
+	
+	<!-- CSS Template -->
+	<link rel="stylesheet" href="static/spa_assets/css/styles.op-spa.css">
+    <link rel="stylesheet" href="static/spa_assets/css/styles.e-commerce.css">
+
+	
+	<!-- CSS Customization -->
+	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
+
+</head>
+
+<body>
+<main>
+	<!-- Header -->
+	<header id="js-header" class="u-header u-header--sticky-top u-header--change-appearance g-z-index-9999"
+			data-header-fix-moment="100">
+		<div class="light-theme u-header__section g-transition-0_3 g-py-6 g-py-14--md"
+			 data-header-fix-moment-exclude="light-theme g-py-14--md"
+			 data-header-fix-moment-classes="dark-theme u-shadow-v27 g-bg-white g-py-11--md">
+			<nav class="navbar navbar-expand-lg g-py-0">
+				<div class="container g-pos-rel">
+					<!-- Logo -->
+					<a href="#!" class="js-go-to navbar-brand u-header__logo"
+					   data-type="static">
+
+					 </a>
+					<!-- End Logo -->
+					
+					<!-- Navigation -->
+					<div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
+						<ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-11 g-pt-20 g-pt-0--lg ml-auto">
+							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/" class="nav-link p-0">Home
+								</a>
+							</li>
+							
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/faq" class="nav-link p-0">FAQ</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg active">
+								<a href="#categories" class="nav-link p-0">Recommended Products</a>
+									<span class="sr-only">(current)</span>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/product_instructions" class="nav-link p-0">Skin Care Steps</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
+							</li>
+							
+<!-- 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
+							</li> -->
+							
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/results" class="nav-link p-0 active">All Products</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/contact" class="nav-link p-0">Contact</a>
+							</li>
+						</ul>
+					</div>
+					<!-- End Navigation -->
+					
+					<!-- Responsive Toggle Button -->
+					<button class="navbar-toggler btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-20 g-right-0" type="button"
+							aria-label="Toggle navigation"
+							aria-expanded="false"
+							aria-controls="navBar"
+							data-toggle="collapse"
+							data-target="#navBar">
+				<span class="hamburger hamburger--slider">
+				  <span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				  </span>
+				</span>
+					</button>
+					<!-- End Responsive Toggle Button -->
+				</div>
+			</nav>
+		</div>
+	</header>
+	<!-- End Header -->
+
+	<!-- Basket Section -->
+	<section id="update_basket" class="g-theme-bg-gray-light-v1 g-py-80">
+
+	<div class="jumbotron border-style" style="border-top: 3px dashed #222;
+	border-bottom: 3px dashed #222; 
+    box-shadow: inset 0 -1px 0 0 #046ca3, inset 0 1px 0 0 #046ca3, 0 1px 0 0 #046ca3, 0 -1px 0 0 #046ca3;
+ 	margin-bottom: 2px;">
+
+		<div class="container-fluid px-0 text-center">
+			<br>
+			<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25">Totals For This Basket
+			</h4>
+
+				{% for concern in concerns %}
+				<h2 class="text-uppercase g-font-weight-500 g-font-size-20 mb-0" id="basket_concerns">
+					{{concern}}:
+			 		{{((basket.basket_concerns[concern] * 100)|round(2)|string).rstrip('0').rstrip('.')}}% 
+			 	</h2>
+			 	{% endfor %} 
+			 	<h2 class="text-uppercase g-font-weight-600 g-font-size-20 mb-0" id="basket_price">
+<!-- 					${{basket['basket_price']}}
+ -->				</h2>
+				<br>
+
+		<div class="row g-mx-minus-10 g-mb-5">
+			{% for product in basket.products %}
+
+	          <div class="col-md-4 col-lg-4 g-px-10">
+	            <!-- Article -->
+	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+	              <!-- Article Image -->
+	          			<div class="g-max-width-100 g-mr-15">
+	          				<a href="{{product.linkurl}}" id="image-href">
+							<img class="w-100" src="{{product.imageurl}}" alt="Image description" 
+							id="image">
+							</a>
+	          			</div>
+	              <!-- End Article Image -->
+
+	              <!-- Article Info -->
+	             <div class="media-body align-self-center">
+	                <h4 class="h5 g-mb-7">
+	                	<a class="g-font-weight-600 g-font-size-18 g-theme-h-v1 g-color-primary g-mb-25" href="#"
+	                	data-toggle="popover" title="{{product.category}}" data-content="{{product.scripts}}"
+	                	data-trigger="hover" id="category-href">{{product.category}}</a>
+	                 	<br>
+	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" 
+	                  href="{{product.linkurl}}" 
+	                  id="title">{{product.title}}</a>
+	                </h4>
+
+	                {% for concern in concerns %}
+	        		<div class="concern_bar">
+					  	<div class="concern" id="concern">
+							{{concern}}
+						  	<div class="progress">
+							  	<div class="progress-bar" id="progress-bar" style="width: {{product[concern]*100}}%;background-color:222;"></div>
+						  	</div>
+						  	<br>
+						</div> 
+					</div>
+					{% endfor %}
+				    <form action = "/replace_product" method="POST">
+              			<input type="hidden" name="product" value = "{{product}}"/>
+              			<input type="submit" value="Find New {{product.category}}" class="btn btn-primary btn-sm active align-center"/>
+ 					</form>
+ 					<br>
+		 			<form action = "/delete_product" method="POST">
+	              		<input type="hidden" name="product" value = "{{product}}"/>
+	              		<input type="submit" value="Remove {{product.category}}" class="btn btn-primary btn-sm active align-center"/>
+		 			</form>
+
+
+                <!-- End Article Info -->
+                <!-- Button that goes deletes product and renders new update_basket template with updated basket -->
+	           		<footer class="d-flex justify-content-between g-font-size-16 text-center">
+	 				</footer>
+	         	</div>
+
+            	</article>
+				<!-- End Article-->          
+			</div>
+			{% endfor %}
+
+
+        </div>
+       <!-- Button - Create Your Own Basket -->
+          	<form action="/custom_basket" method="POST">
+			 	<input type="submit" value="Create Your Own Basket" class="btn btn-primary btn-sm active align-center"/>
+	 		</form>
+
+       </div>
+      </div>
+      </section>
+	<!-- End Basket Section -->	
+	<section id="categories" class="g-theme-bg-gray-light-v1 g-py-80">
+
+	{% for category in categories_show %}
+
+		<div class="container-fluid px-0 text-center g-mb-25">
+
+		<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">{{category}}s
+			<h2 class="g-font-weight-400 g-font-size-20 g-theme-h-v1 g-color-primary g-mb-25 text-center">
+				{{scripts[category]}}
+			</h2>
+		</h4>
+
+
+			<div class="row g-mx-minus-10 g-mb-50">
+			{% for product in product_dictionary[category] %}
+
+	          <div class="col-md-6 col-lg-4 g-px-10">
+	            <!-- Article -->
+	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+	              <!-- Article Image -->
+	          			<div class="g-max-width-100 g-mr-15">
+
+	          				<a href="{{product.linkurl}}">
+								<img class="w-100" src="{{product.imageurl}}" alt="Image description">
+							</a>
+	          			</div>
+	              <!-- End Article Image -->
+
+	              <!-- Article Info -->
+	             <div class="media-body align-self-center">
+	                <h4 class="h5 g-mb-7">
+	                	<a class="g-font-weight-600 g-font-size-18 g-theme-h-v1 g-color-primary g-mb-25" href="#"
+	                	data-toggle="popover" title="{{product.category}}" data-content="{{product.scripts}}"
+	                	data-trigger="hover" id="category-href">{{product.category}}</a>
+	                 	<br>
+	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" 
+	                  href="{{product.linkurl}}" 
+	                  id="title">{{product.title}}</a>
+	                </h4>
+	                <br>
+<!-- 	                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
+ -->
+
+	                {% for concern in concerns %}
+	        		<div class="concern_bar">
+					  	<div class="concern">
+							{{concern}}
+						  	<div class="progress">
+							  	<div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
+						  	</div>
+						  	<br>
+						</div> 
+					</div>
+					{% endfor %}
+
+                <!-- End Article Info -->
+
+                <!-- Article Footer -->
+	           		<footer class="d-flex justify-content-between g-font-size-16 text-center">
+		            <form action = "/add_product" method="POST">
+	              		<input type="hidden" name="product" value = "{{product}}"/>
+	              		<input type="submit" value="Add To Basket" class="btn btn-primary btn-sm active align-center"/>
+
+		 			</form>
+	 				</footer>
+                <!-- End Article Footer -->
+              </div>
+            </article>
+            <!-- End Article -->
+          </div>
+          {% endfor %}
+
+        	</div>
+     	</div>
+ 	{% endfor %}
+ 	</section>
+			
+
+
+	<!-- Footer -->
+	<footer>
+		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
+			
+			<p class="g-mb-30">Connect With Us!</p>
+			
+			<ul class="list-inline d-inline-block g-mb-30">
+				<li class="list-inline-item g-mr-10">
+					<a class="u-icon-v3 g-width-35 g-height-35 g-font-size-15 g-color-gray-dark-v2 g-color-white--hover g-bg-white g-bg-primary--hover g-transition-0_2 g-transition--ease-in" href="#!"><i class="fa fa-twitter"></i></a>
+				</li>
+				<li class="list-inline-item g-mr-10">
+					<a class="u-icon-v3 g-width-35 g-height-35 g-font-size-15 g-color-gray-dark-v2 g-color-white--hover g-bg-white g-bg-primary--hover g-transition-0_2 g-transition--ease-in" href="#!"><i class="fa fa-pinterest"></i></a>
+				</li>
+				<li class="list-inline-item g-mr-10">
+					<a class="u-icon-v3 g-width-35 g-height-35 g-font-size-15 g-color-gray-dark-v2 g-color-white--hover g-bg-white g-bg-primary--hover g-transition-0_2 g-transition--ease-in" href="#!"><i class="fa fa-facebook"></i></a>
+				</li>
+				<li class="list-inline-item">
+					<a class="u-icon-v3 g-width-35 g-height-35 g-font-size-15 g-color-gray-dark-v2 g-color-white--hover g-bg-white g-bg-primary--hover g-transition-0_2 g-transition--ease-in" href="#!"><i class="fa fa-linkedin"></i></a>
+				</li>
+			</ul>
+			
+			<ul class="list-inline text-uppercase g-font-weight-700 g-font-size-11 mb-0">
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/">Home</a>
+				</li>
+			
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/faq">FAQ</a>
+				</li>
+
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Upload Images</a>
+				</li>
+			
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/questionnaire">Questionnaire</a>
+				</li>
+
+				<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+					<a href="/product_instructions" class="nav-link p-0">Skin Care Steps</a>
+				</li>
+
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/subscribe">Subscribe</a>
+				</li>
+
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/contact">Contact</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+	<!-- End Footer -->
+	
+	<a class="js-go-to u-go-to-v1" href="#!"
+	   data-type="fixed"
+	   data-position='{
+		   "bottom": 15,
+		   "right": 15
+		 }'
+	   data-offset-top="400"
+	   data-compensation="#js-header"
+	   data-show-effect="zoomIn"> <i class="hs-icon hs-icon-arrow-top"></i> </a>
+</main>
+
+<!-- JS Global Compulsory -->
+<script src="static/spa_assets/vendor/jquery/jquery.min.js"></script>
+<script src="static/spa_assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+<script src="static/spa_assets/vendor/popper.min.js"></script>
+<script src="static/spa_assets/vendor/bootstrap/bootstrap.min.js"></script>
+
+<!-- JS Implementing Plugins -->
+<script src="static/spa_assets/vendor/appear.js"></script>
+<script src="static/spa_assets/vendor/slick-carousel/slick/slick.js"></script>
+<script src="static/spa_assets/vendor/cubeportfolio-full/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+<script src="static/spa_assets/vendor/gmaps/gmaps.min.js"></script>
+
+<!-- JS Unify -->
+<script src="static/spa_assets/js/hs.core.js"></script>
+<script src="static/spa_assets/js/components/hs.header.js"></script>
+<script src="static/spa_assets/js/helpers/hs.hamburgers.js"></script>
+<script src="static/spa_assets/js/components/hs.scroll-nav.js"></script>
+<script src="static/spa_assets/js/components/hs.rating.js"></script>
+<script src="static/spa_assets/js/components/hs.carousel.js"></script>
+<script src="static/spa_assets/js/components/hs.cubeportfolio.js"></script>
+<script src="static/spa_assets/js/components/gmap/hs.map.js"></script>
+<script src="static/spa_assets/js/components/hs.go-to.js"></script>
+
+<!-- JS Customization -->
+<script src="static/spa_assets/js/custom.js"></script>
+
+<!-- JS Plugins Init. -->
+<script>
+  // initialization of google map
+
+  function initMap() {
+	$.HSCore.components.HSGMap.init('.js-g-map');
+  }
+
+  $(document).on('ready', function () {
+	// initialization of carousel
+	$.HSCore.components.HSCarousel.init('.js-carousel');
+
+	// initialization of header
+	$.HSCore.components.HSHeader.init($('#js-header'));
+	$.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+	// initialization of rating
+	$.HSCore.components.HSRating.init($('.js-rating'), {
+	  spacing: 2
+	});
+
+	// initialization of go to section
+	$.HSCore.components.HSGoTo.init('.js-go-to');
+  });
+
+
+
+  $(window).on('load', function () {
+	// initialization of HSScrollNav
+	$.HSCore.components.HSScrollNav.init($('#js-scroll-nav'), {
+	  duration: 700
+	});
+
+	// initialization of cubeportfolio
+	$.HSCore.components.HSCubeportfolio.init('.cbp');
+  });
+
+    //popover enabled on the entire document
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+  });
+
+</script>
+
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAtt1z99GtrHZt_IcnK-wryNsQ30A112J0&callback=initMap" async></script>
+</body>
+</html>
