@@ -1,8 +1,6 @@
 import pandas as pd
-import numpy as np
 import psycopg2
 import os
-import random
 
 password = os.environ['DB_PASS']
 user = os.environ['DB_USER_NAME']
@@ -10,126 +8,106 @@ host = os.environ['DB_HOST']
 name = os.environ['DB_NAME']
 port = 5432
 
-
 class DataModel(object):
     def __init__(self):
         self.conn = psycopg2.connect(dbname=name, host=host,
                                     password=password,user=user)
-        self.categories = ['moisturizer','serum','cleanser']
+        self.cur = self.conn.cursor()
+        self.categories = ['cleanser','serum','moisturizer']
+        self.concerns = []
+        #self.df_columns = ['price','asin','imageurl','category','title','linkurl','confidence'] #columns from table. Will add the concerns when making select statement
+        self.instruction_dictionary = {'moisturizer':'Moisturizers are the last product to be applied at night and applied before sunscreen during the day. \
+                                                 They have different consistencies depending on which base ingredients were used (called emollients).\
+                                                 Moisturizers are meant to sit on the surface of the skin as an added barrier against antioxidants, sun, and pollutants.',
+                                  'serum':'Serums are applied one to two times per day after cleansing and toning. \
+                                           Serums give you the most bang for your buck with active ingredients in smaller molecules meant to penetrate the skin.\
+                                           Use a drop or two for the entire face and neck, rubbing in circles as it absorbs into the skin. \
+                                           Using serums increases the strength of your beauty regimen and provide a more comprehensive \
+                                           approach by including more than one serum in your routine.',
+                                  'cleanser':'Cleansing is the first step in your beauty regimen. \
+                                              Wash your face and neck in the morning and evening. \
+                                              Cleansers are for washing dirt and makeup away.\
+                                              It is important to pick good ingredients that are free of harsh chemicals and parabens.\
+                                              Ingredients in cleansers do not penetrate the skin.',
+                                  'peel/mask':'Masks and peels are applied to the skin once or twice a week. \
+                                          They contain a high concentration of active ingredients dissolved in solvents and meant to penetrate the skin. \
+                                          Masks and peels provide an added boost to your daily routine by leaving the ingredients on your skin for a longer period of time. \
+                                          Like serums, you can use more than one during the week to round out your routine. \
+                                          Apply after cleansing and toning and before serum and moisturizer,\
+                                          leave on for 5-15 minutes before washing or peeling off (depending on the product). ',
+                                  'toner':'Toners complete the cleansing of your skin by removing any impurities or oils that are still lingering after cleansing. \
+                                           There are several types of toners that address different skin types: hydrating for dry skin, stringent for oily skin, and \
+                                           calming for sensitive. They help balance the skin and increase absorption of ingredients in subsequent products. \
+                                           After cleansing in the morning and evening, saturate two cotton pads and use on your face, neck, and decolletage.',
+                                  'exfoliant':'Exfoliants brighten the skin, encourage new growth and prevent clogged pores by removing the top layer of dead cells. \
+                                               Use natural ingredients that remove the skin gently, staying away from plastic microbeads (such as polyethylene), \
+                                               harsh chemicals (such as DBP, BHA/BHT, and Triclosan), and silicones. Exfoliants can be used daily if gentle enough but \
+                                               should be used at least once or twice a week. Apply after cleansing and toners and before masks/peels, serums, and treatments. \
+                                               Use according the instructions, some exfoliants are left on while others are gently rubbed on skin and washed away with water.',
+                                  'treatment':'Treatments are the heavy duty line of defense for addressing concerns. If you use serums and masks regularly but are looking for \
+                                               something extra on a special occasion or for the occasional, transient concern, you can try a treatment. They have a higher \
+                                               concentration of ingredients that can produce an immediate, temporary effect or to boost the effectiveness of your beauty regimen.\
+                                               Use according to instructions once or twice a week.'}
 
+        self.script_dictionary = {'moisturizer':'Important for all day defense against free radicals and environmental damage.', 
+                                       'cleanser': 'A good cleanser is essential for removing dirt and pollutants from your skin.',
+                                       'toner': 'Prep your skin with a hydrating toner to help subsequent products infuse better.',
+                                       'exfoliant': 'Remove dead skin cells and dirt once or twice a week to give you an added glow.',
+                                       'mask': 'The second line of defense for your skin concerns. Use with serum to see the biggest effect.',
+                                       'peel': 'Refines your skin by removing the top epidermal layer.',
+                                       'treatment': 'Use for an intense, targeted approach for specific concerns to round out your routine.',
+                                       'serum': 'The most corrective for your biggest concerns.'
+                                        }
 
-    def get_query(self,category):
-        ''''gets information from get_recommendations and makes a query for products 
-        and all concerns'''
-        table = category+'_rec'
-        query = f'''
-                SELECT m.*, p.price, p.title, p.imageurl, p.numberreviews
-                FROM {table} as m
-                LEFT JOIN products as p ON m.asin=p.asin;
+    def import_data(self):
+        query = '''
+                SELECT m.*, p.price, p.title, p.imageurl, p.numberreviews, p.confidence
+                FROM combined_aoc as m
+                JOIN productinfo as p
+                ON m.asin=p.asin
                 '''
-        return(query)
 
-    def run_query(self,query):
-        try:
-            df_results = pd.read_sql_query(query,self.conn)
-            return(df_results)
-        
-        except psycopg2.Error as e:
-            products = {'product1' : e.pgerror, 'product2' : ' ', 'product3' : ' '}
+        self.df = pd.read_sql_query(query,self.conn)
 
-    def get_recommendations(self,budget,concern_list):
-        '''central function that culls products and populates the page with 
-        3 products for each concern equaling 18 products in total.'''
-        self.product_list = []
-        self.concerns = concern_list
-        self.budget = round(float(budget),2)
-        query = ''
-        for category in self.categories:
-            #gets each product category from list, runs a query for recommendations in 
-            #each category
-            self.category = category
-            query = self.get_query(category)
-            df = self.run_query(query)
-            df = self.clean_df(df)
-            df['category'] = category
-            product_df = self.get_products(df)
-            for concern in self.concerns: 
-                product_df.rename(columns = {'p_unweighted_'+concern : concern}, inplace=True)
+    # def create_df_for_concerns(self):
+    #     for concern in self.concerns:
+    #         self.df_columns.append(concern)
+    #     self.df = self.df.loc[:,self.df_columns]
             
-            self.product_list.extend(product_df.to_dict(orient='records'))
+
+    def _create_instruction_dictionary(self):
+        get_instructions = '''SELECT *
+                              FROM instructions'''
+        self.cur.execute(get_instructions)
+        rows = self.cur.fetchall()
+        #print('rows of instructions = ',rows)
+        for row in rows:
+            self.instruction_dictionary[row[0]] = row[1].encode('utf-8')
+
+
+       
+    def get_recommendations(self,concerns):
+        '''input: list of products already own =  categories_have, list of concerns
+            output: product_list = list of product dictionaries
+                             [
+                                {concern1:product_total(float8),
+                                 concern2:product_total(float8),
+                                 etc,
+                                 asin:int,
+                                 title:text,
+                                 imageurl:text,
+                                 price:float,
+                                 category:text,
+                                 concern_totals:float8}
+                            ]
+                             
+                            '''
+        self.product_list = []
+        self.concerns = concerns
+        self.import_data()
+
+        # self.create_df_for_concerns()
+        self.product_list.extend(self.df.to_dict(orient='records'))
+
+
         return(self.product_list)
-
-
-    def create_weighted_concern(self, df, concern):
-        df['weighted_'+ concern]  = df['review_ratio'] * df[concern]
-
-    def clean_df(self,df):
-        '''columns are ints or floats, except asin and imageurl which are strings'''
-        #Normalize the score by the number of reviews recieved, with 100 reviews == 1
-        mask = df.numberreviews >= 100
-        column_name = 'numberreviews'
-        df.loc[mask, column_name] = 100
-        df['review_ratio'] = df.numberreviews / 100
-        df['new_budget'] = self.budget - df['price']
-        #normalizes the concerns to the number of reviews the product recieved.
-        for concern in self.concerns:
-            self.create_weighted_concern(df, concern)
-        #creating total for each product that will then be used to calculate proportion of total for each concern
-        df['weighted_total'] = 0
-        df['unweighted_total'] = 0
-        for concern in self.concerns:
-            df['weighted_total'] += df['weighted_'+concern]
-            df['unweighted_total'] += df[concern]
-        for concern in self.concerns:
-            df['p_'+concern] = df['weighted_'+ concern] / df['weighted_total']
-            df['p_unweighted_'+concern] = df[concern] / df['unweighted_total']
-        df.fillna(0,inplace=True)
-        return(df)
-
-    def get_random_index_low_review(self,df,concern):
-        mask = (df['weighted_total'] < .2) & (df['unweighted_total'] > .4) & (df[concern] > .1) & (df['price'] <= self.budget)
-        idx_list = list(df.loc[mask].index)
-        if len(idx_list) == 0:
-            mask = (df['weighted_total'] < .2) & (df['unweighted_total'] > .2) & (df['price'] <= self.budget)
-            idx_list = list(df.loc[mask].index)
-        if len(idx_list) <= 1:
-            mask = df['price'] <= self.budget
-            idx_list = list(df.loc[mask].index)
-        idx = random.choice(idx_list)
-        return([idx])
-        
-    def get_random_index_high_review(self,df,concern):
-        mask = (df['weighted_total'] > .4) & (df[concern] > .1) & (df['price'] <= self.budget)
-        idx_list = list(df.loc[mask].index)
-        if len(idx_list) < 2:
-            mask = (df['weighted_total'] > .2) & (df['price'] <= self.budget)
-            idx_list = list(df.loc[mask].index)
-        if len(idx_list) <= 1:
-            mask = df['price'] <= self.budget
-            idx_list = list(df.loc[mask].index)
-        idx1 = random.choice(idx_list)
-        idx_list.remove(idx1)
-        idx2 = random.choice(idx_list)
-        return([idx1,idx2])
-
-    def get_products(self,df):
-        '''Get three products for each area of concern. Concerns = list
-           Return a dataframe with all products and proportion product addresses each concern'''
-
-        products = pd.DataFrame(columns=df.columns)
-
-        for concern in self.concerns:
-            product_idx_list = []
-            product_idx_list.extend(self.get_random_index_high_review(df,concern))
-            product_idx_list.extend(self.get_random_index_low_review(df,concern))
-            temp = df.loc[product_idx_list]
-            df.drop(product_idx_list,inplace=True)
-            products = pd.concat([products,temp],axis=0)
-
-
-        columns = ['title','price','asin','imageurl','category']
-        df2 = products.filter(regex='p_unweighted')
-        df3 = products.filter(columns)
-        recommendations = pd.concat([df2,df3],axis=1)
-        return(recommendations.round(2))
-

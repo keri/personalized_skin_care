@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<!-- Title -->
-	<title>Skinlytics</title>
+	<title>Skinlytics Custom Basket</title>
 	
 	<!-- Required Meta Tags Always Come First -->
 	<meta charset="utf-8">
@@ -28,11 +28,12 @@
 	
 	<!-- CSS Template -->
 	<link rel="stylesheet" href="static/spa_assets/css/styles.op-spa.css">
+    <link rel="stylesheet" href="static/spa_assets/css/styles.e-commerce.css">
+
 	
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
 
-	<!-- Meta Tag for gmail authorization -->
 </head>
 
 <body>
@@ -43,44 +44,46 @@
 		<div class="light-theme u-header__section g-transition-0_3 g-py-6 g-py-14--md"
 			 data-header-fix-moment-exclude="light-theme g-py-14--md"
 			 data-header-fix-moment-classes="dark-theme u-shadow-v27 g-bg-white g-py-11--md">
-			<nav class="navbar navbar-expand-lg g-py-0 navbar-dark">
+			<nav class="navbar navbar-expand-lg g-py-0">
 				<div class="container g-pos-rel">
 					<!-- Logo -->
 					<a href="#!" class="js-go-to navbar-brand u-header__logo"
 					   data-type="static">
-					</a>
+
+					 </a>
 					<!-- End Logo -->
 					
 					<!-- Navigation -->
 					<div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
 						<ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-11 g-pt-20 g-pt-0--lg ml-auto">
 							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/" class="nav-link p-0 home active">Home
+								<a href="/" class="nav-link p-0">Home
 								</a>
 							</li>
-
+							
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/faq" class="nav-link p-0 active">FAQ</a>
-							</li>
-<!--
-							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/areas_of_concern" class="nav-link p-0 active">Update Concerns</a>
-							</li>
--->
-							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/questionnaire" class="nav-link p-0 active">Questionnaire</a>
+								<a href="/faq" class="nav-link p-0">FAQ</a>
 							</li>
 
-<!-- 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/subscribe" class="nav-link p-0 active">Subscribe</a>
-							</li> -->
-
-							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0 active">All Products</a>
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg active">
+								<a href="/results" class="nav-link p-0">Recommended Products</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/contact" class="nav-link p-0 active">Contact</a>
+								<a href="/product_instructions" class="nav-link p-0">Skin Care Steps</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
+							</li>
+							
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/results" class="nav-link p-0">All Products</a>
+									<span class="sr-only">(current)</span>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/contact" class="nav-link p-0">Contact</a>
 							</li>
 						</ul>
 					</div>
@@ -104,26 +107,103 @@
 			</nav>
 		</div>
 	</header>
-
 	<!-- End Header -->
-	
-	<!-- Section Content -->
-	<section id="home" class="u-bg-overlay g-height-100vh g-min-height-600 g-bg-img-hero g-bg-black-opacity-0_3--after" style="background-image: url(static/images/home.jpg);">
-		<div class="u-bg-overlay__inner g-absolute-centered--y w-100">
-			<div class="container text-center g-max-width-750">
-				<h3 class="d-inline-block text-uppercase g-font-weight-700 g-font-size-22 g-color-white g-brd-bottom g-brd-3 g-brd-primary g-mb-10">Personalized Skin Care Recommendations - Because One Size Doesn't Fit All</h3>
 
-				<a class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-12 g-brd-none rounded-0 g-py-10 g-px-25" href="/questionnaire">Get Personalized Product Recommendations</a>
-				<br>
-				<br>
-				<br>
-				<a class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-12 g-brd-none rounded-0 g-py-10 g-px-25" href="/upload_images">Build A Profile By Uploading Images Of Yourself</a>
+	<!-- Basket Section -->
+	<section id="custom_basket" class="g-theme-bg-gray-light-v1 g-py-80">
 
-			</div>
-		</div>
-	</section>
-	<!-- End Section Content -->
-	
+	<div class="jumbotron border-style" style="border-top: 3px dashed #222;
+	border-bottom: 3px dashed #222; 
+    box-shadow: inset 0 -1px 0 0 #046ca3, inset 0 1px 0 0 #046ca3, 0 1px 0 0 #046ca3, 0 -1px 0 0 #046ca3;
+ 	margin-bottom: 2px;">
+
+		<div class="container-fluid px-0 text-center">
+			<br>
+			<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25">Choose products from the list below:
+			</h4>
+			<br>
+      </div>
+      </section>
+	<!-- End Basket Section -->	
+	<section id="categories" class="g-theme-bg-gray-light-v1 g-py-80">
+
+	{% for category in categories_show %}
+
+		<div class="container-fluid px-0 text-center g-mb-25">
+
+		<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">{{category}}s
+			<h2 class="g-font-weight-400 g-font-size-20 g-theme-h-v1 g-color-primary g-mb-25 text-center">
+				{{scripts[category]}}
+			</h2>
+		</h4>
+
+
+			<div class="row g-mx-minus-10 g-mb-50">
+			{% for product in product_dictionary[category] %}
+
+	          <div class="col-md-6 col-lg-4 g-px-10">
+	            <!-- Article -->
+	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+	              <!-- Article Image -->
+	          			<div class="g-max-width-100 g-mr-15">
+
+	          				<a href="{{product.linkurl}}">
+								<img class="w-100" src="{{product.imageurl}}" alt="Image description">
+							</a>
+	          			</div>
+	              <!-- End Article Image -->
+
+	              <!-- Article Info -->
+	             <div class="media-body align-self-center">
+	                <h4 class="h5 g-mb-7">
+	                	<a class="g-font-weight-600 g-font-size-18 g-theme-h-v1 g-color-primary g-mb-25" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" 
+	                	data-toggle="popover" title="{{product.category}}" data-content="{{product.scripts}}"
+	                	data-trigger="hover" id="category-href">{{product.category}}</a>
+	                 	<br>
+	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" 
+	                  href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" 
+	                  id="title">{{product.title}}</a>
+	                </h4>
+	                <br>
+<!-- 	                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
+ -->
+
+	                {% for concern in concerns %}
+	        		<div class="concern_bar">
+					  	<div class="concern">
+							{{concern}}
+						  	<div class="progress">
+							  	<div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
+						  	</div>
+						  	<br>
+						</div> 
+					</div>
+					{% endfor %}
+
+                <!-- End Article Info -->
+
+                <!-- Article Footer -->
+	           		<footer class="d-flex justify-content-between g-font-size-16 text-center">
+		            <form action = "/add_product" method="POST">
+	              		<input type="hidden" name="product" value = "{{product}}"/>
+	              		<input type="submit" value="Add To Basket" class="btn btn-primary btn-sm active align-center"/>
+
+		 			</form>
+	 				</footer>
+                <!-- End Article Footer -->
+              </div>
+            </article>
+            <!-- End Article -->
+          </div>
+          {% endfor %}
+
+        	</div>
+     	</div>
+ 	{% endfor %}
+ 	</section>
+			
+
+
 	<!-- Footer -->
 	<footer>
 		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
@@ -147,9 +227,9 @@
 			
 			<ul class="list-inline text-uppercase g-font-weight-700 g-font-size-11 mb-0">
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/#home">Home</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/">Home</a>
 				</li>
-
+			
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/faq">FAQ</a>
 				</li>
@@ -157,15 +237,18 @@
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Upload Images</a>
 				</li>
-
+			
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/questionnaire">Questionnaire</a>
 				</li>
 
-<!-- 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/subscribe">Subscribe</a>
-				</li> -->
+				<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+					<a href="/product_instructions" class="nav-link p-0">Skin Care Steps</a>
+				</li>
 
+				<li class="list-inline-item g-px-12--md">
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/subscribe">Subscribe</a>
+				</li>
 
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/contact">Contact</a>
@@ -215,6 +298,7 @@
 <!-- JS Plugins Init. -->
 <script>
   // initialization of google map
+
   function initMap() {
 	$.HSCore.components.HSGMap.init('.js-g-map');
   }
@@ -236,6 +320,8 @@
 	$.HSCore.components.HSGoTo.init('.js-go-to');
   });
 
+
+
   $(window).on('load', function () {
 	// initialization of HSScrollNav
 	$.HSCore.components.HSScrollNav.init($('#js-scroll-nav'), {
@@ -245,6 +331,12 @@
 	// initialization of cubeportfolio
 	$.HSCore.components.HSCubeportfolio.init('.cbp');
   });
+
+    //popover enabled on the entire document
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+  });
+
 </script>
 
 <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAtt1z99GtrHZt_IcnK-wryNsQ30A112J0&callback=initMap" async></script>

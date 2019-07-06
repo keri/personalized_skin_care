@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<!-- Title -->
-	<title>Razzbeauty Custom Results</title>
+	<title>Search by Category</title>
 
 	<!-- Required Meta Tags Always Come First -->
 	<meta charset="utf-8">
@@ -33,7 +33,6 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
-
 </head>
 
 <body>
@@ -49,8 +48,7 @@
 					<!-- Logo -->
 					<a href="#!" class="js-go-to navbar-brand u-header__logo"
 					   data-type="static">
-
-					 </a>
+					</a>
 					<!-- End Logo -->
 
 					<!-- Navigation -->
@@ -60,27 +58,29 @@
 								<a href="/" class="nav-link p-0">Home
 								</a>
 							</li>
+
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/faq" class="nav-link p-0">FAQ</a>
 							</li>
-							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg active">
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="#categories" class="nav-link p-0">Recommended Products</a>
-									<span class="sr-only">(current)</span>
 							</li>
-							
+
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/product_instructions" class="nav-link p-0">Skin Care Steps</a>
 							</li>
-							
+
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
+
 <!-- 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
 							</li> -->
-
+							
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/results" class="nav-link p-0">All Products</a>
+								<a href="/results" class="nav-link p-0 active">All Products</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
@@ -108,130 +108,81 @@
 			</nav>
 		</div>
 	</header>
+
 	<!-- End Header -->
 
 	<!--Section Results -->
-<!--   <form action = "/new_product" method = "POST" -->
-	<section id="results" class="g-theme-bg-gray-light-v1 g-py-80">
-		<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">Based on Your Input, We Put This Basket Together For You:
-		</h4>
-
-
-	<div class="jumbotron border-style" style="border-top: 3px dashed #222;
-	border-bottom: 3px dashed #222;
-    box-shadow: inset 0 -1px 0 0 #046ca3, inset 0 1px 0 0 #046ca3, 0 1px 0 0 #046ca3, 0 -1px 0 0 #046ca3;
- 	margin-bottom: 2px;">
+	<section id="products" class="g-theme-bg-gray-light-v1 g-py-80">
 		<div class="container-fluid px-0 text-center">
 
-				{% for concern in basket.basket_concerns %}
-				<h2 class="text-uppercase g-font-weight-500 g-font-size-20 mb-0" id="basket_concerns">
-					{{concern}}:
-			 		{{((basket.basket_concerns[concern] * 100)|round(2)|string).rstrip('0').rstrip('.')}}%
-			 	</h2>
-			 	{% endfor %}
-			 	<h2 class="text-uppercase g-font-weight-600 g-font-size-20 mb-0" id="basket_price">
-<!-- 					${{basket['basket_price']}}
- -->				</h2>
-				<br>
-
-		<div class="row g-mx-minus-10 g-mb-5">
-			{% for product in basket.products %}
+			<div class="row g-mx-minus-10 g-mb-50">
+			{% for product in products %}
 
 	          <div class="col-md-6 col-lg-4 g-px-10">
 	            <!-- Article -->
 	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
 	              <!-- Article Image -->
 	          			<div class="g-max-width-100 g-mr-15">
-	          				<a href="{{product.linkurl}}" id="image-href">
-							<img class="w-100" src="{{product.imageurl}}" alt="Image description"
-							id="image">
+
+	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" >
+								<img class="w-100" src="{{product.imageurl}}" alt="Image description">
 							</a>
 	          			</div>
-
 	              <!-- End Article Image -->
 
 	              <!-- Article Info -->
 	             <div class="media-body align-self-center">
 	                <h4 class="h5 g-mb-7">
-	                	<a class="g-font-weight-600 g-font-size-18 g-theme-h-v1 g-color-primary g-mb-25" href="{{product.linkurl}}"
+	                	<a class="g-font-weight-600 g-font-size-18 g-theme-h-v1 g-color-primary g-mb-25" href="#"
 	                	data-toggle="popover" title="{{product.category}}" data-content="{{product.scripts}}"
 	                	data-trigger="hover" id="category-href">{{product.category}}</a>
 	                 	<br>
 	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" 
-	                  href="{{product.linkurl}}" id="title">{{product.title}}</a>
+	                  href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" 
+	                  id="title">{{product.title}}</a>
 	                </h4>
+	                 	<br>
+	<!-- 	                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
+ -->
 
-
-	                {% for concern in basket.basket_concerns %}
+	                {% for concern in concerns %}
 	        		<div class="concern_bar">
-					  	<div class="concern" id="concern">
+					  	<div class="concern">
 							{{concern}}
 						  	<div class="progress">
-							  	<div class="progress-bar" id="progress-bar" style="width: {{product[concern]*150}}%;background-color:222;"></div>
+							  	<div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
 						  	</div>
 						  	<br>
 						</div>
 					</div>
 					{% endfor %}
-	           				<form action = "/replace_product" method="POST">
-		              			<input type="hidden" name="product" value = "{{product}}"/>
-		              			<input type="submit" value="Find New {{product.category}}" class="btn btn-primary btn-sm active align-center"/>
-		 					</form>
-		 					<br>
-				 			<form action = "/delete_product" method="POST">
-			              		<input type="hidden" name="product" value = "{{product}}"/>
-			              		<input type="submit" value="Remove {{product.category}}" class="btn btn-primary btn-sm active align-center"/>
-				 			</form>
-
 
                 <!-- End Article Info -->
+
+                <!-- Article Footer -->
 	           		<footer class="d-flex justify-content-between g-font-size-16 text-center">
+		            <form action = "/add_product" method="POST">
+	              		<input type="hidden" name="product" value = "{{product}}"/>
+	              		<input type="submit" value="Add To Basket" class="btn btn-primary btn-sm active align-center"/>
 
+		 			</form>
 	 				</footer>
-	         	</div>
-
-            	</article>
-<!--             End Article-->
-			</div>
-          {% endfor %}
-
-        </div>
-          	<form action="/custom_basket" method="POST">
-			 	<input type="submit" value="Create Your Own Basket" class="btn btn-primary btn-sm active align-center"/>
-	 		</form>
-	    </div>
-	 </div>
-	 </section>
-
- <!--   Categories-->
- <section id="categories" class="g-theme-bg-gray-light-v2 g-py-80">
-    <div class="container g-pt-100 g-pb-70">
-      <div class="row g-mx-minus-10">
-
-          {% for category in product_categories %}
-          <div class="col-sm-6 col-md-3 g-px-10 g-mb-30">
-            <article class="u-block-hover">
-	        	<form action = "/product_categories" method="POST">
-              		<input type="hidden" name="category" value={{category}} >
-              		<input type="image" class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8"
-              		src="static/images/{{category}}.jpg" alt="Submit Form" />
-    	              	<div class="g-pos-abs g-bottom-30 g-left-30">
-	                		<span class="d-block g-color-black">Collections</span>
-	                		<h2 class="h1 mb-0">{{category}}</h2>
-	              		</div>
-	           	</form>
+                <!-- End Article Footer -->
+              </div>
             </article>
+            <!-- End Article -->
           </div>
           {% endfor %}
 
-
-      </div>
-    </div>
+        </div>
+     </div>
  </section>
-      <!-- End Categories -->
+
+
 
 	<!-- Footer -->
 	<footer>
+
 		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
 
 			<p class="g-mb-30">Connect With Us!</p>
@@ -255,12 +206,15 @@
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/">Home</a>
 				</li>
+
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/faq">FAQ</a>
 				</li>
+
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Upload Images</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Upload Photos</a>
 				</li>
+
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/questionnaire">Questionnaire</a>
 				</li>
@@ -277,6 +231,7 @@
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/contact">Contact</a>
 				</li>
 			</ul>
+
 		</div>
 	</footer>
 	<!-- End Footer -->
@@ -321,7 +276,6 @@
 <!-- JS Plugins Init. -->
 <script>
   // initialization of google map
-
   function initMap() {
 	$.HSCore.components.HSGMap.init('.js-g-map');
   }
@@ -353,10 +307,11 @@
 	$.HSCore.components.HSCubeportfolio.init('.cbp');
   });
 
-  //popover enabled on the entire document
+    //popover enabled on the entire document
   $(document).ready(function(){
     $('[data-toggle="popover"]').popover();
   });
+
 </script>
 
 <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAtt1z99GtrHZt_IcnK-wryNsQ30A112J0&callback=initMap" async></script>
