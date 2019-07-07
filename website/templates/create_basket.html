@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<!-- Title -->
-	<title>Areas of Concern</title>
+	<title>Skinlytics Custom Basket</title>
 	
 	<!-- Required Meta Tags Always Come First -->
 	<meta charset="utf-8">
@@ -28,9 +28,12 @@
 	
 	<!-- CSS Template -->
 	<link rel="stylesheet" href="static/spa_assets/css/styles.op-spa.css">
+    <link rel="stylesheet" href="static/spa_assets/css/styles.e-commerce.css">
+
 	
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
+
 </head>
 
 <body>
@@ -46,7 +49,8 @@
 					<!-- Logo -->
 					<a href="#!" class="js-go-to navbar-brand u-header__logo"
 					   data-type="static">
-					</a>
+
+					 </a>
 					<!-- End Logo -->
 					
 					<!-- Navigation -->
@@ -56,21 +60,26 @@
 								<a href="/" class="nav-link p-0">Home
 								</a>
 							</li>
-
+							
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/faq" class="nav-link p-0">FAQ</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg active">
-								<a href="/areas_of_concern" class="nav-link p-0">Update Concerns</a>
+								<a href="/results" class="nav-link p-0">Recommended Products</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/product_instructions" class="nav-link p-0">Skin Care Steps</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
-
+							
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
+								<a href="/results" class="nav-link p-0">All Products</a>
+									<span class="sr-only">(current)</span>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
@@ -98,156 +107,106 @@
 			</nav>
 		</div>
 	</header>
-
 	<!-- End Header -->
-		
- <!-- Section Area of Concern Content -->
-	<section id="areas-of-concern" class="g-theme-bg-gray-light-v1 g-py-80">
-	  <form action = "/results" method="POST" >
-		 <div class="container-fluid px-0 text-left">
-			<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">What Are Your Areas Of Concern</h4>
-				<div class="row no-gutters">
 
-				  <div class="col-md-3 d-flex text-md-left g-pa-50">
-					<div class="w-100">
-					  <div class="g-mb-25">
+	<!-- Basket Section -->
+	<section id="custom_basket" class="g-theme-bg-gray-light-v1 g-py-80">
 
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="antiaging" value="antiaging">
-								<label class="form-check-label" for="antiaging">
-									Antiaging
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="night" value="night">
-								<label class="form-check-label" for="night">
-									Night Cream
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="sunscreen" value="sunscreen">
-								<label class="form-check-label" for="sunscreen">
-									Sun Screen
-								</label>
-							</div>
-						</div>
-					  </div>
+	<div class="jumbotron border-style" style="border-top: 3px dashed #222;
+	border-bottom: 3px dashed #222; 
+    box-shadow: inset 0 -1px 0 0 #046ca3, inset 0 1px 0 0 #046ca3, 0 1px 0 0 #046ca3, 0 -1px 0 0 #046ca3;
+ 	margin-bottom: 2px;">
+
+		<div class="container-fluid px-0 text-center">
+			<br>
+			<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25">Choose products from the list below:
+			</h4>
+			<br>
+      </div>
+      </section>
+	<!-- End Basket Section -->	
+	<section id="categories" class="g-theme-bg-gray-light-v1 g-py-80">
+
+	{% for category in categories_show %}
+
+		<div class="container-fluid px-0 text-center g-mb-25">
+
+		<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">{{category}}s
+			<h2 class="g-font-weight-400 g-font-size-20 g-theme-h-v1 g-color-primary g-mb-25 text-center">
+				{{scripts[category]}}
+			</h2>
+		</h4>
+
+
+			<div class="row g-mx-minus-10 g-mb-50">
+			{% for product in product_dictionary[category] %}
+
+	          <div class="col-md-6 col-lg-4 g-px-10">
+	            <!-- Article -->
+	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+	              <!-- Article Image -->
+	          			<div class="g-max-width-100 g-mr-15">
+
+	          				<a href="{{product.linkurl}}">
+								<img class="w-100" src="{{product.imageurl}}" alt="Image description">
+							</a>
+	          			</div>
+	              <!-- End Article Image -->
+
+	              <!-- Article Info -->
+	             <div class="media-body align-self-center">
+	                <h4 class="h5 g-mb-7">
+	                	<a class="g-font-weight-600 g-font-size-18 g-theme-h-v1 g-color-primary g-mb-25" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" 
+	                	data-toggle="popover" title="{{product.category}}" data-content="{{product.scripts}}"
+	                	data-trigger="hover" id="category-href">{{product.category}}</a>
+	                 	<br>
+	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" 
+	                  href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" 
+	                  id="title">{{product.title}}</a>
+	                </h4>
+	                <br>
+<!-- 	                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
+ -->
+
+	                {% for concern in concerns %}
+	        		<div class="concern_bar">
+					  	<div class="concern">
+							{{concern}}
+						  	<div class="progress">
+							  	<div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
+						  	</div>
+						  	<br>
+						</div> 
 					</div>
+					{% endfor %}
 
-					<div class="col-md-3 d-flex text-md-left g-pa-50">
-					  <div class="w-100">
-						<div class="g-mb-25">
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="oily" value="oily">
-								<label class="form-check-label" for="oily">
-									Oily
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="dry" value="dry">
-								<label class="form-check-label" for="dry">
-									Dry
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="combination" value="combination">
-								<label class="form-check-label" for="combination">
-									Combination
-								</label>
-							</div>
-						</div>
-					  </div>
-					</div>
+                <!-- End Article Info -->
 
-					<div class="col-md-3 d-flex text-md-left g-pa-50">
-					  <div class="w-100">
-						<div class="g-mb-25">
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="skintone" value="skintone">
-								<label class="form-check-label" for="skintone">
-									Skintone
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="acne" value="oily">
-								<label class="form-check-label" for="acne">
-									Acne
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-							  id="pores" value="pores">
-								<label class="form-check-label" for="pores">
-									Poresize
-								</label>
-							</div>
-						</div>
-					  </div>
-					</div>
+                <!-- Article Footer -->
+	           		<footer class="d-flex justify-content-between g-font-size-16 text-center">
+		            <form action = "/add_product" method="POST">
+	              		<input type="hidden" name="product" value = "{{product}}"/>
+	              		<input type="submit" value="Add To Basket" class="btn btn-primary btn-sm active align-center"/>
 
-					<div class="col-md-3 d-flex text-md-left g-pa-50">
-					  <div class="w-100">
-						<div class="g-mb-25">
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="psoriasis" value="psoriasis">
-								<label class="form-check-label" for="psoriasis">
-									Psoriasis
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-								 id="sensitive" value="sensitive">
-								<label class="form-check-label" for="sensitive">
-									Sensitive
-								</label>
-							</div>
-							<div class="col-sm">
-							  <input class="form-check-input" type="checkbox" name="concern" 
-							  id="eyes" value="eyes">
-								<label class="form-check-label" for="eyes">
-									Eye Area
-								</label>
-							</div>
-						</div>
-					  </div>
-					</div>
+		 			</form>
+	 				</footer>
+                <!-- End Article Footer -->
+              </div>
+            </article>
+            <!-- End Article -->
+          </div>
+          {% endfor %}
+
+        	</div>
+     	</div>
+ 	{% endfor %}
+ 	</section>
+			
 
 
-					<div class="container-fluid px-4 text-center">
-						  <div class="form-group g-px-12--md" style="align-items: center">
-							<label for="budget">Budget</label>
-							<select class="form-control g-px-10" id="budget" name="budget" 
-							style="width:100%;align-items: center">
-							  <option value="15">under $20</option>
-							  <option value="50">$20 - $50</option>
-							  <option value="75" selected="selected">$50 - $75</option>
-							  <option value="125">$75 - $125</option>
-							  <option value="300">over $125</option>
-							</select>
-						  </div>
-				
-						<input class="btn btn-md text-uppercase u-btn-primary g-font-weight-700 g-font-size-18 g-brd-none rounded-0 g-py-10" type="submit" value="Continue"/>
-					</div>
-				</div>
-		</div>
-	  </form>
-	</section>
-
-
-	
 	<!-- Footer -->
 	<footer>
 		<div class="container-fluid text-center g-color-gray-dark-v5 g-py-40">
-			<a class="d-inline-block g-mb-25" href="/"> <img src="static/spa_assets/img/font_footer.png" alt="Logo"> </a>
 			
 			<p class="g-mb-30">Connect With Us!</p>
 			
@@ -270,17 +229,21 @@
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/">Home</a>
 				</li>
-
+			
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/faq">FAQ</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Get Started</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Upload Images</a>
 				</li>
-
+			
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/questionnaire">Questionnaire</a>
+				</li>
+
+				<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+					<a href="/product_instructions" class="nav-link p-0">Skin Care Steps</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
@@ -335,6 +298,7 @@
 <!-- JS Plugins Init. -->
 <script>
   // initialization of google map
+
   function initMap() {
 	$.HSCore.components.HSGMap.init('.js-g-map');
   }
@@ -356,6 +320,8 @@
 	$.HSCore.components.HSGoTo.init('.js-go-to');
   });
 
+
+
   $(window).on('load', function () {
 	// initialization of HSScrollNav
 	$.HSCore.components.HSScrollNav.init($('#js-scroll-nav'), {
@@ -365,6 +331,12 @@
 	// initialization of cubeportfolio
 	$.HSCore.components.HSCubeportfolio.init('.cbp');
   });
+
+    //popover enabled on the entire document
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+  });
+
 </script>
 
 <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAtt1z99GtrHZt_IcnK-wryNsQ30A112J0&callback=initMap" async></script>

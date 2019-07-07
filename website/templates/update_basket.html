@@ -60,6 +60,7 @@
 								<a href="/" class="nav-link p-0">Home
 								</a>
 							</li>
+							
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/faq" class="nav-link p-0">FAQ</a>
 							</li>
@@ -70,14 +71,19 @@
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/areas_of_concern" class="nav-link p-0">Update Concerns</a>
+								<a href="/product_instructions" class="nav-link p-0">Skin Care Steps</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
-							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+							
+<!-- 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
+							</li> -->
+							
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/results" class="nav-link p-0 active">All Products</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
@@ -109,13 +115,16 @@
 
 	<!-- Basket Section -->
 	<section id="update_basket" class="g-theme-bg-gray-light-v1 g-py-80">
+
+	<div class="jumbotron border-style" style="border-top: 3px dashed #222;
+	border-bottom: 3px dashed #222; 
+    box-shadow: inset 0 -1px 0 0 #046ca3, inset 0 1px 0 0 #046ca3, 0 1px 0 0 #046ca3, 0 -1px 0 0 #046ca3;
+ 	margin-bottom: 2px;">
+
 		<div class="container-fluid px-0 text-center">
 			<br>
 			<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25">Totals For This Basket
 			</h4>
-				<h2 class="text-center g-font-size-22 g-font-weight-700">
-					Basket totals are updated when products are added
-				</h2> 
 
 				{% for concern in concerns %}
 				<h2 class="text-uppercase g-font-weight-500 g-font-size-20 mb-0" id="basket_concerns">
@@ -124,8 +133,8 @@
 			 	</h2>
 			 	{% endfor %} 
 			 	<h2 class="text-uppercase g-font-weight-600 g-font-size-20 mb-0" id="basket_price">
-					${{basket['price']}}
-				</h2>
+<!-- 					${{basket['basket_price']}}
+ -->				</h2>
 				<br>
 
 		<div class="row g-mx-minus-10 g-mb-5">
@@ -136,7 +145,7 @@
 	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
 	              <!-- Article Image -->
 	          			<div class="g-max-width-100 g-mr-15">
-	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" id="image-href">
+	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20"  id="image-href">
 							<img class="w-100" src="{{product.imageurl}}" alt="Image description" 
 							id="image">
 							</a>
@@ -146,11 +155,14 @@
 	              <!-- Article Info -->
 	             <div class="media-body align-self-center">
 	                <h4 class="h5 g-mb-7">
-	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" 
+	                	<a class="g-font-weight-600 g-font-size-18 g-theme-h-v1 g-color-primary g-mb-25" href="#"
+	                	data-toggle="popover" title="{{product.category}}" data-content="{{product.scripts}}"
+	                	data-trigger="hover" id="category-href">{{product.category}}</a>
+	                 	<br>
+	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" 
+	                  href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20"  
 	                  id="title">{{product.title}}</a>
 	                </h4>
-	                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20" id="category-href">{{product.category}}</a>
-	                 	<br>
 
 	                {% for concern in concerns %}
 	        		<div class="concern_bar">
@@ -163,20 +175,20 @@
 						</div> 
 					</div>
 					{% endfor %}
+				    <form action = "/replace_product" method="POST">
+              			<input type="hidden" name="product" value = "{{product}}"/>
+              			<input type="submit" value="Find New {{product.category}}" class="btn btn-primary btn-sm active align-center"/>
+ 					</form>
+ 					<br>
+		 			<form action = "/delete_product" method="POST">
+	              		<input type="hidden" name="product" value = "{{product}}"/>
+	              		<input type="submit" value="Remove {{product.category}}" class="btn btn-primary btn-sm active align-center"/>
+		 			</form>
+
 
                 <!-- End Article Info -->
                 <!-- Button that goes deletes product and renders new update_basket template with updated basket -->
 	           		<footer class="d-flex justify-content-between g-font-size-16 text-center">
-		            <form action = "/delete_product" method="POST">
-	              		<input type="hidden" name="moisturizers" value = "{{moisturizers}}"/>
-	 	              	<input type="hidden" name="cleansers" value = "{{cleansers}}"/>
-	 	              	<input type="hidden" name="serums" value = "{{serums}}"/>
-	              		<input type="hidden" name="basket" value = "{{basket}}"/>
-	              		<input type="hidden" name="concerns" value = "{{concerns}}"/>
-	              		<input type="hidden" name="product" value = "{{product}}"/>
-	              		<input type="submit" value="Delete Product" class="btn btn-primary btn-sm active align-center"/>
-
-		 			</form>
 	 				</footer>
 	         	</div>
 
@@ -187,19 +199,30 @@
 
 
         </div>
+       <!-- Button - Create Your Own Basket -->
+          	<form action="/custom_basket" method="POST">
+			 	<input type="submit" value="Create Your Own Basket" class="btn btn-primary btn-sm active align-center"/>
+	 		</form>
+
        </div>
+      </div>
       </section>
-	<!-- End Basket Section -->
+	<!-- End Basket Section -->	
+	<section id="categories" class="g-theme-bg-gray-light-v1 g-py-80">
 
+	{% for category in categories_show %}
 
-	<!-- Categories Sections -->
-	<section id="moisturizers" class="g-theme-bg-gray-light-v1 g-py-80">
-		<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">Moisturizers
+		<div class="container-fluid px-0 text-center g-mb-25">
+
+		<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">{{category}}s
+			<h2 class="g-font-weight-400 g-font-size-20 g-theme-h-v1 g-color-primary g-mb-25 text-center">
+				{{scripts[category]}}
+			</h2>
 		</h4>
-		<div class="container-fluid px-0 text-center">
+
 
 			<div class="row g-mx-minus-10 g-mb-50">
-			{% for product in moisturizers %}
+			{% for product in product_dictionary[category] %}
 
 	          <div class="col-md-6 col-lg-4 g-px-10">
 	            <!-- Article -->
@@ -207,21 +230,26 @@
 	              <!-- Article Image -->
 	          			<div class="g-max-width-100 g-mr-15">
 
-	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">
+	          				<a href="{{product.linkurl}}">
 								<img class="w-100" src="{{product.imageurl}}" alt="Image description">
 							</a>
 	          			</div>
 	              <!-- End Article Image -->
 
 	              <!-- Article Info -->
-	              <div class="media-body align-self-center">
+	             <div class="media-body align-self-center">
 	                <h4 class="h5 g-mb-7">
-	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.title}}</a>
-	                </h4>
-	                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.category}}</a>
+	                	<a class="g-font-weight-600 g-font-size-18 g-theme-h-v1 g-color-primary g-mb-25" href="#"
+	                	data-toggle="popover" title="{{product.category}}" data-content="{{product.scripts}}"
+	                	data-trigger="hover" id="category-href">{{product.category}}</a>
 	                 	<br>
-	                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
-
+	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" 
+	                  href="{{product.linkurl}}" 
+	                  id="title">{{product.title}}</a>
+	                </h4>
+	                <br>
+<!-- 	                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
+ -->
 
 	                {% for concern in concerns %}
 	        		<div class="concern_bar">
@@ -238,19 +266,13 @@
                 <!-- End Article Info -->
 
                 <!-- Article Footer -->
-                <footer class="d-flex justify-content-between g-font-size-16 text-center">
+	           		<footer class="d-flex justify-content-between g-font-size-16 text-center">
 		            <form action = "/add_product" method="POST">
-	              		<input type="hidden" name="moisturizers" value = "{{moisturizers}}"/>
-	 	              	<input type="hidden" name="cleansers" value = "{{cleansers}}"/>
-	 	              	<input type="hidden" name="serums" value = "{{serums}}"/>
-	              		<input type="hidden" name="basket" value = "{{basket}}"/>
-	              		<input type="hidden" name="concerns" value = "{{concerns}}"/>
 	              		<input type="hidden" name="product" value = "{{product}}"/>
 	              		<input type="submit" value="Add To Basket" class="btn btn-primary btn-sm active align-center"/>
 
 		 			</form>
-     
-                </footer>
+	 				</footer>
                 <!-- End Article Footer -->
               </div>
             </article>
@@ -258,145 +280,12 @@
           </div>
           {% endfor %}
 
-        </div>
-     </div>
- </section>
+        	</div>
+     	</div>
+ 	{% endfor %}
+ 	</section>
+			
 
-<section id="serums" class="g-theme-bg-gray-light-v1 g-py-80">
-	<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">Serums
-	</h4>
-		<div class="container-fluid px-0 text-center">
-
-			<div class="row g-mx-minus-10 g-mb-50">
-			{% for product in serums %}
-
-	          <div class="col-md-6 col-lg-4 g-px-10">
-	            <!-- Article -->
-	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
-	              <!-- Article Image -->
-	          			<div class="g-max-width-100 g-mr-15">
-
-	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">
-								<img class="w-100" src="{{product.imageurl}}" alt="Image description">
-							</a>
-	          			</div>
-	              <!-- End Article Image -->
-
-	              <!-- Article Info -->
-	              <div class="media-body align-self-center">
-	                <h4 class="h5 g-mb-7">
-	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.title}}</a>
-	                </h4>
-	                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.category}}</a>
-	                 	<br>
-	                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
-
-
-	                {% for concern in concerns %}
-	        		<div class="concern_bar">
-					  	<div class="concern">
-							{{concern}}
-						  	<div class="progress">
-							  	<div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
-						  	</div>
-						  	<br>
-						</div> 
-					</div>
-					{% endfor %}
-
-                <!-- End Article Info -->
-
-                <!-- Article Footer -->
-                <footer class="d-flex justify-content-between g-font-size-16 text-center">
-		            <form action = "/add_product" method="POST">
-	              		<input type="hidden" name="moisturizers" value = "{{moisturizers}}"/>
-	 	              	<input type="hidden" name="cleansers" value = "{{cleansers}}"/>
-	 	              	<input type="hidden" name="serums" value = "{{serums}}"/>
-	              		<input type="hidden" name="basket" value = "{{basket}}"/>
-	              		<input type="hidden" name="concerns" value = "{{concerns}}"/>
-	              		<input type="hidden" name="product" value = "{{product}}"/>
-	              		<input type="submit" value="Add To Basket" class="btn btn-primary btn-sm active align-center"/>
-		 			</form>
-     
-                </footer>
-                <!-- End Article Footer -->
-              </div>
-            </article>
-            <!-- End Article -->
-          </div>
-          {% endfor %}
-
-        </div>
-     </div>
- </section>
-
- <section id="cleansers" class="g-theme-bg-gray-light-v1 g-py-80">
-	<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">Cleansers
-	</h4>
-	<div class="container-fluid px-0 text-center">
-		<div class="row g-mx-minus-10 g-mb-50">
-			{% for product in cleansers %}
-	         <div class="col-md-6 col-lg-4 g-px-10">
-	            <!-- Article -->
-	            <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
-	              <!-- Article Image -->
-	          			<div class="g-max-width-100 g-mr-15">
-
-	          				<a href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">
-								<img class="w-100" src="{{product.imageurl}}" alt="Image description">
-							</a>
-	          			</div>
-	              <!-- End Article Image -->
-
-	              <!-- Article Info -->
-	              <div class="media-body align-self-center">
-	                <h4 class="h5 g-mb-7">
-	                  <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.title}}</a>
-	                </h4>
-	                 	<a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="https://www.amazon.com/dp/{{product.asin}}?tag=viefrothecavb-20">{{product.category}}</a>
-	                 	<br>
-	                    <span class="g-color-black g-line-height-1">${{product.price}}</span>
-
-
-	                {% for concern in concerns %}
-	        		<div class="concern_bar">
-					  	<div class="concern">
-							{{concern}}
-						  	<div class="progress">
-							  	<div class="progress-bar" style="width: {{product[concern]*100}}%"></div>
-						  	</div>
-						  	<br>
-						</div> 
-					</div>
-					{% endfor %}
-
-                <!-- End Article Info -->
-
-                <!-- Article Footer -->
-                <footer class="d-flex justify-content-between g-font-size-16 text-center">
-		            <form action = "/add_product" method="POST">
-	              		<input type="hidden" name="moisturizers" value = "{{moisturizers}}"/>
-	 	              	<input type="hidden" name="cleansers" value = "{{cleansers}}"/>
-	 	              	<input type="hidden" name="serums" value = "{{serums}}"/>
-	              		<input type="hidden" name="basket" value = "{{basket}}"/>
-	              		<input type="hidden" name="concerns" value = "{{concerns}}"/>
-	              		<input type="hidden" name="product" value = "{{product}}"/>
-	              		<input type="submit" value="Add To Basket" class="btn btn-primary btn-sm active align-center"/>
-		 			</form>
-
-			<!-- End Article Footer -->
-	           </footer>
-
-            </article>
-            <!-- End Article -->
-          </div>
-          {% endfor %}
-
-        </div>
-     </div>
- </section>
-
-<!-- End Categories Section -->
 
 	<!-- Footer -->
 	<footer>
@@ -423,19 +312,23 @@
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/">Home</a>
 				</li>
+			
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/faq">FAQ</a>
 				</li>
 
 				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Get Started</a>
+					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/upload_images">Upload Images</a>
 				</li>
+			
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/questionnaire">Questionnaire</a>
 				</li>
-				<li class="list-inline-item g-px-12--md">
-					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/areas_of_concern">Update Concerns</a>
+
+				<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+					<a href="/product_instructions" class="nav-link p-0">Skin Care Steps</a>
 				</li>
+
 				<li class="list-inline-item g-px-12--md">
 					<a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover" href="/subscribe">Subscribe</a>
 				</li>
@@ -521,6 +414,12 @@
 	// initialization of cubeportfolio
 	$.HSCore.components.HSCubeportfolio.init('.cbp');
   });
+
+    //popover enabled on the entire document
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+  });
+
 </script>
 
 <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAtt1z99GtrHZt_IcnK-wryNsQ30A112J0&callback=initMap" async></script>
