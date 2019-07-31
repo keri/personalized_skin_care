@@ -62,7 +62,7 @@ class Basket(object):
 			temp_df['concern_totals'] = temp_df['concern_totals'].add(temp_df[concern])
 		#getting top 10 and picking randomly
 		top_5 = temp_df.sort_values('concern_totals', ascending=False)[:5]
-		max_product_for_category = top_5.sample(1).to_dict(orient='records')
+		max_product_for_category = top_5.sample(1).to_dict(orient='records')#returns a list with one value
 		return(max_product_for_category[0]) 
 
 	def _update_basket_price(self,product_to_add):
