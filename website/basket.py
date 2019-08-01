@@ -4,33 +4,21 @@ import pandas as pd
 
 '''Class that creates new basket, adds to basket, updates basket price and concerns
  	input: budget, list of concerns
-            output: basket = dictionary
-                            {basket_concerns:{concern1:basket_total(float8)
-                                             concern2:basket_total(floate8)
-                                             etc},
-                             products:list of product dictionary in basket[
-                                    {concern1:product_total(float8),
-                                     concern2:product_total(float8),
-                                     etc,
-                                     asin:int,
-                                     title:text,
-                                     imageurl:text,
-                                     price:float,
-                                     category:text,
-                                     concern_totals:float8}]
-                             basket_price:float8}
-                    product_list = list of product dictionaries
-                             [
-                                {concern1:product_total(float8),
-                                 concern2:product_total(float8),
-                                 etc,
-                                 asin:int,
-                                 title:text,
-                                 imageurl:text,
-                                 price:float,
-                                 category:text,
-                                 concern_totals:float8}
-                            ]
+    output: basket = dictionary
+                    {basket_concerns:{concern1:basket_total(float8)
+                                     concern2:basket_total(floate8)
+                                     etc},
+                     products:list of product dictionary in basket[
+                            {concern1:product_total(double precision),
+                             concern2:product_total(double precision),
+                             etc,
+                             asin:text,
+                             title:text,
+                             imageurl:text,
+                             price:double precision,
+                             category:text,
+                             concern_totals:double precision}]
+                     basket_price:double precision}
                              
                              '''
 
@@ -60,7 +48,18 @@ class Basket(object):
 		temp_df['concern_totals'] = 0
 		for concern in self.concerns:
 			temp_df['concern_totals'] = temp_df['concern_totals'].add(temp_df[concern])
-		#getting top 10 and picking randomly
+
+		#update the product list with top products that have total concerns over .5
+		mask = temp_df['concern_totals'] > .3
+		products_over_threshold = temp_df[mask]
+		if products_over_threshold.shape[0] < 20: 
+			top_products = products_over_threshold.sort_values('concern_totals', ascending=False)
+		else:
+			top_products = products_over_threshold.sort_values('concern_totals', ascending=False)[:20]
+
+		self.products.extend(top_products.to_dict(orient='records'))
+
+		#getting top 5 and picking randomly
 		top_5 = temp_df.sort_values('concern_totals', ascending=False)[:5]
 		max_product_for_category = top_5.sample(1).to_dict(orient='records')
 		return(max_product_for_category[0]) 
@@ -78,11 +77,11 @@ class Basket(object):
 		return(pd.concat([random_top, random_bottom]))
 
 
-	def add_first_products(self):
+	def add_first_products(self, total_products):
 		#check only the products in categories that the user doesn't already have
 		for category in self.categories:
 			# if category not in self.categories_own:
-			temp = [product for product in self.products if product['category'] == f'{category}']
+			temp = [product for product in total_products if product['category'] == f'{category}']
 			temp_df = pd.DataFrame(temp)
 			temp_df.fillna(value=0,inplace=True)
 			bottom_top_df = self.create_top_bottom_confidence_dataframe(temp_df)
@@ -97,12 +96,12 @@ class Basket(object):
 		self.total_price = 0
 		self.basket = {'basket_concerns':{},'basket_price':0,'products':[]}
 		self.concerns = concerns
-		self.products = total_products
+		#self.products = total_products
 
 		for concern in self.concerns:
 			self.basket['basket_concerns'][concern] = 0
 
-		self.add_first_products()
+		self.add_first_products(total_products)
 
 	def empty_basket(self, concerns):
 		self.concerns = concerns

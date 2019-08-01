@@ -15,6 +15,7 @@ class DataModel(object):
         self.cur = self.conn.cursor()
         self.categories = ['cleanser','serum','moisturizer']
         self.concerns = []
+        self.product_list = []
         #self.df_columns = ['price','asin','imageurl','category','title','linkurl','confidence'] #columns from table. Will add the concerns when making select statement
         self.instruction_dictionary = {'moisturizer':'Moisturizers are the last product to be applied at night and applied before sunscreen during the day. \
                                                  They have different consistencies depending on which base ingredients were used (called emollients).\
@@ -78,8 +79,6 @@ class DataModel(object):
         #print('rows of instructions = ',rows)
         for row in rows:
             self.instruction_dictionary[row[0]] = row[1].encode('utf-8')
-
-
        
     def get_recommendations(self,concerns):
         '''input: list of concerns
@@ -97,10 +96,8 @@ class DataModel(object):
                             ]
                              
                             '''
-        self.product_list = []
         self.concerns = concerns
         self.import_data()
         self.product_list.extend(self.df.to_dict(orient='records'))
-
 
         return(self.product_list)
