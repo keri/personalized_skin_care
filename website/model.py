@@ -15,6 +15,7 @@ class DataModel(object):
         self.cur = self.conn.cursor()
         self.categories = ['cleanser','serum','moisturizer']
         self.concerns = []
+        self.product_list = []
         #self.df_columns = ['price','asin','imageurl','category','title','linkurl','confidence'] #columns from table. Will add the concerns when making select statement
         self.instruction_dictionary = {'moisturizer':'Moisturizers are the last product to be applied at night and applied before sunscreen during the day. \
                                                  They have different consistencies depending on which base ingredients were used (called emollients).\
@@ -69,11 +70,6 @@ class DataModel(object):
 
         self.df = pd.read_sql_query(query,self.conn)
 
-    # def create_df_for_concerns(self):
-    #     for concern in self.concerns:
-    #         self.df_columns.append(concern)
-    #     self.df = self.df.loc[:,self.df_columns]
-            
 
     def _create_instruction_dictionary(self):
         get_instructions = '''SELECT *
@@ -83,31 +79,25 @@ class DataModel(object):
         #print('rows of instructions = ',rows)
         for row in rows:
             self.instruction_dictionary[row[0]] = row[1].encode('utf-8')
-
-
        
     def get_recommendations(self,concerns):
-        '''input: list of products already own =  categories_have, list of concerns
-            output: product_list = list of product dictionaries
+        '''input: list of concerns
+            return: product_list = list of product dictionaries
                              [
-                                {concern1:product_total(float8),
-                                 concern2:product_total(float8),
+                                {concern1:product_total(double precision),
+                                 concern2:product_total(double precision),
                                  etc,
-                                 asin:int,
+                                 asin: text,
                                  title:text,
                                  imageurl:text,
-                                 price:float,
+                                 price:double precision,
                                  category:text,
-                                 concern_totals:float8}
+                                 confidence: double precision}
                             ]
                              
                             '''
-        self.product_list = []
         self.concerns = concerns
         self.import_data()
-
-        # self.create_df_for_concerns()
         self.product_list.extend(self.df.to_dict(orient='records'))
-
 
         return(self.product_list)
