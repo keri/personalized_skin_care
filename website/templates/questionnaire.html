@@ -16,21 +16,27 @@
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600%2C700%2C800%7CLeckerli+One%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
 	
 	<!-- CSS Global Compulsory -->
-	<link rel="stylesheet" href="static/spa_assets/vendor/bootstrap/bootstrap.min.css">
-	<link rel="stylesheet" href="static/spa_assets/vendor/icon-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="static/spa_assets/vendor/icon-hs/style.css">
-	<link rel="stylesheet" href="static/spa_assets/vendor/icon-line/css/simple-line-icons.css">
-	
+	<!-- CSS Global Compulsory -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='spa_assets/vendor/bootstrap/bootstrap.min.css') }}">
+
+
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='spa_assets/vendor/icon-awesome/css/font-awesome.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='spa_assets/vendor/icon-line/css/simple-line-icons.css') }}">
+
 	<!-- CSS Implementing Plugins -->
-	<link rel="stylesheet" href="static/spa_assets/vendor/hamburgers/hamburgers.min.css">
-	<link rel="stylesheet" href="static/spa_assets/vendor/slick-carousel/slick/slick.css">
-	<link rel="stylesheet" href="static/spa_assets/vendor/cubeportfolio-full/cubeportfolio/css/cubeportfolio.min.css">
-	
+	<link rel="stylesheet" href="{{ url_for('static', filename='spa_assets/vendor/hamburgers/hamburgers.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='spa_assets/vendor/slick-carousel/slick/slick.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='spa_assets/vendor/cubeportfolio-full/cubeportfolio/css/cubeportfolio.min.css') }}">
+
 	<!-- CSS Template -->
-	<link rel="stylesheet" href="static/spa_assets/css/styles.op-spa.css">
-	
+	<link rel="stylesheet" href="{{ url_for('static', filename='spa_assets/css/styles.op-spa.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='spa_assets/css/styles.e-commerce.css') }}">
+
+
 	<!-- CSS Customization -->
-	<link rel="stylesheet" href="static/spa_assets/css/custom.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='spa_assets/css/custom.css') }}">
+
 </head>
 
 <body>
@@ -57,6 +63,11 @@
 								</a>
 							</li>
 
+							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/upload_images" class="nav-link p-0">Build Your Profile
+								</a>
+							</li>
+
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/faq" class="nav-link p-0">FAQ</a>
 							</li>
@@ -67,6 +78,10 @@
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg active">
 								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg active">
+								<a href="/all_products" class="nav-link p-0">All Products</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
@@ -103,7 +118,7 @@
 		
 	<!-- Section Questionnaire Content -->
 	<section id="questionnaire" class="g-theme-bg-gray-light-v1 g-py-80">
-		<form action="/results" method="POST" >
+		<form action="/results/finishedquestionnaire" method="POST" >
 			<div class="container-fluid px-0 text-md-left">
 					<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">{{message}}</h4>
 					<br>
@@ -299,63 +314,6 @@
 						 </div>
 					  </div>
 
-<!-- 					<div class="col-md-4 d-flex text-md-left g-pa-50">
-						 <div class="w-100">
-							<div class="g-mb-25">
-							  <h2 class="text-uppercase g-font-weight-600 g-font-size-22 mb-0">I am happy with my ...</h2>
-							  <br>
-								<div class="col-sm">
-								  <input class="form-check-input" type="checkbox" name="products_own" id="moisturizer"
-								  value="moisturizer">
-									<label class="form-check-label" for="moisturizer">
-									  Moisturizer
-									</label>
-								</div>
-								<div class="col-sm">
-								  <input class="form-check-input" type="checkbox" name="products_own" id="serum"
-								  value="serum">
-									<label class="form-check-label" for="serum">
-									  Serum
-									</label>
-								</div>
-								<div class="col-sm">
-								  <input class="form-check-input" type="checkbox" name="products_own" id="cleanser"
-								  value="cleanser">
-									<label class="form-check-label" for="cleanser">
-									  Cleanser
-									</label>
-								</div>
-								<div class="col-sm">
-								  <input class="form-check-input" type="checkbox" name="products_own" id="mask"
-								  value="mask">
-									<label class="form-check-label" for="mask">
-									  Mask
-									</label>
-								</div>
-								<div class="col-sm">
-								  <input class="form-check-input" type="checkbox" name="products_own" id="peel"
-								  value="peel">
-									<label class="form-check-label" for="peel">
-									  Peel
-									</label>
-								</div>
-								<div class="col-sm">
-								  <input class="form-check-input" type="checkbox" name="products_own" id="exfoliant"
-								  value="exfoliant">
-									<label class="form-check-label" for="exfoliant">
-									  Exfoliator
-									</label>
-								</div>
-								<div class="col-sm">
-								  <input class="form-check-input" type="checkbox" name="products_own" id="toner"
-								  value="toner">
-									<label class="form-check-label" for="toner">
-									  Toner
-									</label>
-								</div>
-							</div>
-						</div>
-					</div> -->
 				</div>
 
 			<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">What Are Your Areas Of Concern</h4>
@@ -550,30 +508,30 @@
 </main>
 
 <!-- JS Global Compulsory -->
-<script src="static/spa_assets/vendor/jquery/jquery.min.js"></script>
-<script src="static/spa_assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
-<script src="static/spa_assets/vendor/popper.min.js"></script>
-<script src="static/spa_assets/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='spa_assets/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/vendor/jquery-migrate/jquery-migrate.min.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/vendor/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/vendor/bootstrap/bootstrap.min.js') }}"></script>
 
 <!-- JS Implementing Plugins -->
-<script src="static/spa_assets/vendor/appear.js"></script>
-<script src="static/spa_assets/vendor/slick-carousel/slick/slick.js"></script>
-<script src="static/spa_assets/vendor/cubeportfolio-full/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
-<script src="static/spa_assets/vendor/gmaps/gmaps.min.js"></script>
+<script src="{{ url_for('static', filename='spa_assets/vendor/appear.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/vendor/slick-carousel/slick/slick.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/vendor/cubeportfolio-full/cubeportfolio/js/jquery.cubeportfolio.min.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/vendor/gmaps/gmaps.min.js') }}"></script>
 
 <!-- JS Unify -->
-<script src="static/spa_assets/js/hs.core.js"></script>
-<script src="static/spa_assets/js/components/hs.header.js"></script>
-<script src="static/spa_assets/js/helpers/hs.hamburgers.js"></script>
-<script src="static/spa_assets/js/components/hs.scroll-nav.js"></script>
-<script src="static/spa_assets/js/components/hs.rating.js"></script>
-<script src="static/spa_assets/js/components/hs.carousel.js"></script>
-<script src="static/spa_assets/js/components/hs.cubeportfolio.js"></script>
-<script src="static/spa_assets/js/components/gmap/hs.map.js"></script>
-<script src="static/spa_assets/js/components/hs.go-to.js"></script>
+<script src="{{ url_for('static', filename='spa_assets/js/hs.core.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/js/components/hs.header.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/js/helpers/hs.hamburgers.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/js/components/hs.scroll-nav.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/js/components/hs.rating.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/js/components/hs.carousel.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/js/components/hs.cubeportfolio.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/js/components/gmap/hs.map.js') }}"></script>
+<script src="{{ url_for('static', filename='spa_assets/js/components/hs.go-to.js') }}"></script>
 
 <!-- JS Customization -->
-<script src="static/spa_assets/js/custom.js"></script>
+<script src="{{ url_for('static', filename='spa_assets/js/custom.js') }}"></script>
 
 <!-- JS Plugins Init. -->
 <script>

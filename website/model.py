@@ -57,7 +57,7 @@ class DataModel(object):
                                        'mask': 'The second line of defense for your skin concerns. Use with serum to see the biggest effect.',
                                        'peel': 'Refines your skin by removing the top epidermal layer.',
                                        'treatment': 'Use for an intense, targeted approach for specific concerns to round out your routine.',
-                                       'serum': 'The most corrective for your biggest concerns.'
+                                       'serum': 'The most corrective for your biggest concerns. Include more than one into your routine to address all concerns.'
                                         }
 
     def import_data(self):
