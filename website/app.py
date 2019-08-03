@@ -15,7 +15,6 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 
 Bucketname = 'skin-care-app'
-
 UPLOAD_FOLDER = 'data/training/images/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app = Flask(__name__)
@@ -109,7 +108,7 @@ def upload_file():
         return render_template('questionnaire.html', message='Tell us a little more about yourself')
     else:
         update_csv(session['concerns'])
-        return render_template('spa_results.html', basket=session['basket'],
+        return render_template('spa_results.html', basket=session['basket'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                                 product_categories=session['categories'],scripts=session['scripts'],prompt='Experts recommend adding additional serums to your routine to fully address all areas of concern')
 
 @app.route("/results/<toResults>", methods=['GET','POST'])
@@ -156,11 +155,11 @@ def results(toResults):
 
             
             else:
-                return render_template('spa_results.html', basket=session['basket'],
+                return render_template('spa_results.html', basket=session['basket'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                                 product_categories=session['categories'],scripts=session['scripts'], prompt=session['prompt'])
 
     elif toResults == 'redirect': #This will happen from Recommended Products choice on nav bar
-        return render_template('spa_results.html', basket=session['basket'],
+        return render_template('spa_results.html', basket=session['basket'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                         product_categories=session['categories'],scripts=session['scripts'], prompt=session['prompt'])
 
     elif toResults == 'start':
@@ -182,7 +181,7 @@ def individual_categories():
         if session['all_products'] == []: #This happens before they have filled out the questionnaire
             return render_template('questionnaire.html',message='Narrow the product choices by telling us a bit about yourself')
         else:
-            return render_template('update_basket.html',basket=session['basket'],products=session['all_products'],
+            return render_template('update_basket.html',basket=session['basket'],products=session['all_products'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                             concerns=session['concerns'], categories_show=session['categories'],scripts=session['scripts'])
 
     else: #When a category box is clicked from spa_results.html
@@ -225,32 +224,32 @@ def add_to_basket(path):
         basket.delete_product(product, session['concerns'], session['basket'])
         category = product['category']
         session['basket'] = basket.get_basket()
-        return render_template('update_basket.html',basket=session['basket'],products=session['all_products'],
+        return render_template('update_basket.html',basket=session['basket'],products=session['all_products'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                                 concerns=session['concerns'], categories_show=[category],scripts=session['scripts'])
 
     elif path == 'delete': #deleting the product doesn't update the session[no_show] variable
         product = ast.literal_eval(request.form.get("product"))
         basket.delete_product(product, session['concerns'], session['basket'])
         session['basket'] = basket.get_basket()
-        return render_template('spa_results.html', basket=session['basket'],
+        return render_template('spa_results.html', basket=session['basket'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                                     product_categories=session['categories'], scripts=session['scripts'], prompt=session['prompt'])
 
 
     session['basket'] = basket.get_basket() #getting the basket for add and pass paths
    
     if len(session['no_show']) >= 3:
-            return render_template('spa_results.html', basket=session['basket'],
+            return render_template('spa_results.html', basket=session['basket'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                                     product_categories=session['categories'],scripts=session['scripts'], prompt=session['prompt'])
 
     elif 'serum' not in session['no_show']:
-            return render_template('update_basket.html',basket=session['basket'],products=session['all_products'],
+            return render_template('update_basket.html',basket=session['basket'],products=session['all_products'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                                 concerns=session['concerns'], categories_show=['serum'],scripts=session['scripts'])
     
     elif 'moisturizer' not in session['no_show']:
-             return render_template('update_basket.html',basket=session['basket'],products=session['all_products'],
+             return render_template('update_basket.html',basket=session['basket'],products=session['all_products'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                                 concerns=session['concerns'], categories_show=['moisturizer'],scripts=session['scripts'])
     else:
-        return render_template('spa_results.html', basket=session['basket'],
+        return render_template('spa_results.html', basket=session['basket'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                         product_categories=session['categories'],scripts=session['scripts'],prompt=session['prompt'])
 
 
@@ -264,7 +263,7 @@ def subscribe_post():
     print('email is: ',email)
     if session['concerns'] != []:
         session['basket'] = basket.get_basket()
-        return render_template('spa_results.html', basket=session['basket'],
+        return render_template('spa_results.html', basket=session['basket'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                         product_categories=session['categories'],scripts=session['scripts'],prompt=session['prompt'])
 
     else:
@@ -299,7 +298,7 @@ def contact_post():
     print('message = ',message)
     if session['concerns'] != []:
         session['basket'] = basket.get_basket()
-        return render_template('spa_results.html', basket=session['basket'],
+        return render_template('spa_results.html', basket=session['basket'], AWSAccessKeyId=os.environ['AWS_ASSOCIATES_ACCESS_KEY'],
                         product_categories=session['categories'],scripts=session['scripts'],prompt=session['prompt'])
 
     else:
