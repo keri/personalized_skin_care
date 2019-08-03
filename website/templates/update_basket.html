@@ -130,9 +130,11 @@
 
 		<div class="container-fluid px-0 text-center">
 			<br>
-			<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25">Totals For This Basket
+			<h4>
+			<a class="g-font-weight-600 g-font-size-25 g-theme-h-v1 g-color-primary g-mb-25" href="/product_instructions"
+	          data-toggle="popover" title="Increasing Basket Totals" data-content="{{prompt}}" data-trigger="hover" id="prompt-href">Totals For This Basket</a>
 			</h4>
-
+			<br>
 				{% for concern in concerns %}
 				<h2 class="text-uppercase g-font-weight-500 g-font-size-20 mb-0" id="basket_concerns">
 					{{concern}}:
