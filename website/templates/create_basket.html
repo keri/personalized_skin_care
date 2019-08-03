@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<!-- Title -->
-	<title>Skinlytics Custom Basket</title>
+	<title>Razzbeauty Custom Basket</title>
 	
 	<!-- Required Meta Tags Always Come First -->
 	<meta charset="utf-8">
@@ -62,6 +62,11 @@
 								<a href="/" class="nav-link p-0">Home
 								</a>
 							</li>
+
+							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/upload_images" class="nav-link p-0">Build A Profile
+								</a>
+							</li>
 							
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/faq" class="nav-link p-0">FAQ</a>
@@ -80,7 +85,7 @@
 							</li>
 							
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/product_categories" class="nav-link p-0">All Products</a>
+								<a href="/all_products" class="nav-link p-0">All Products</a>
 									<span class="sr-only">(current)</span>
 							</li>
 
@@ -141,7 +146,7 @@
 
 
 			<div class="row g-mx-minus-10 g-mb-50">
-			{% for product in product_dictionary[category] %}
+			{% for product in products[category] %}
 
 	          <div class="col-md-6 col-lg-4 g-px-10">
 	            <!-- Article -->
@@ -186,7 +191,7 @@
 
                 <!-- Article Footer -->
 	           		<footer class="d-flex justify-content-between g-font-size-16 text-center">
-		            <form action = "/add_product" method="POST">
+		            <form action = "/add_product/add" method="POST">
 	              		<input type="hidden" name="product" value="{{product}}"/>
 	              		<input type="submit" value="Add To Basket" class="btn btn-primary btn-sm active align-center"/>
 
@@ -198,8 +203,12 @@
             <!-- End Article -->
           </div>
           {% endfor %}
-
         	</div>
+             <form action = "/add_product/pass" method="POST">
+          		<input type="hidden" name="pass" value="pass"/>
+          		<input type="submit" value="Look at Products in Other Categories" class="btn btn-primary active align-center"/>
+	         </form>
+
      	</div>
  	{% endfor %}
  	</section>

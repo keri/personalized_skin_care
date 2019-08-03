@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, make_response, url_for
+from flask import Flask, render_template, request, session, make_response, url_for, redirect
 from werkzeug import secure_filename
 from model import DataModel
 from basket import Basket
@@ -80,7 +80,7 @@ def index():
     session['products_own'] = []
     session['all_products'] = []
     session['basket'] = []
-    session['product_categories'] = []
+    session['product_categories'] = [] #these are the categories in the basket so app knows what to show customer
     session['instructions'] = []
     session['scripts'] = []
     session['profile'] = ''
@@ -110,36 +110,38 @@ def upload_file():
     else:
         update_csv(session['concerns'])
         return render_template('spa_results.html', basket=session['basket'],
-                                product_categories=session['categories'],scripts=session['scripts'])
+                                product_categories=session['categories'],scripts=session['scripts'],prompt='Experts recommend adding additional serums to your routine to fully address all areas of concern')
 
 @app.route("/results/<toResults>", methods=['GET','POST'])
 # @app.route("/results", methods=['GET','POST'])
-def results2(toResults):
+def results(toResults):
 
-    #This will be triggered if they clicked 'get personalized recommendations on home page'
- #   if request.method == 'POST':
     if toResults == 'finishedquestionnaire':
         concerns = request.form.getlist('concern')
         if concerns == []:
-            # concerns = ['antiaging','skintone','sensitive']
-            return render_template('questionnaire.html',message='Tell us a little about yourself so we make the best recommondations for you')
+            return render_template('questionnaire.html',message='Tell us a little about yourself so we make the best recommendations for you')
 
         else:
             products_own = request.form.getlist('products_own')
             session['concerns'] = concerns
             # session['products_own'] = products_own
-            products = data_model.get_recommendations(session['concerns'])
+            products = data_model.get_recommendations(session['concerns']) #list of product dictionaries: [{concern1:, concern2:, etc, asin:, category:, title: imageurl:, price:, confidence:}]
             basket.new_basket(concerns,products)
             day_routine = request.form.get('day-routine')
             night_routine = request.form.get('night-routine')
             age = request.form.get('age')
             skintone = request.form.get('ethnicity-img')
             gender = request.form.get('gender')
-            session['all_products'] = products
+       #     session['all_products'] = products
             session['basket'] = basket.get_basket()
-            session['product_categories'] = basket.get_products_in_each_category()
+            session['all_products'] = basket.get_products_in_each_category() #[category: product_dict_list_in_category[{}]]
             session['instructions'] = data_model.instruction_dictionary
             session['scripts'] = data_model.script_dictionary
+            session['no_show'] = ['cleanser','moisturizer','serum'] #this tracks the categories of products the customer said they don't want. This will be from custom basket or a future option included on questionnaire
+            session['prompt'] = 'Experts recommend adding additional serums to your routine to fully address all areas of concern'
+            for category in session['categories']: 
+                if category not in session['no_show']:
+                    session['product_categories'].append(category) #this will create a list with only categories they want to see and passed into spa_results template
             print(session['categories'])
             print(session['profile'])
 
@@ -155,25 +157,21 @@ def results2(toResults):
             
             else:
                 return render_template('spa_results.html', basket=session['basket'],
-                                product_categories=session['categories'],scripts=session['scripts'])
+                                product_categories=session['categories'],scripts=session['scripts'], prompt=session['prompt'])
 
     elif toResults == 'redirect': #This will happen from Recommended Products choice on nav bar
         return render_template('spa_results.html', basket=session['basket'],
-                        product_categories=session['categories'],scripts=session['scripts'])
+                        product_categories=session['categories'],scripts=session['scripts'], prompt=session['prompt'])
 
-
-    elif session['concerns'] != []:
-        concerns = session['concerns']
-        return render_template('create_basket.html',product_dictionary=session['product_categories'],
-                            categories_show=session['categories'],concerns=session['concerns'],basket=session['basket'],
-                            scripts=session['scripts'])
+    elif toResults == 'start':
+        return render_template
 
     else:
-        return render_template('questionnaire.html',message='Tell us a little about yourself so we make the best recommondations for you')
+        return render_template('questionnaire.html',message='Tell us a little about yourself so we make the best recommendations for you')
 
 
 
-@app.route('/product_categories', methods=["GET","POST"])
+@app.route('/all_products', methods=["GET","POST"])
 def individual_categories():
     category = request.form.get('category')
 
@@ -181,11 +179,14 @@ def individual_categories():
         return render_template('product_instructions.html',categories=session['categories'],instructions=session['instructions'])
 
     elif category == None: #This happens when All Products clicked in the nav bar
-        return render_template('update_basket.html',basket=session['basket'],product_dictionary=session['product_categories'],
+        if session['all_products'] == []: #This happens before they have filled out the questionnaire
+            return render_template('questionnaire.html',message='Narrow the product choices by telling us a bit about yourself')
+        else:
+            return render_template('update_basket.html',basket=session['basket'],products=session['all_products'],
                             concerns=session['concerns'], categories_show=session['categories'],scripts=session['scripts'])
 
-    else: #When a category box is clickec from spa_results.html
-        return render_template('products_page.html',products=session['product_categories'][category],concerns=session['concerns'],scripts=session['scripts'])
+    else: #When a category box is clicked from spa_results.html
+        return render_template('products_page.html',products=session['all_products'][category],concerns=session['concerns'],scripts=session['scripts'])
 
 
 @app.route('/product_instructions', methods=["GET","POST"])
@@ -196,40 +197,62 @@ def get_instructions():
 @app.route("/custom_basket", methods=["GET","POST"])
 def custom_basket():
     basket.empty_basket(session['concerns'])
+  #  session['product_categories'] = []
     session['basket'] = basket.get_basket()
+    session['no_show'] = []
+    print(session['basket'])
     session['scripts'] = data_model.script_dictionary
-
-    return render_template('create_basket.html',product_dictionary=session['product_categories'],
-                            categories_show=session['categories'],concerns=session['concerns'],basket=session['basket'],
+    return render_template('create_basket.html',products=session['all_products'],
+                            categories_show=['cleanser'],concerns=session['concerns'], basket=session['basket'],
                             scripts=session['scripts'])
 
-@app.route("/add_product",methods=["GET","POST"])
-def add_to_basket():
-    product = ast.literal_eval(request.form.get("product"))
-    basket.add_product(product, session['concerns'], session['basket'])
-    session['basket'] = basket.get_basket()
+@app.route("/add_product/<path>",methods=["GET","POST"])
+def add_to_basket(path):
 
-    return render_template('update_basket.html',basket=session['basket'],product_dictionary=session['product_categories'],
-                            concerns=session['concerns'], categories_show=session['categories'],scripts=session['scripts'])
+    if path == 'pass': #'Look at Products in Other Categories' button was clicked on a page
+        category = request.form.get('category')
+        session['no_show'].append(category)
 
-@app.route("/delete_product",methods=["GET","POST"])
-def delete_from_basket():
-    product = ast.literal_eval(request.form.get("product"))
-    basket.delete_product(product, session['concerns'], session['basket'])
-    session['basket'] = basket.get_basket()
-    session['concerns'] = basket.concerns
+    elif path == 'add': #'Add product' was clicked. Creating a basket, or adding to existing basket. Tracks what categories have been shown and won't repeat. They have a chance to look at more categories when reached the spa_results page.
+        product = ast.literal_eval(request.form.get("product"))
+        basket.add_product(product, session['concerns'], session['basket'])
+        category = product['category']
+        session['no_show'].append(product['category']) #This tracks the current basket and shows product for categories they don't have.
+#        session['product_categories'].append(category)
 
-    return render_template('update_basket.html',basket=session['basket'],product_dictionary=session['product_categories'],
-                            concerns=session['concerns'], categories_show=session['categories'],scripts=session['scripts'])
+    elif path == 'replace': #when replace product is clicked. Don't track the 'no_show' session variable as they are just replacing, not adding to.
+        product = ast.literal_eval(request.form.get("product"))
+        basket.delete_product(product, session['concerns'], session['basket'])
+        category = product['category']
+        session['basket'] = basket.get_basket()
+        return render_template('update_basket.html',basket=session['basket'],products=session['all_products'],
+                                concerns=session['concerns'], categories_show=[category],scripts=session['scripts'])
 
-@app.route("/replace_product",methods=["GET","POST"])
-def replace_product_in_basket():
-    product = ast.literal_eval(request.form.get("product"))
-    basket.delete_product(product, session['concerns'], session['basket'])
-    session['basket'] = basket.get_basket()
-    category = product['category']
+    elif path == 'delete': #deleting the product doesn't update the session[no_show] variable
+        product = ast.literal_eval(request.form.get("product"))
+        basket.delete_product(product, session['concerns'], session['basket'])
+        session['basket'] = basket.get_basket()
+        return render_template('spa_results.html', basket=session['basket'],
+                                    product_categories=session['categories'], scripts=session['scripts'], prompt=session['prompt'])
 
-    return render_template('products_page.html',products=session['product_categories'][category],concerns=session['concerns'],scripts=session['scripts'])
+
+    session['basket'] = basket.get_basket() #getting the basket for add and pass paths
+   
+    if len(session['no_show']) >= 3:
+            return render_template('spa_results.html', basket=session['basket'],
+                                    product_categories=session['categories'],scripts=session['scripts'], prompt=session['prompt'])
+
+    elif 'serum' not in session['no_show']:
+            return render_template('update_basket.html',basket=session['basket'],products=session['all_products'],
+                                concerns=session['concerns'], categories_show=['serum'],scripts=session['scripts'])
+    
+    elif 'moisturizer' not in session['no_show']:
+             return render_template('update_basket.html',basket=session['basket'],products=session['all_products'],
+                                concerns=session['concerns'], categories_show=['moisturizer'],scripts=session['scripts'])
+    else:
+        return render_template('spa_results.html', basket=session['basket'],
+                        product_categories=session['categories'],scripts=session['scripts'],prompt=session['prompt'])
+
 
 @app.route("/subscribe", methods=['GET'])
 def subscribe_get():
@@ -239,7 +262,13 @@ def subscribe_get():
 def subscribe_post():
     email = request.form.get('email')
     print('email is: ',email)
-    return redirect('/')
+    if session['concerns'] != []:
+        session['basket'] = basket.get_basket()
+        return render_template('spa_results.html', basket=session['basket'],
+                        product_categories=session['categories'],scripts=session['scripts'],prompt=session['prompt'])
+
+    else:
+        return redirect('/questionnaire')
 
 @app.route("/upload_images", methods=["GET","POST"])
 def upload():
@@ -268,8 +297,13 @@ def contact_post():
     print('email = ',email)
     print('name = ',name)
     print('message = ',message)
+    if session['concerns'] != []:
+        session['basket'] = basket.get_basket()
+        return render_template('spa_results.html', basket=session['basket'],
+                        product_categories=session['categories'],scripts=session['scripts'],prompt=session['prompt'])
 
-    return redirect('/')
+    else:
+        return redirect('/questionnaire')
 
 
 if __name__ == '__main__':

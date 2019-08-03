@@ -63,6 +63,11 @@
 								<a href="/" class="nav-link p-0">Home
 								</a>
 							</li>
+
+							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/upload_images" class="nav-link p-0">Build Your Profile
+								</a>
+							</li>
 							
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/faq" class="nav-link p-0">FAQ</a>
@@ -70,7 +75,6 @@
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg active">
 								<a href="/results/redirect" class="nav-link p-0">Recommended Products</a>
-									<span class="sr-only">(current)</span>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
@@ -81,12 +85,12 @@
 								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
 							
-<!-- 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
-							</li> -->
+							</li>
 							
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/product_categories" class="nav-link p-0 active">All Products</a>
+								<a href="/all_products" class="nav-link p-0 active">All Products</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
@@ -179,12 +183,12 @@
 						</div> 
 					</div>
 					{% endfor %}
-				    <form action = "/replace_product" method="POST">
+				    <form action = "/add_product/replace" method="POST">
               			<input type="hidden" name="product" value = "{{product}}"/>
               			<input type="submit" value="Find New {{product.category}}" class="btn btn-primary btn-sm active align-center"/>
  					</form>
  					<br>
-		 			<form action = "/delete_product" method="POST">
+		 			<form action = "/add_product/delete" method="POST">
 	              		<input type="hidden" name="product" value = "{{product}}"/>
 	              		<input type="submit" value="Remove {{product.category}}" class="btn btn-primary btn-sm active align-center"/>
 		 			</form>
@@ -215,7 +219,7 @@
 	<section id="categories" class="g-theme-bg-gray-light-v1 g-py-80">
 
 	{% for category in categories_show %}
-
+	<!-- Begin Product List Section -->
 		<div class="container-fluid px-0 text-center g-mb-25">
 
 		<h4 class="g-font-weight-600 g-font-size-30 g-theme-h-v1 g-color-primary g-mb-25 text-center">{{category}}s
@@ -224,9 +228,8 @@
 			</h2>
 		</h4>
 
-
 			<div class="row g-mx-minus-10 g-mb-50">
-			{% for product in product_dictionary[category] %}
+			{% for product in products[category] %}
 
 	          <div class="col-md-6 col-lg-4 g-px-10">
 	            <!-- Article -->
@@ -271,7 +274,7 @@
 
                 <!-- Article Footer -->
 	           		<footer class="d-flex justify-content-between g-font-size-16 text-center">
-		            <form action = "/add_product" method="POST">
+		            <form action = "/add_product/add" method="POST">
 	              		<input type="hidden" name="product" value = "{{product}}"/>
 	              		<input type="submit" value="Add To Basket" class="btn btn-primary btn-sm active align-center"/>
 
@@ -285,6 +288,14 @@
           {% endfor %}
 
         	</div>
+          <form action = "/add_product/pass" method="POST">
+          		<input type="hidden" name="pass" value="pass"/>
+          		<input type="submit" value="Look at Products in Other Categories" class="btn btn-primary active align-center"/>
+	      </form>
+
+	      	</div>
+
+
      	</div>
  	{% endfor %}
  	</section>

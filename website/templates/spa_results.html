@@ -62,6 +62,12 @@
 								<a href="/" class="nav-link p-0">Home
 								</a>
 							</li>
+
+							<li class="nav-item g-mr-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/upload_images" class="nav-link p-0">Build Your Profile
+								</a>
+							</li>
+
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/faq" class="nav-link p-0">FAQ</a>
 							</li>
@@ -77,12 +83,13 @@
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
 								<a href="/questionnaire" class="nav-link p-0">Questionnaire</a>
 							</li>
-<!-- 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
-							</li> -->
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
-								<a href="/product_categories" class="nav-link p-0">All Products</a>
+								<a href="/subscribe" class="nav-link p-0">Subscribe</a>
+							</li>
+
+							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
+								<a href="/all_products" class="nav-link p-0">All Products</a>
 							</li>
 
 							<li class="nav-item g-mx-12--lg g-mb-7 g-mb-0--lg">
@@ -124,6 +131,11 @@
     box-shadow: inset 0 -1px 0 0 #046ca3, inset 0 1px 0 0 #046ca3, 0 1px 0 0 #046ca3, 0 -1px 0 0 #046ca3;
  	margin-bottom: 2px;">
 		<div class="container-fluid px-0 text-center">
+			<h4>
+			<a class="g-font-weight-600 g-font-size-25 g-theme-h-v1 g-color-primary g-mb-25" href="/product_instructions"
+	          data-toggle="popover" title="Increasing Basket Totals" data-content="{{prompt}}" data-trigger="hover" id="prompt-href">Totals For This Basket</a>
+			</h4>
+				<br>
 
 				{% for concern in basket.basket_concerns %}
 				<h2 class="text-uppercase g-font-weight-500 g-font-size-20 mb-0" id="basket_concerns">
@@ -175,12 +187,12 @@
 						</div>
 					</div>
 					{% endfor %}
-	           				<form action = "/replace_product" method="POST">
+	           				<form action = "/add_product/replace" method="POST">
 		              			<input type="hidden" name="product" value = "{{product}}"/>
 		              			<input type="submit" value="Find New {{product.category}}" class="btn btn-primary btn-sm active align-center"/>
 		 					</form>
 		 					<br>
-				 			<form action = "/delete_product" method="POST">
+				 			<form action = "/add_product/delete" method="POST">
 			              		<input type="hidden" name="product" value = "{{product}}"/>
 			              		<input type="submit" value="Remove {{product.category}}" class="btn btn-primary btn-sm active align-center"/>
 				 			</form>
@@ -213,7 +225,7 @@
           {% for category in product_categories %}
           <div class="col-md-4 col-md-3 g-px-10 g-mb-30">
             <article class="u-block-hover">
-	        	<form action = "/product_categories" method="POST">
+	        	<form action = "/all_products" method="POST">
               		<input type="hidden" name="category" value={{category}} >
               		<input type="image" class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8"
               		src="{{ url_for('static', filename='images/')}}{{category}}.jpg" alt="Submit Form" />
