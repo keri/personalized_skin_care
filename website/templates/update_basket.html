@@ -206,9 +206,23 @@
 				<!-- End Article-->          
 			</div>
 			{% endfor %}
-
-
         </div>
+        <!--Amazon Cart button-->
+        <form method="GET" action="https://www.amazon.com/gp/aws/cart/add.html">
+				<input type="hidden" name="AWSAccessKeyId" value="{{AWSAccessKeyId}}" /> 
+				<input type="hidden" name="AssociateTag" value="personalskin-20" />
+
+			{% set ns = namespace(n=1) %}
+  			{% for product in basket.products %}
+				<input type="hidden" name="ASIN.{{ns.n}}" value="{{product.asin}}"/> 
+				<input type="hidden" name="Quantity.{{ns.n}}" value="1"/>
+			{% set ns.n = ns.n + 1 %}
+          	{% endfor %}
+
+
+        	 	<input type="submit" name="add" value="Add To Your Amazon Cart" class="btn btn-primary btn-sm active align-center" /> 
+			</form>
+			<br>
        <!-- Button - Create Your Own Basket -->
           	<form action="/custom_basket" method="POST">
 			 	<input type="submit" value="Create Your Own Basket" class="btn btn-primary btn-sm active align-center"/>
