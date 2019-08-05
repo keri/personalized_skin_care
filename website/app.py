@@ -14,6 +14,7 @@ from flask_session import Session
 import boto3
 from botocore.exceptions import NoCredentialsError
 
+#AWSAccessKeyId = os.environ['AWS_ASSOCIATES_ACCESS_KEY']
 Bucketname = 'skin-care-app'
 UPLOAD_FOLDER = 'data/training/images/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
